@@ -1,1 +1,1 @@
-var map = 1;
+var map = 2;

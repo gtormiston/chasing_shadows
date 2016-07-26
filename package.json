@@ -3,21 +3,21 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
   "dependencies": {
-    "gulp": "^3.9.1",
-    "karma": "^1.1.2"
+    "gulp": "^3.9.1"
   },
   "devDependencies": {
+    "jasmine": "^2.4.1",
     "jasmine-core": "^2.4.1",
+    "jasmine-node": "^1.14.5",
+    "karma": "^1.1.2",
     "karma-chrome-launcher": "^1.0.1",
     "karma-cordova-launcher": "0.0.9",
-    "karma-jasmine": "^1.0.2"
+    "karma-jasmine": "^1.0.2",
+    "karma-spec-reporter": "0.0.26"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "./node_modules/karma/bin/karma start"
   },
   "repository": {
     "type": "git",
