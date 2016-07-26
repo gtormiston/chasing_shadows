@@ -1,0 +1,32 @@
+{
+  "name": "chasing_shadows",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "karma": "^1.1.2"
+  },
+  "devDependencies": {
+    "jasmine-core": "^2.4.1",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-cordova-launcher": "0.0.9",
+    "karma-jasmine": "^1.0.2"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnnaHollandSmith/chasing_shadows.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnnaHollandSmith/chasing_shadows/issues"
+  },
+  "homepage": "https://github.com/AnnaHollandSmith/chasing_shadows#readme"
+}
