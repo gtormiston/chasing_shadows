@@ -1,10 +1,9 @@
 module.exports = function(config) {
   config.set({
-
     basePath: '',
     frameworks: ['jasmine'],
     files: [
-      'test/**/*spec.js',
+      'test/units/*spec.js',
       'www/scripts/js/**/*.js'
     ],
     reporters: ['spec'],
@@ -19,7 +18,7 @@ module.exports = function(config) {
         'org.apache.cordova.console'
       ]
     },
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
     singleRun: false,
     concurrency: Infinity
   })
