@@ -9,11 +9,11 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
+                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -22,26 +22,18 @@
         }
     },
     "installed_plugins": {
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.chasing_shadows"
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.chasingshadows"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.chasing_shadows"
+            "PACKAGE_NAME": "com.chasingshadows"
         },
-        "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.chasing_shadows"
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.chasingshadows"
         }
     },
     "dependent_plugins": {},
     "modules": [
-        {
-            "id": "cordova-plugin-device.device",
-            "file": "plugins/cordova-plugin-device/www/device.js",
-            "pluginId": "cordova-plugin-device",
-            "clobbers": [
-                "device"
-            ]
-        },
         {
             "id": "cordova-plugin-console.console",
             "file": "plugins/cordova-plugin-console/www/console-via-logger.js",
@@ -57,11 +49,19 @@
             "clobbers": [
                 "cordova.logger"
             ]
+        },
+        {
+            "id": "cordova-plugin-device.device",
+            "file": "plugins/cordova-plugin-device/www/device.js",
+            "pluginId": "cordova-plugin-device",
+            "clobbers": [
+                "device"
+            ]
         }
     ],
     "plugin_metadata": {
-        "cordova-plugin-whitelist": "1.2.2",
+        "cordova-plugin-console": "1.0.3",
         "cordova-plugin-device": "1.1.2",
-        "cordova-plugin-console": "1.0.3"
+        "cordova-plugin-whitelist": "1.2.2"
     }
 }

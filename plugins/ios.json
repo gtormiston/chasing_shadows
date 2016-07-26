@@ -7,14 +7,14 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.chasing_shadows"
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.chasingshadows"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.chasing_shadows"
+            "PACKAGE_NAME": "com.chasingshadows"
         },
-        "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.chasing_shadows"
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.chasingshadows"
         }
     },
     "dependent_plugins": {}

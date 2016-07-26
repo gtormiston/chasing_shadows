@@ -16,18 +16,11 @@
  specific language governing permissions and limitations
  under the License.
  */
-
 //
-//  AppDelegate.h
-//  chasing_shadows
-//
-//  Created by ___FULLUSERNAME___ on ___DATE___.
-//  Copyright ___ORGANIZATIONNAME___ ___YEAR___. All rights reserved.
+// Prefix header for all source files of the 'chasingshadows' target in the 'chasingshadows' project
 //
 
-#import <Cordova/CDVViewController.h>
-#import <Cordova/CDVAppDelegate.h>
-
-@interface AppDelegate : CDVAppDelegate {}
-
-@end
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+    #import <UIKit/UIKit.h>
+#endif
