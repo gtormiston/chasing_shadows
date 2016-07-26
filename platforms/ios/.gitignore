@@ -3,3 +3,6 @@
 *.pbxuser
 .DS_Store
 build/
+www/
+cordova/console.log
+*.xcuserdatad
