@@ -2,3 +2,7 @@ node_modules
 
 # Mac
 .DS_Store
+
+# iOS
+/platforms
+/plugins
