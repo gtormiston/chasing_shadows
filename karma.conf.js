@@ -18,8 +18,8 @@ module.exports = function(config) {
         'org.apache.cordova.console'
       ]
     },
-    browsers: ['PhantomJS'],
+    browsers: ['PhantomJS', 'Chrome'],
     singleRun: false,
     concurrency: Infinity
-  })
-}
+  });
+};
