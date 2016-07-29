@@ -2,23 +2,71 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Chasing Shadows</title>
+
+    <link rel="stylesheet" href="css/reset.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="css/index.css" media="screen" title="no title" charset="utf-8">
   </head>
   <body>
-  <h1>Chasing Shadows</h1>
-  <a href="page2.html">next</a>
+
+    <div class="absolute">
+      <button type="button" name="button" id="1">Show Form Page</button>
+      <button type="button" name="button" id="2">Show Welcome Page</button>
+      <button type="button" name="button" id="3">Show Gameplay Page</button>
+    </div>
+
+    <div id="content">
+
+    </div>
 
 
-  <div id="import">
+    <script type="text/templates" id="form_page">
+      <div class="form">
+        <h1>Form</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </div>
+    </script>
 
-  </div>
+    <script type="text/templates" id="welcome_page">
+      <div class="welcome">
+        <h1>Welcome</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </div>
+    </script>
 
-  <script>
+    <script type="text/templates" id="gameplay_page">
+      <div class="gameplay">
+        <h1>Gameplay</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </div>
+    </script>
 
-  <h1>template</h1>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 
-  </script>
+    <script type="text/javascript">
+      $("#1").on("click", function(){
+        console.log("button 1 clicked");
+        $("#content").html($("#form_page").html());
+      });
 
+      $("#2").on("click", function(){
+        console.log("button 2 clicked");
+        $("#content").html($("#welcome_page").html());
+      });
+
+      $("#3").on("click", function(){
+        console.log("button 3 clicked");
+        $("#content").html($("#gameplay_page").html());
+      });
+    </script>
 
   </body>
 </html>
