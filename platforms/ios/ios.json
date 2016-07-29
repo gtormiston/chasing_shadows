@@ -15,6 +15,20 @@
                         {
                             "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "*-Info.plist": {
+                "parents": {
+                    "NSLocationWhenInUseUsageDescription": [
+                        {
+                            "xml": "<string />",
+                            "count": 1
                         }
                     ]
                 }
@@ -29,6 +43,12 @@
             "PACKAGE_NAME": "com.chasingshadows"
         },
         "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.chasingshadows"
+        },
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.chasingshadows"
+        },
+        "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.chasingshadows"
         }
     },
@@ -57,11 +77,45 @@
             "clobbers": [
                 "device"
             ]
+        },
+        {
+            "id": "cordova-plugin-geolocation.Coordinates",
+            "file": "plugins/cordova-plugin-geolocation/www/Coordinates.js",
+            "pluginId": "cordova-plugin-geolocation",
+            "clobbers": [
+                "Coordinates"
+            ]
+        },
+        {
+            "id": "cordova-plugin-geolocation.PositionError",
+            "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
+            "pluginId": "cordova-plugin-geolocation",
+            "clobbers": [
+                "PositionError"
+            ]
+        },
+        {
+            "id": "cordova-plugin-geolocation.Position",
+            "file": "plugins/cordova-plugin-geolocation/www/Position.js",
+            "pluginId": "cordova-plugin-geolocation",
+            "clobbers": [
+                "Position"
+            ]
+        },
+        {
+            "id": "cordova-plugin-geolocation.geolocation",
+            "file": "plugins/cordova-plugin-geolocation/www/geolocation.js",
+            "pluginId": "cordova-plugin-geolocation",
+            "clobbers": [
+                "navigator.geolocation"
+            ]
         }
     ],
     "plugin_metadata": {
         "cordova-plugin-console": "1.0.3",
         "cordova-plugin-device": "1.1.2",
-        "cordova-plugin-whitelist": "1.2.2"
+        "cordova-plugin-whitelist": "1.2.2",
+        "cordova-plugin-compat": "1.0.0",
+        "cordova-plugin-geolocation": "2.2.0"
     }
 }

@@ -6,13 +6,12 @@
 
     <title>Chasing Shadows</title>
 
-    <link rel="stylesheet" href="css/reset.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="css/index.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="css/style.css" media="screen" title="no title" charset="utf-8">
   </head>
   <body>
 
     <div class="absolute z1">
-      <button type="button" name="button" id="1">Show Form Page</button>
+      <!-- <button type="button" name="button" id="1">Show Form Page</button> -->
     </div>
 
     <div id="content">
@@ -68,8 +67,8 @@
       $("#form").css("height", $(document).height());
       $("#welcome_page").css("height", $(document).height());
 
-      $("#1").on("touchstart click", function(){
-        console.log("button 1 clicked");
+      $( document ).ready(function() {
+        console.log("form loaded");
         $("#content").html($("#form_page").html());
         $('#sign_up_form').submit(function(event) {
           event.preventDefault();
@@ -104,35 +103,60 @@
       });
 
       var latitude;
-      var longitude;
+var longitude;
 
-      function initMap() {
+function initMap() {
+  function drawMap(position){
+    var center = position.coords;
+    var mapDiv = document.getElementById("google_map");
+    var map = new google.maps.Map(mapDiv,
+                                { center: {
+                                           lat: center.latitude,
+                                           lng: center.longitude
+                                          },
+                                  zoom: 18
+                                });
+    monitorLocation(map);
 
-        function getGeoLocationPromise() {
+  }
+  var locationPromise = getGeoLocationPromise();
+  locationPromise.then(function(position) {
+    drawMap(position);
+  });
+}
 
-          return new Promise(function(fullfill, reject) {
-            navigator.geolocation.getCurrentPosition(success, failure);
+function monitorLocation(map) {
+  navigator.geolocation.watchPosition(updateSuccess, failure, { enableHighAccuracy: true });
 
-            function success(position) {
-              fullfill(position);
-            }
+  function updateSuccess(position) {
+    console.log("UPDATED");
+    var newCenter = new google.maps.LatLng(position.coords.latitude,
+                                           position.coords.longitude);
+    map.panTo(newCenter);
 
-            function failure(){
-              reject(new Error("Unable to get position"));
-            }
+  }
 
-          });
-        }
-        function drawMap(position){
-          var center = position.coords;
-          var mapDiv = document.getElementById("google_map");
-          var map = new google.maps.Map(mapDiv, { center: {lat: center.latitude, lng: center.longitude}, zoom: 8 });
-        }
-        var locationPromise = getGeoLocationPromise();
-        locationPromise.then(function(position) {
-          drawMap(position);
-        });
-      }
+  function failure() {
+    console.error("unable to update position");
+  }
+}
+
+
+function getGeoLocationPromise() {
+
+  return new Promise(function(fullfill, reject) {
+    navigator.geolocation.getCurrentPosition(success, failure);
+
+    function success(position) {
+      fullfill(position);
+    }
+
+    function failure(){
+      reject(new Error("Unable to get position"));
+    }
+
+  });
+}
 
     </script>
 
