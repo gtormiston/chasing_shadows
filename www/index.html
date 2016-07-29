@@ -2,23 +2,143 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Chasing Shadows</title>
+
+    <link rel="stylesheet" href="css/reset.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="css/index.css" media="screen" title="no title" charset="utf-8">
   </head>
   <body>
-  <h1>Chasing Shadows</h1>
-  <a href="page2.html">next</a>
+
+    <div class="absolute z1">
+      <button type="button" name="button" id="1">Show Form Page</button>
+    </div>
+
+    <div id="content">
 
 
-  <div id="import">
+    </div>
 
-  </div>
+    <div id="google_map" style="">
 
-  <script>
+    </div>
 
-  <h1>template</h1>
+    <script type="text/templates" id="form_page">
+      <div class="form z1 absolute">
+        <h1>Form</h1>
+          <form id="sign_up_form" method="post">
+            <input id="email" type="text" name="email" placeholder="email">
+            <input id="username" type="text" name="username" placeholder="username">
+            <input id="password" type="text" name="password" placeholder="password">
+            <input id="submit_button" type="submit" value="Submit">
+          </form>
+      </div>
+    </script>
 
-  </script>
+    <script type="text/templates" id="welcome_page">
+      <div class="welcome absolute z1">
+        <h1>Welcome</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <button type="button" name="button" id="gameplay_link">Show Gameplay Page</button>
+      </div>
+    </script>
 
+    <script type="text/templates" id="gameplay_page">
+      <div class="gameplay absolute z1">
+        <h1>Gameplay</h1>
+        <div>
+          Imagine you're David Bowie.  How awesome would that be?
+
+          [The end]
+
+          [Thanks for playing]
+        </div>
+      </div>
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+
+    <script src="scripts/js/user_auth.js"></script>
+
+    <script type="text/javascript">
+      $("#google_map").css("height", $(document).height());
+      $("#form").css("height", $(document).height());
+      $("#welcome_page").css("height", $(document).height());
+
+      $("#1").on("touchstart click", function(){
+        console.log("button 1 clicked");
+        $("#content").html($("#form_page").html());
+        $('#sign_up_form').submit(function(event) {
+          event.preventDefault();
+          console.log("It happened");
+          var email = $("#email").val().toString();
+          var username = $("#username").val().toString();
+          var password = $("#password").val().toString();
+          // var passwordConfirmation = $("#password_confirmation").val();
+
+          var data = {user: {email: email,
+            name: username,
+            password: password
+          }};
+
+          dataText = "user[email]=" + email + "&user[name]=" + username + "&user[password]=" + password;
+          console.log(dataText);
+
+          $.post("http://chasingshadowsapi.herokuapp.com/api/v1/users", dataText, function(data) {
+            console.log(data);
+            $("#content").html($("#welcome_page").html());
+            $("#google_map").css("height", $(document).height());
+
+            $("#gameplay_link").on("touchstart click", function(){
+              console.log("button 3 clicked");
+              $("#content").html($("#gameplay_page").html());
+              initMap();
+
+            });
+          });
+
+        });
+      });
+
+      var latitude;
+      var longitude;
+
+      function initMap() {
+
+        function getGeoLocationPromise() {
+
+          return new Promise(function(fullfill, reject) {
+            navigator.geolocation.getCurrentPosition(success, failure);
+
+            function success(position) {
+              fullfill(position);
+            }
+
+            function failure(){
+              reject(new Error("Unable to get position"));
+            }
+
+          });
+        }
+        function drawMap(position){
+          var center = position.coords;
+          var mapDiv = document.getElementById("google_map");
+          var map = new google.maps.Map(mapDiv, { center: {lat: center.latitude, lng: center.longitude}, zoom: 8 });
+        }
+        var locationPromise = getGeoLocationPromise();
+        locationPromise.then(function(position) {
+          drawMap(position);
+        });
+      }
+
+    </script>
+
+    <!-- <script src="./scripts/js/map_index.js" type="text/javascript"></script> -->
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJxrqPCVCSREKVBPN2XVHXC1hxYZArH78&callback=initMap"></script>
 
   </body>
 </html>
