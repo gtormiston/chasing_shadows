@@ -15,7 +15,14 @@
         },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.chasingshadows"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.chasingshadows"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.chasingshadows"
+        }
+    }
 }
