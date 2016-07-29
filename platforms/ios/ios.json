@@ -9,15 +9,27 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"StatusBar\"><param name=\"ios-package\" value=\"CDVStatusBar\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"StatusBarOverlaysWebView\" value=\"true\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"StatusBarStyle\" value=\"lightcontent\" />",
                             "count": 1
                         }
                     ]
@@ -36,13 +48,13 @@
         }
     },
     "installed_plugins": {
-        "cordova-plugin-console": {
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.chasingshadows"
         },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.chasingshadows"
         },
-        "cordova-plugin-whitelist": {
+        "cordova-plugin-console": {
             "PACKAGE_NAME": "com.chasingshadows"
         },
         "cordova-plugin-compat": {
@@ -50,10 +62,21 @@
         },
         "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.chasingshadows"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.chasingshadows"
         }
     },
     "dependent_plugins": {},
     "modules": [
+        {
+            "id": "cordova-plugin-device.device",
+            "file": "plugins/cordova-plugin-device/www/device.js",
+            "pluginId": "cordova-plugin-device",
+            "clobbers": [
+                "device"
+            ]
+        },
         {
             "id": "cordova-plugin-console.console",
             "file": "plugins/cordova-plugin-console/www/console-via-logger.js",
@@ -68,14 +91,6 @@
             "pluginId": "cordova-plugin-console",
             "clobbers": [
                 "cordova.logger"
-            ]
-        },
-        {
-            "id": "cordova-plugin-device.device",
-            "file": "plugins/cordova-plugin-device/www/device.js",
-            "pluginId": "cordova-plugin-device",
-            "clobbers": [
-                "device"
             ]
         },
         {
@@ -109,13 +124,22 @@
             "clobbers": [
                 "navigator.geolocation"
             ]
+        },
+        {
+            "id": "cordova-plugin-statusbar.statusbar",
+            "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
+            "pluginId": "cordova-plugin-statusbar",
+            "clobbers": [
+                "window.StatusBar"
+            ]
         }
     ],
     "plugin_metadata": {
-        "cordova-plugin-console": "1.0.3",
-        "cordova-plugin-device": "1.1.2",
         "cordova-plugin-whitelist": "1.2.2",
+        "cordova-plugin-device": "1.1.2",
+        "cordova-plugin-console": "1.0.3",
         "cordova-plugin-compat": "1.0.0",
-        "cordova-plugin-geolocation": "2.2.0"
+        "cordova-plugin-geolocation": "2.2.0",
+        "cordova-plugin-statusbar": "2.1.3"
     }
 }
