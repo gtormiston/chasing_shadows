@@ -1,7 +1,10 @@
-var gulp = require('gulp')
+var gulp = require('gulp');
+    watch = require('gulp-watch');
 var Server = require('karma').Server;
+var sass = require('gulp-sass');
 connect = require('gulp-connect');
 // var phantom = require('phantomjs-prebuilt');
+
 
 
 gulp.task('tdd', function (done) {
@@ -25,4 +28,12 @@ gulp.task('webserver', function() {
 
 });
 
-gulp.task('default', ['tdd']);
+gulp.task('sass', function () {
+  return gulp.src('./www/sass/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./www/css'));
+});
+
+gulp.task('sass:watch', function () {
+  gulp.watch('./www/sass/**/*.scss', ['sass']);
+});
