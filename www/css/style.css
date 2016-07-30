@@ -5870,10 +5870,12 @@ body {
 .welcome {
   background-color: blue;
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  align-items: center; }
 
 .gameplay {
-  background-color: green; }
+  background-color: green;
+  width: 100%; }
 
 .absolute {
   position: absolute; }
@@ -5899,14 +5901,16 @@ body {
   padding: 5px 10px;
   text-align: center;
   top: 0; }
-.try {
+
+.attack-container {
   background-color: green;
   position: absolute;
-  bottom: 0; }
+  bottom: 0;
+  width: 100%; }
 
 .centerBlock {
   display: table;
   margin: 0 auto; }
 
-.button-margin {
+.navbar-margin {
   margin: 10px 0px; }
