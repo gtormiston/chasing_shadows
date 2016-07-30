@@ -5874,8 +5874,9 @@ body {
   align-items: center; }
 
 .gameplay {
-  background-color: green;
-  width: 100%; }
+  background-color: gray;
+  width: 100%;
+  padding: 10px 10px; }
 
 .absolute {
   position: absolute; }
@@ -5903,14 +5904,15 @@ body {
   top: 0; }
 
 .attack-container {
-  background-color: green;
+  background-color: gray;
   position: absolute;
   bottom: 0;
-  width: 100%; }
+  width: 100%;
+  padding: 10px 10px; }
 
 .centerBlock {
   display: table;
   margin: 0 auto; }
 
 .navbar-margin {
-  margin: 10px 0px; }
+  margin: 10px 10px; }
