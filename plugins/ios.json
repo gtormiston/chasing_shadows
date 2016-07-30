@@ -7,19 +7,19 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-whitelist": {
+        "cordova-plugin-console": {
             "PACKAGE_NAME": "com.chasingshadows"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.chasingshadows"
-        },
-        "cordova-plugin-console": {
             "PACKAGE_NAME": "com.chasingshadows"
         },
         "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.chasingshadows"
         },
         "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.chasingshadows"
+        },
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.chasingshadows"
         }
     },

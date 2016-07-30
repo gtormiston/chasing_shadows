@@ -5899,3 +5899,14 @@ body {
   padding: 5px 10px;
   text-align: center;
   top: 0; }
+.try {
+  background-color: green;
+  position: absolute;
+  bottom: 0; }
+
+.centerBlock {
+  display: table;
+  margin: 0 auto; }
+
+.button-margin {
+  margin: 10px 0px; }
