@@ -378,9 +378,17 @@ function initMap() {
 
 map.setOptions({styles: styles});
 
-   var marker = new google.maps.Marker({
+var icon = {
+    url: "/img/walkingman.gif", // url
+    scaledSize: new google.maps.Size(50, 50), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+};
+
+
+   var characterMarker = new google.maps.Marker({
      position: map.getCenter(),
-     icon: "/img/walkingman.gif",
+     icon:  icon,
      map: map,
      optimized: false
    });
