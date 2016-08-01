@@ -15,7 +15,9 @@ casper.test.begin("index page", 2, function suite(test) {
         return __utils__.findOne('h1').textContent;
       }, 'Chasing Shadows');
 
-  });
+    });
+
+    test.
 
 
 

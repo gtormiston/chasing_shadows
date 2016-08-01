@@ -20,6 +20,12 @@ $( document ).ready(function() {
 
         console.log("form loaded");
         $("#content").html($("#form_page").html());
+
+        $("#sign_in_link").on("touchstart click", function(){
+          console.log("sign-in page button clicked");
+          $("#content").html($("#sign_in_form_page").html());
+        });
+
         $('#sign_up_form').submit(function(event) {
           event.preventDefault();
           console.log("It happened");
