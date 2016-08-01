@@ -89,6 +89,25 @@
       $("#welcome_page").css("height", $(document).height());
 
       $( document ).ready(function() {
+        var player;
+        $.ajax({
+            url: "http://chasingshadowsapi.herokuapp.com/api/v1/users",
+            headers: {"Authorization": "Token token=uNEARekndorMAybyLcgqNAtt"},
+            success: function(data) {
+                console.log(data);
+            }
+
+        }).done(function() {
+            console.log("success");
+        }).fail(function() {
+            console.log("fail");
+        }).always(function() {
+            console.log("complete");
+        })
+
+
+
+
         console.log("form loaded");
         $("#content").html($("#form_page").html());
         $('#sign_up_form').submit(function(event) {
@@ -99,26 +118,31 @@
           var password = $("#password").val().toString();
           // var passwordConfirmation = $("#password_confirmation").val();
 
-          var data = {user: {email: email,
-            name: username,
-            password: password
-          }};
+          // var data = {user: {email: email,
+          //   name: username,
+          //   password: password
+          // }};
 
           dataText = "user[email]=" + email + "&user[name]=" + username + "&user[password]=" + password;
-          console.log(dataText);
 
-          $.post("http://chasingshadowsapi.herokuapp.com/api/v1/users", dataText, function(data) {
-            console.log(data);
-            $("#content").html($("#welcome_page").html());
-            $("#google_map").css("height", $(document).height());
+          $.ajax({
+                url: "http://chasingshadowsapi.herokuapp.com/api/v1/users",
+                data: dataText,
+                type: "post",
 
-            $("#gameplay_link").on("touchstart click", function(){
-              console.log("button 3 clicked");
-              $("#content").html($("#gameplay_page").html());
-              initMap();
+                success: function(data) {
+                    console.log(data)
+                    var player = data;
+                    $("#content").html($("#welcome_page").html());
+                    $("#google_map").css("height", $(document).height());
 
-            });
-          });
+                    $("#gameplay_link").on("touchstart click", function(){
+                        console.log("button 3 clicked");
+                        $("#content").html($("#gameplay_page").html());
+                        initMap();
+                    });
+                }
+             });
 
         });
       });
