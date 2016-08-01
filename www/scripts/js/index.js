@@ -26,7 +26,7 @@ $( document ).ready(function() {
           var email = $("#email").val().toString();
           var username = $("#username").val().toString();
           var password = $("#password").val().toString();
-          var passwordConfirmation = $("#password_confirmation").val().toString();
+          var password_confirmation = $("#password_confirmation").val().toString();
 
           // var data = {user: {email: email,
           //   name: username,
@@ -131,19 +131,21 @@ $( document ).ready(function() {
 
 
 function pushLocation(position) {
+  console.log(JSON.stringify({"lat":"50.505050","lng":"0.0000"}));
+
   $.ajax({
     headers: {
       // "X-HTTP-Method-Override": "PUT",
       "Authorization": "Token token=" + storage.getItem("api_key"),
-      "HTTP_USER_LOCATION": {"lat":"50.505050","lng":"0.0000"}
-
+      "USER_LATITUDE": position.coords.latitude.toString(),
+      "USER_LONGITUDE": position.coords.longitude.toString()
     //  {"lat": position.coords.latitude, "lng": position.coords.longitude }
     },
     type: 'PUT',
 
-    url: "http://chasingshadowsapi.herokuapp.com/api/v1/users/" + storage.getItem("userid"),
+    url: "//chasingshadowsapi.herokuapp.com/api/v1/users/" + storage.getItem("userid"),
     // crossDomain: true,
-    dataType: 'json'
+    // dataType: 'json'
     // success: function() {
     //   console.log("success");
     // }
@@ -188,7 +190,6 @@ function getGeoLocationPromise() {
 
   });
 }
-
 
 
 
