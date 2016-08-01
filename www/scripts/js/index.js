@@ -85,22 +85,43 @@ $( document ).ready(function() {
       map.setOptions({styles: styles});
       monitorLocation(map);
 
-      var icon = {
-          url: "/img/walkingman.gif", // url
-          scaledSize: new google.maps.Size(50, 50), // scaled size
-          origin: new google.maps.Point(0,0), // origin
-          anchor: new google.maps.Point(0, 0) // anchor
-      };
+    var monsters = [
+      ['Alysterius', 51.51964, -0.07535],
+      ['Tim the Terrible', 51.5157, -0.0746]
+    ];
+
+    var monsterIcon = {
+      url: "/img/wingedmonster.png", // url
+      scaledSize: new google.maps.Size(60, 60), // scaled size
+      origin: new google.maps.Point(0,0), // origin
+      anchor: new google.maps.Point(0, 0)
+    }
+
+    for( i = 0; i < monsters.length; i++ ) {
+      var pos = new google.maps.LatLng(monsters[i][1], monsters[i][2]);
+      monsters[i] = new google.maps.Marker({
+        position: pos,
+        map: map,
+        icon: monsterIcon
+      });
+    }
+
+    var charIcon = {
+        url: "/img/walkingman.gif", // url
+        scaledSize: new google.maps.Size(50, 50), // scaled size
+        origin: new google.maps.Point(0,0), // origin
+        anchor: new google.maps.Point(0, 0) // anchor
+    };
 
 
        var characterMarker = new google.maps.Marker({
          position: map.getCenter(),
-         icon:  icon,
+         icon:  charIcon,
          map: map,
          optimized: false
        });
 
-    }
+  }
 
     var locationPromise = getGeoLocationPromise();
     locationPromise.then(function(position) {
