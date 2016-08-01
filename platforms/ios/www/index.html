@@ -62,7 +62,7 @@
         <span>Some notification</span>
       </div>
 
-      <div class="gameplay absolute z1 col-md-12">
+      <div class="container-fluid gameplay absolute z1 col-md-12">
         <h1>Gameplay</h1>
         <div>
           Imagine you are David Bowie.  How awesome would that be?
@@ -72,8 +72,8 @@
           [Thanks for playing]
         </div>
       </div>
-      <div class="col-md-12 try z2">
-          <div class="text-center button-margin">
+      <div class="attack-container z1 container-fluid">
+          <div class="col-md-12 text-center button-margin">
             <button>Attack!</button>
           </div>
         </div>
@@ -135,31 +135,283 @@ function initMap() {
                                            lat: center.latitude,
                                            lng: center.longitude
                                           },
-                                  zoom: 18
+                                  zoom: 18,
                                 });
     monitorLocation(map);
 
-    var goldStar = {
-     path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
-     fillColor: 'yellow',
-     fillOpacity: 0.8,
-     scale: 1,
-     strokeColor: 'gold',
-     strokeWeight: 14
-   };
+    var styles = [
+    {
+        "featureType": "all",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "simplified"
+            },
+            {
+                "saturation": "-100"
+            },
+            {
+                "invert_lightness": true
+            },
+            {
+                "lightness": "11"
+            },
+            {
+                "gamma": "1.27"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.locality",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape.man_made",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#ff0000"
+            },
+            {
+                "visibility": "simplified"
+            },
+            {
+                "invert_lightness": true
+            },
+            {
+                "lightness": "-10"
+            },
+            {
+                "gamma": "0.54"
+            },
+            {
+                "saturation": "45"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.business",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "simplified"
+            },
+            {
+                "hue": "#ff0000"
+            },
+            {
+                "saturation": "75"
+            },
+            {
+                "lightness": "24"
+            },
+            {
+                "gamma": "0.70"
+            },
+            {
+                "invert_lightness": true
+            }
+        ]
+    },
+    {
+        "featureType": "poi.government",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#ff0000"
+            },
+            {
+                "visibility": "simplified"
+            },
+            {
+                "invert_lightness": true
+            },
+            {
+                "lightness": "-24"
+            },
+            {
+                "gamma": "0.59"
+            },
+            {
+                "saturation": "59"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.medical",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "simplified"
+            },
+            {
+                "invert_lightness": true
+            },
+            {
+                "hue": "#ff0000"
+            },
+            {
+                "saturation": "73"
+            },
+            {
+                "lightness": "-24"
+            },
+            {
+                "gamma": "0.59"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.park",
+        "elementType": "all",
+        "stylers": [
+            {
+                "lightness": "-41"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.school",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "simplified"
+            },
+            {
+                "hue": "#ff0000"
+            },
+            {
+                "invert_lightness": true
+            },
+            {
+                "saturation": "43"
+            },
+            {
+                "lightness": "-16"
+            },
+            {
+                "gamma": "0.73"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.sports_complex",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#ff0000"
+            },
+            {
+                "saturation": "43"
+            },
+            {
+                "lightness": "-11"
+            },
+            {
+                "gamma": "0.73"
+            },
+            {
+                "invert_lightness": true
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "all",
+        "stylers": [
+            {
+                "saturation": "45"
+            },
+            {
+                "lightness": "2"
+            },
+            {
+                "gamma": "0.67"
+            },
+            {
+                "invert_lightness": true
+            },
+            {
+                "hue": "#ff0000"
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "simplified"
+            },
+            {
+                "hue": "#ff0000"
+            },
+            {
+                "saturation": "38"
+            },
+            {
+                "lightness": "-16"
+            },
+            {
+                "gamma": "0.86"
+            }
+        ]
+    }
+]
 
-   var knight = {
-     url: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Crystal_128_penguin.png",
-    //  size: new google.maps.Size(20, 32),
-    //  origin: new google.maps.Point(0, 0),
-    //  anchor: new google.maps.Point(0, 32)
-   };
+map.setOptions({styles: styles});
+
+var monsters = [
+  ['Alysterius', 51.51964, -0.07535],
+  ['Tim the Terrible', 51.5157, -0.0746]
+];
+
+var monsterIcon = {
+  url: "/img/wingedmonster.png", // url
+  scaledSize: new google.maps.Size(60, 60), // scaled size
+  origin: new google.maps.Point(0,0), // origin
+  anchor: new google.maps.Point(0, 0)
+}
+
+for( i = 0; i < monsters.length; i++ ) {
+  var pos = new google.maps.LatLng(monsters[i][1], monsters[i][2]);
+  monsters[i] = new google.maps.Marker({
+    position: pos,
+    map: map,
+    icon: monsterIcon
+  });
+}
+
+var charIcon = {
+    url: "/img/walkingman.gif", // url
+    scaledSize: new google.maps.Size(50, 50), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+};
 
 
-   var marker = new google.maps.Marker({
+   var characterMarker = new google.maps.Marker({
      position: map.getCenter(),
-     icon: "/img/knight.png",
-     map: map
+     icon:  charIcon,
+     map: map,
+     optimized: false
    });
 
   }
@@ -178,7 +430,6 @@ function monitorLocation(map) {
     var newCenter = new google.maps.LatLng(position.coords.latitude,
                                            position.coords.longitude);
     map.panTo(newCenter);
-
   }
 
   function failure() {
@@ -202,6 +453,7 @@ function getGeoLocationPromise() {
 
   });
 }
+
 
     </script>
 
