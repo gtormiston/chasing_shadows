@@ -133,14 +133,17 @@ $( document ).ready(function() {
 function pushLocation(position) {
   $.ajax({
     headers: {
-      "X-HTTP-Method-Override": "PUT",
+      // "X-HTTP-Method-Override": "PUT",
       "Authorization": "Token token=" + storage.getItem("api_key"),
-      "USER_LOCATION": {"lat": position.coords.latitude, "lng": position.coords.longitude }
+      "HTTP_USER_LOCATION": {"lat":"50.505050","lng":"0.0000"}
+
+    //  {"lat": position.coords.latitude, "lng": position.coords.longitude }
     },
     type: 'PUT',
+
     url: "http://chasingshadowsapi.herokuapp.com/api/v1/users/" + storage.getItem("userid"),
-    crossDomain: true,
-    dataType: 'text'
+    // crossDomain: true,
+    dataType: 'json'
     // success: function() {
     //   console.log("success");
     // }
@@ -185,3 +188,23 @@ function getGeoLocationPromise() {
 
   });
 }
+
+
+
+
+  function onLoad(){
+    document.addEventListener("deviceready", onDeviceReady, false);
+  }
+
+  function onDeviceReady() {
+    // IN THEORY THE GETCURRENTPOSITION SHOULD BE DONE ON DEVICE READY (SO WE SHOULD MAKE SURE OUR PROMISE RUNS ON DEVICEREADY FOR CORDOVA)
+    // navigator.geolocation.getCurrentPosition(onSuccess, onError);
+  }
+
+  // function onSuccess(position) {
+  //   // your callback here
+  // }
+  //
+  // function onError(error) {
+  //   // your callback here
+  // }
