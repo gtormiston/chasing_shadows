@@ -5918,6 +5918,8 @@ body {
   margin: 10px 10px; }
 
 .marker {
-  height: 300px;
-  width: 300px;
-  background-image: url(../img/walkingman-sprite.png); }
+  height: 50px;
+  width: 50px;
+  margin-top: -25px;
+  margin-left: -25px;
+  background-image: url(../img/gifman-50px.png); }

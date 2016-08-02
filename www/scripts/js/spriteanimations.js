@@ -1,7 +1,7 @@
 function animatedGuy() {
 
 $(".marker").animateSprite({
-  fps: 10,
+  fps: 4,
   animations: {
     walkDown: [0, 1, 2, 3, 4, 5, 6, 7]
   },

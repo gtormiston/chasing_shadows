@@ -235,7 +235,7 @@ if(e&&1===a.nodeType)while(c=e[d++])a.removeAttribute(c)}}),hb={set:function(a,b
 function animatedGuy() {
 
 $(".marker").animateSprite({
-  fps: 10,
+  fps: 4,
   animations: {
     walkDown: [0, 1, 2, 3, 4, 5, 6, 7]
   },
@@ -610,26 +610,26 @@ function initMap() {
     map.setOptions({styles: styles});
     monitorLocation(map);
 
-    // var monsters = [
-    //   ['Alysterius', 51.51964, -0.07535],
-    //   ['Tim the Terrible', 51.5157, -0.0746]
-    // ];
-    //
-    // var monsterIcon = {
-    //   url: "/img/wingedmonster.png", // url
-    //   scaledSize: new google.maps.Size(60, 60), // scaled size
-    //   origin: new google.maps.Point(0,0), // origin
-    //   anchor: new google.maps.Point(0, 0)
-    // };
-    //
-    // for( i = 0; i < monsters.length; i++ ) {
-    //   var pos = new google.maps.LatLng(monsters[i][1], monsters[i][2]);
-    //   monsters[i] = new google.maps.Marker({
-    //     position: pos,
-    //     map: map,
-    //     icon: monsterIcon
-    //   });
-    // }
+    var monsters = [
+      ['Alysterius', 51.51964, -0.07535],
+      ['Tim the Terrible', 51.5157, -0.0746]
+    ];
+
+    var monsterIcon = {
+      url: "/img/wingedmonster.png", // url
+      scaledSize: new google.maps.Size(60, 60), // scaled size
+      origin: new google.maps.Point(0,0), // origin
+      anchor: new google.maps.Point(0, 0)
+    };
+
+    for( i = 0; i < monsters.length; i++ ) {
+      var pos = new google.maps.LatLng(monsters[i][1], monsters[i][2]);
+      monsters[i] = new google.maps.Marker({
+        position: pos,
+        map: map,
+        icon: monsterIcon
+      });
+    }
 
     // var charIcon = {
     //     url: "/img/walkingman.gif", // url
