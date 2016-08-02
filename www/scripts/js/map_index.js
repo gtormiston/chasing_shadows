@@ -32,7 +32,7 @@ function initMap() {
 
     var monsters = [
       ['Alysterius', 51.51964, -0.07535],
-      ['Tim the Terrible', 51.5157, -0.0746]
+      ['Tim the Terrible', 51.5157, -0.0746],
     ];
 
     // var monsterIcon = {

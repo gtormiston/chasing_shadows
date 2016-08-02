@@ -17,3 +17,7 @@ function match_height_maps(){
 function load_sign_in_page() {
   $("#content").html($("#sign_in_form_page").html());
 }
+
+function load_attack_page(){
+  $("#content").html($("#attack_page").html());
+}

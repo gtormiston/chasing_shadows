@@ -26,9 +26,17 @@ CustomMonsterMarker.prototype.draw = function() {
 			div.dataset.marker_id = self.args.marker_id;
 		}
 
-		google.maps.event.addDomListener(div, "touchstart, click", function(event) {
-			alert('You clicked on a custom marker!');
-			google.maps.event.trigger(self, "click");
+		google.maps.event.addDomListener(div, "touchstart", function() {
+			console.log("touched")
+			load_attack_page();
+			// google.maps.event.trigger(self, "touchstart click");
+		});
+
+		google.maps.event.addDomListener(div, "click", function() {
+			console.log("clicked")
+			load_attack_page();
+
+			// google.maps.event.trigger(self, "touchstart click");
 		});
 
 		var panes = this.getPanes();

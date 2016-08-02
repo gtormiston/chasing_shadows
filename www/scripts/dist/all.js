@@ -289,6 +289,10 @@ function load_sign_in_page() {
   $("#content").html($("#sign_in_form_page").html());
 }
 
+function load_attack_page(){
+  $("#content").html($("#attack_page").html());
+}
+
 var styles = [
 {
     "featureType": "all",
@@ -610,9 +614,17 @@ CustomMonsterMarker.prototype.draw = function() {
 			div.dataset.marker_id = self.args.marker_id;
 		}
 
-		google.maps.event.addDomListener(div, "touchstart, click", function(event) {
-			alert('You clicked on a custom marker!');
-			google.maps.event.trigger(self, "click");
+		google.maps.event.addDomListener(div, "touchstart", function() {
+			console.log("touched")
+			load_attack_page();
+			// google.maps.event.trigger(self, "touchstart click");
+		});
+
+		google.maps.event.addDomListener(div, "click", function() {
+			console.log("clicked")
+			load_attack_page();
+
+			// google.maps.event.trigger(self, "touchstart click");
 		});
 
 		var panes = this.getPanes();
@@ -672,7 +684,7 @@ function initMap() {
 
     var monsters = [
       ['Alysterius', 51.51964, -0.07535],
-      ['Tim the Terrible', 51.5157, -0.0746]
+      ['Tim the Terrible', 51.5157, -0.0746],
     ];
 
     // var monsterIcon = {
@@ -684,7 +696,7 @@ function initMap() {
 
     for( i = 0; i < monsters.length; i++ ) {
       var pos = new google.maps.LatLng(monsters[i][1], monsters[i][2]);
-      console.log()
+      console.log(pos)
       monsterOverlay = new CustomMonsterMarker(
         pos,
         map,
@@ -791,6 +803,11 @@ $(document).ready(function() {
     console.log("sign-in page button clicked");
     load_sign_in_page();
   })
+
+  // $("#monster-marker").on("touchstart click", function(){
+  //   console.log("marker has been clicked")
+  //   load_attack_page();
+  // })
 
   $('#sign_up_form').submit(function(event) {
     event.preventDefault();

@@ -5940,6 +5940,6 @@ input:out-of-range {
   background-image: url(../img/walkingman-sprite.png); }
 
 .monster-marker {
-  height: 225px;
-  width: 240px;
-  background-image: url(../img/wingedmonster.png); }
+  height: 107px;
+  width: 100px;
+  background-image: url(../img/wingedmonster-100x107.png); }
