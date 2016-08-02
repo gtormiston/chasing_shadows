@@ -34,7 +34,7 @@ $(document).ready(function() {
       data: dataText,
       type: "POST",
       success: function(data) {
-          console.log(data)
+          console.log(data);
           storage.setItem("userid", data.id);
           storage.setItem("user_name", data.name);
           storage.setItem("email", data.email);
@@ -47,6 +47,9 @@ $(document).ready(function() {
               load_game_page();
               initMap();
           });
+       },
+       error: function(data) {
+         console.log(data);
        }
     });
 

@@ -1,14 +1,12 @@
-var gulp = require('gulp');
-    watch = require('gulp-watch');
-var Server = require('karma').Server;
-var sass = require('gulp-sass');
-connect = require('gulp-connect');
-var concat = require('gulp-concat');
-uglify = require('gulp-uglify'),
+var gulp = require('gulp'),
+    watch = require('gulp-watch'),
+    Server = require('karma').Server,
+    sass = require('gulp-sass'),
+    connect = require('gulp-connect'),
+    concat = require('gulp-concat'),
+    uglify = require('gulp-uglify');
 
 // var phantom = require('phantomjs-prebuilt');
-
-
 
 gulp.task('tdd', function (done) {
   new Server ({
@@ -27,8 +25,6 @@ gulp.task('webserver', function() {
   connect.server({
     root: ['www']
   });
-
-
 });
 
 gulp.task('sass', function () {
@@ -37,12 +33,15 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('./www/css'));
 });
 
-
 gulp.task('scripts', function() {
   return gulp.src(['./www/scripts/vendors/jquery-3.1.0.min.js',
+                   './www/scripts/vendors/jquery.animateSprite.js',
+                   './www/scripts/js/spriteanimations.js',
                    './www/scripts/js/vars.js',
+                   './www/scripts/js/initializers.js',
                    './www/scripts/js/templates.js',
                    './www/scripts/js/map_styles.js',
+                   './www/scripts/js/map_markers.js',
                    './www/scripts/js/map_index.js',
                    './www/scripts/js/match_height.js',
                    './www/scripts/js/index.js',
@@ -54,5 +53,5 @@ gulp.task('scripts', function() {
 
 gulp.task('watch', function () {
   gulp.watch('./www/sass/**/*.scss', ['sass']);
-  gulp.watch('./www/scripts/js/*.js', ['scripts'])
+  gulp.watch('./www/scripts/js/*.js', ['scripts']);
 });
