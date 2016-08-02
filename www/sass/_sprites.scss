@@ -1,7 +1,9 @@
-.marker {
-  height: 300px;
-  width: 300px;
-  background-image: url(../img/walkingman-sprite.png);
+.playerMarker {
+  top:50%;
+  left:50%;
+  height: 50px;
+  width: 50px;
+  margin-top: -25px;
+  margin-left: -25px;
+  background-image: url(../img/gifman-50px.png);
 }
-
-//offset position needs to be fixed for dude

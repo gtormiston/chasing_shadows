@@ -232,10 +232,125 @@ if(e&&1===a.nodeType)while(c=e[d++])a.removeAttribute(c)}}),hb={set:function(a,b
 
 })(jQuery, window);
 
+/*
+jQuery-Rotate-Plugin v0.2 by anatol.at
+http://jsfiddle.net/Anatol/T6kDR/
+*/
+$.fn.rotate=function(options) {
+  var $this=$(this), prefixes, opts, wait4css=0;
+  prefixes=['-Webkit-', '-Moz-', '-O-', '-ms-', ''];
+  opts=$.extend({
+    startDeg: false,
+    endDeg: 360,
+    duration: 1,
+    count: 1,
+    easing: 'linear',
+    animate: {},
+    forceJS: false
+  }, options);
+
+  function supports(prop) {
+    var can=false, style=document.createElement('div').style;
+    $.each(prefixes, function(i, prefix) {
+      if (style[prefix.replace(/\-/g, '')+prop]==='') {
+        can=true;
+      }
+    });
+    return can;
+  }
+
+  function prefixed(prop, value) {
+    var css={};
+    if (!supports.transform) {
+      return css;
+    }
+    $.each(prefixes, function(i, prefix) {
+      css[prefix.toLowerCase()+prop]=value || '';
+    });
+    return css;
+  }
+
+  function generateFilter(deg) {
+    var rot, cos, sin, matrix;
+    if (supports.transform) {
+      return '';
+    }
+    rot=deg>=0 ? Math.PI*deg/180 : Math.PI*(360+deg)/180;
+    cos=Math.cos(rot);
+    sin=Math.sin(rot);
+    matrix='M11='+cos+',M12='+(-sin)+',M21='+sin+',M22='+cos+',SizingMethod="auto expand"';
+    return 'progid:DXImageTransform.Microsoft.Matrix('+matrix+')';
+  }
+
+  supports.transform=supports('Transform');
+  supports.transition=supports('Transition');
+
+  opts.endDeg*=opts.count;
+  opts.duration*=opts.count;
+
+  if (supports.transition && !opts.forceJS) { // CSS-Transition
+    if ((/Firefox/).test(navigator.userAgent)) {
+      wait4css=(!options||!options.animate)&&(opts.startDeg===false||opts.startDeg>=0)?0:25;
+    }
+    $this.queue(function(next) {
+      if (opts.startDeg!==false) {
+        $this.css(prefixed('transform', 'rotate('+opts.startDeg+'deg)'));
+      }
+      setTimeout(function() {
+        $this
+          .css(prefixed('transition', 'all '+opts.duration+'s '+opts.easing))
+          .css(prefixed('transform', 'rotate('+opts.endDeg+'deg)'))
+          .css(opts.animate);
+      }, wait4css);
+
+      setTimeout(function() {
+        $this.css(prefixed('transition'));
+        if (!opts.persist) {
+          $this.css(prefixed('transform'));
+        }
+        next();
+      }, (opts.duration*1000)-wait4css);
+    });
+
+  } else { // JavaScript-Animation + filter
+    if (opts.startDeg===false) {
+      opts.startDeg=$this.data('rotated') || 0;
+    }
+    opts.animate.perc=100;
+
+    $this.animate(opts.animate, {
+      duration: opts.duration*1000,
+      easing: $.easing[opts.easing] ? opts.easing : '',
+      step: function(perc, fx) {
+        var deg;
+        if (fx.prop==='perc') {
+          deg=opts.startDeg+(opts.endDeg-opts.startDeg)*perc/100;
+          $this
+            .css(prefixed('transform', 'rotate('+deg+'deg)'))
+            .css('filter', generateFilter(deg));
+        }
+      },
+      complete: function() {
+        if (opts.persist) {
+          while (opts.endDeg>=360) {
+            opts.endDeg-=360;
+          }
+        } else {
+          opts.endDeg=0;
+          $this.css(prefixed('transform'));
+        }
+        $this.css('perc', 0).data('rotated', opts.endDeg);
+      }
+    });
+  }
+
+  return $this;
+};
+
 function animatedGuy() {
 
-$(".marker").animateSprite({
-  fps: 10,
+$(".playerMarker").animateSprite({
+  fps: 4,
   animations: {
     walkDown: [0, 1, 2, 3, 4, 5, 6, 7]
   },
@@ -243,7 +358,7 @@ $(".marker").animateSprite({
   autoplay: true
 });
 
-$(".marker").animateSprite('play', 'walkDown');
+$(".playerMarker").animateSprite('play', 'walkDown');
 
 
 console.log("hello");
@@ -253,6 +368,7 @@ console.log("hello");
 storage = window.localStorage;
 ajax_users_path = "http://chasingshadowsapi.herokuapp.com/api/v1/users/";
 ajax_enemies_path = "http://chasingshadowsapi.herokuapp.com/api/v1/enemies/";
+ajax_sessions_path = "http://chasingshadowsapi.herokuapp.com/api/v1/sessions/"; // name + password
 
 function getGeoLocationPromise() {
   return new Promise(function(fullfill, reject) {
@@ -563,6 +679,13 @@ CustomMarker.prototype.draw = function() {
 		panes.overlayImage.appendChild(div);
 	}
 
+  // else {
+  //
+  //   console.log("the div existed!")
+  //
+  // }
+
+
 	var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
 
 	if (point) {
@@ -582,6 +705,10 @@ CustomMarker.prototype.getPosition = function() {
 	return this.latlng;
 };
 
+CustomMarker.prototype.setPosition = function(latlng) {
+	this.latlng = latlng;
+};
+
 var latitude;
 var longitude;
 
@@ -599,13 +726,13 @@ function initMap() {
                                 });
     var myLatlng = new google.maps.LatLng(position.coords.latitude,
                                            position.coords.longitude);
-    overlay = new CustomMarker(
-      myLatlng,
-      map,
-      {
-        marker_id: '123'
-      }
-    );
+    // playerMarker = new CustomMarker(
+    //   myLatlng,
+    //   map,
+    //   {
+    //     marker_id: '123'
+    //   }
+    // );
     //
     // animatedGuy();
     // console.log(animatedGuy());
@@ -614,26 +741,26 @@ function initMap() {
     map.setOptions({styles: styles});
     monitorLocation(map);
 
-    // var monsters = [
-    //   ['Alysterius', 51.51964, -0.07535],
-    //   ['Tim the Terrible', 51.5157, -0.0746]
-    // ];
-    //
-    // var monsterIcon = {
-    //   url: "/img/wingedmonster.png", // url
-    //   scaledSize: new google.maps.Size(60, 60), // scaled size
-    //   origin: new google.maps.Point(0,0), // origin
-    //   anchor: new google.maps.Point(0, 0)
-    // };
-    //
-    // for( i = 0; i < monsters.length; i++ ) {
-    //   var pos = new google.maps.LatLng(monsters[i][1], monsters[i][2]);
-    //   monsters[i] = new google.maps.Marker({
-    //     position: pos,
-    //     map: map,
-    //     icon: monsterIcon
-    //   });
-    // }
+    var monsters = [
+      ['Alysterius', 51.51964, -0.07535],
+      ['Tim the Terrible', 51.5157, -0.0746]
+    ];
+
+    var monsterIcon = {
+      url: "/img/wingedmonster.png", // url
+      scaledSize: new google.maps.Size(60, 60), // scaled size
+      origin: new google.maps.Point(0,0), // origin
+      anchor: new google.maps.Point(0, 0)
+    };
+
+    for( i = 0; i < monsters.length; i++ ) {
+      var pos = new google.maps.LatLng(monsters[i][1], monsters[i][2]);
+      monsters[i] = new google.maps.Marker({
+        position: pos,
+        map: map,
+        icon: monsterIcon
+      });
+    }
 
     // var charIcon = {
     //     url: "/img/walkingman.gif", // url
@@ -688,8 +815,13 @@ function monitorLocation(map) {
     console.log("UPDATED");
     var newCenter = new google.maps.LatLng(position.coords.latitude,
                                            position.coords.longitude);
+
     map.panTo(newCenter);
-    animatedGuy();
+
+      // $('.playerMarker').rotate({ endDeg:180, persist:true });
+      $('.playerMarker').rotate({ endDeg: position.coords.heading, duration:0.8, easing:'ease-in', persist: true });
+    // playerMarker.setPosition(newCenter);
+    // animatedGuy();
     pushLocation(position); // updates location when the position changes
   }
   function failure() {

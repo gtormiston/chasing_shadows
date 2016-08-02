@@ -36,6 +36,7 @@ gulp.task('sass', function () {
 gulp.task('scripts', function() {
   return gulp.src(['./www/scripts/vendors/jquery-3.1.0.min.js',
                    './www/scripts/vendors/jquery.animateSprite.js',
+                   './www/scripts/vendors/jquery.rotate.js',
                    './www/scripts/js/spriteanimations.js',
                    './www/scripts/js/vars.js',
                    './www/scripts/js/initializers.js',
