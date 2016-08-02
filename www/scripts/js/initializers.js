@@ -51,3 +51,24 @@ function addListenerForSignIn() {
 
   });
 }
+
+
+function drawMonsters(map) {
+  for( i = 0; i < monsterArray.length; i++ ) {
+    var pos = new google.maps.LatLng(monsterArray[i].lat, monsterArray[i].lng);
+    console.log(pos);
+    monsterOverlay = new CustomMonsterMarker(
+      pos,
+      map,
+      {
+        marker_id: monsterArray[i].id
+      }
+    );
+    console.log(monsterOverlay);
+    // monsters[i] = new google.maps.Marker({
+    //   position: pos,
+    //   map: map,
+    //   icon: monsterIcon
+    // });
+  }
+}

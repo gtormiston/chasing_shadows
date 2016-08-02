@@ -76,7 +76,7 @@ function getMonsters() {
 }
 
 
-function pushLocation(position, callback) {
+function pushLocation(position) {
   $.ajax({
     headers: {
       "Authorization": "Token token=" + storage.getItem("api_key"),
@@ -87,7 +87,7 @@ function pushLocation(position, callback) {
     url: ajax_users_path + storage.getItem("userid"),
   }).done(function() {
       console.log("success - location pushed");
-      callback();
+      // callback();
   }).fail(function() {
       console.log("fail");
   }).always(function() {
