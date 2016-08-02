@@ -6,3 +6,4 @@ node_modules
 # iOS
 /platforms
 /plugins
+/www/scripts/dist/all.js

@@ -35,6 +35,13 @@ CustomMarker.prototype.draw = function() {
 		panes.overlayImage.appendChild(div);
 	}
 
+  // else {
+  //
+  //   console.log("the div existed!")
+  //
+  // }
+
+
 	var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
 
 	if (point) {
@@ -52,4 +59,8 @@ CustomMarker.prototype.remove = function() {
 
 CustomMarker.prototype.getPosition = function() {
 	return this.latlng;
+};
+
+CustomMarker.prototype.setPosition = function(latlng) {
+	this.latlng = latlng;
 };

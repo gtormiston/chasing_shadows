@@ -15,13 +15,13 @@ function initMap() {
                                 });
     var myLatlng = new google.maps.LatLng(position.coords.latitude,
                                            position.coords.longitude);
-    overlay = new CustomMarker(
-      myLatlng,
-      map,
-      {
-        marker_id: '123'
-      }
-    );
+    // playerMarker = new CustomMarker(
+    //   myLatlng,
+    //   map,
+    //   {
+    //     marker_id: '123'
+    //   }
+    // );
     //
     // animatedGuy();
     // console.log(animatedGuy());
@@ -58,6 +58,10 @@ function initMap() {
       //   map: map,
       //   icon: monsterIcon
       // });
+    var monster2 =  getMonsters();
+
+
+
     }
 
     // var charIcon = {
@@ -111,8 +115,15 @@ function monitorLocation(map) {
     console.log("UPDATED");
     var newCenter = new google.maps.LatLng(position.coords.latitude,
                                            position.coords.longitude);
+    getMonsters();
+
+
     map.panTo(newCenter);
-    animatedGuy();
+
+      // $('.playerMarker').rotate({ endDeg:180, persist:true });
+      $('.playerMarker').rotate({ endDeg: position.coords.heading, duration:0.8, easing:'ease-in', persist: true });
+    // playerMarker.setPosition(newCenter);
+    // animatedGuy();
     pushLocation(position); // updates location when the position changes
   }
   function failure() {

@@ -234,8 +234,8 @@ if(e&&1===a.nodeType)while(c=e[d++])a.removeAttribute(c)}}),hb={set:function(a,b
 
 function animatedGuy() {
 
-$(".marker").animateSprite({
-  fps: 10,
+$(".playerMarker").animateSprite({
+  fps: 4,
   animations: {
     walkDown: [0, 1, 2, 3, 4, 5, 6, 7]
   },
@@ -243,7 +243,7 @@ $(".marker").animateSprite({
   autoplay: true
 });
 
-$(".marker").animateSprite('play', 'walkDown');
+$(".playerMarker").animateSprite('play', 'walkDown');
 
 
 console.log("hello");
@@ -253,6 +253,8 @@ console.log("hello");
 storage = window.localStorage;
 ajax_users_path = "http://chasingshadowsapi.herokuapp.com/api/v1/users/";
 ajax_enemies_path = "http://chasingshadowsapi.herokuapp.com/api/v1/enemies/";
+ajax_sessions_path = "http://chasingshadowsapi.herokuapp.com/api/v1/sessions/"; // name + password
+monsterArray = [];
 
 function getGeoLocationPromise() {
   return new Promise(function(fullfill, reject) {
@@ -265,6 +267,45 @@ function getGeoLocationPromise() {
     function failure(){
       reject(new Error("Unable to get position"));
     }
+
+  });
+}
+
+function addListenerForSignUp() {
+  $("#sign_in_link").on("touchstart click", function(){
+    console.log("sign-in page button clicked");
+    load_sign_in_page(addListenerForSignIn);
+  });
+
+  $('#sign_up_form').submit(function(event) {
+    event.preventDefault();
+    var email = $("#email").val().toString();
+    var username = $("#username").val().toString();
+    var password = $("#password").val().toString();
+    var password_confirmation = $("#password_confirmation").val().toString();
+
+    dataText = "user[email]=" + email +
+               "&user[name]=" + username +
+               "&user[password]=" + password +
+               "&user[password_confirmation]=" + password_confirmation;
+
+    sendSignUpRequest(dataText);
+
+  });
+
+}
+
+function addListenerForSignIn() {
+
+  $('#sign_in_form').submit(function(event) {
+    event.preventDefault();
+    var username = $("#username").val().toString();
+    var password = $("#password").val().toString();
+
+    dataText = "user[name]=" + username +
+    "&user[password]=" + password;
+
+    sendSignInRequest(dataText);
 
   });
 }
@@ -285,8 +326,9 @@ function match_height_maps(){
   $("#google_map").css("height", $(document).height());
 }
 
-function load_sign_in_page() {
+function load_sign_in_page(callback) {
   $("#content").html($("#sign_in_form_page").html());
+  callback();
 }
 
 function load_attack_page(){
@@ -566,6 +608,13 @@ CustomMarker.prototype.draw = function() {
 		panes.overlayImage.appendChild(div);
 	}
 
+  // else {
+  //
+  //   console.log("the div existed!")
+  //
+  // }
+
+
 	var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
 
 	if (point) {
@@ -583,6 +632,10 @@ CustomMarker.prototype.remove = function() {
 
 CustomMarker.prototype.getPosition = function() {
 	return this.latlng;
+};
+
+CustomMarker.prototype.setPosition = function(latlng) {
+	this.latlng = latlng;
 };
 
 function CustomMonsterMarker(latlng, map, args) {
@@ -666,13 +719,13 @@ function initMap() {
                                 });
     var myLatlng = new google.maps.LatLng(position.coords.latitude,
                                            position.coords.longitude);
-    overlay = new CustomMarker(
-      myLatlng,
-      map,
-      {
-        marker_id: '123'
-      }
-    );
+    // playerMarker = new CustomMarker(
+    //   myLatlng,
+    //   map,
+    //   {
+    //     marker_id: '123'
+    //   }
+    // );
     //
     // animatedGuy();
     // console.log(animatedGuy());
@@ -709,6 +762,10 @@ function initMap() {
       //   map: map,
       //   icon: monsterIcon
       // });
+    var monster2 =  getMonsters();
+
+
+
     }
 
     // var charIcon = {
@@ -762,8 +819,15 @@ function monitorLocation(map) {
     console.log("UPDATED");
     var newCenter = new google.maps.LatLng(position.coords.latitude,
                                            position.coords.longitude);
+    getMonsters();
+
+
     map.panTo(newCenter);
-    animatedGuy();
+
+      // $('.playerMarker').rotate({ endDeg:180, persist:true });
+      $('.playerMarker').rotate({ endDeg: position.coords.heading, duration:0.8, easing:'ease-in', persist: true });
+    // playerMarker.setPosition(newCenter);
+    // animatedGuy();
     pushLocation(position); // updates location when the position changes
   }
   function failure() {
@@ -780,65 +844,15 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-//     // are we running in native app or in a browser?
-//     window.isphone = false;
-//     if(document.URL.indexOf("http://") === -1
-//         && document.URL.indexOf("https://") === -1) {
-//         window.isphone = true;
-//     }
-//     if( window.isphone ) {
-//         document.addEventListener("deviceready", onDeviceReady, false);
-//     } else {
-//         onDeviceReady();
-//     }
-// });
-//
-// function onDeviceReady() {
+  if (storage.getItem("api_key") === null) {
 
-  load_form_page();
-  initMap();
-
-  $("#sign_in_link").on("touchstart click", function(){
-    console.log("sign-in page button clicked");
-    load_sign_in_page();
-  })
-
-  $('#sign_up_form').submit(function(event) {
-    event.preventDefault();
-    var email = $("#email").val().toString();
-    var username = $("#username").val().toString();
-    var password = $("#password").val().toString();
-    var password_confirmation = $("#password_confirmation").val().toString();
-
-    dataText = "user[email]=" + email +
-               "&user[name]=" + username +
-               "&user[password]=" + password +
-               "&user[password_confirmation]=" + password_confirmation;
-
-    $.ajax({
-      url: ajax_users_path,
-      data: dataText,
-      type: "POST",
-      success: function(data) {
-          console.log(data);
-          storage.setItem("userid", data.id);
-          storage.setItem("user_name", data.name);
-          storage.setItem("email", data.email);
-          storage.setItem("api_key", data.api_key);
-
-          load_welcome_page();
-          match_height_maps();
-
-          $("#gameplay_link").on("touchstart click", function(){
-              load_game_page();
-              initMap();
-          });
-       },
-       error: function(data) {
-         console.log(data);
-       }
-    });
-
-  });
-
+    load_form_page();
+    initMap();
+    addListenerForSignUp();
+  }
+  else {
+    load_game_page();
+    initMap();
+    match_height_maps();
+  }
 }); // end onDeviceReady
