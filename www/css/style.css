@@ -5934,6 +5934,10 @@ input:out-of-range {
 .login-btn {
   text-align: right; }
 
+.attack {
+  width: 100%;
+  background-color: yellow; }
+
 .playerMarker {
   top: 50%;
   left: 50%;
@@ -5942,3 +5946,8 @@ input:out-of-range {
   margin-top: -25px;
   margin-left: -25px;
   background-image: url(../img/gifman-50px.png); }
+
+.monster-marker {
+  height: 107px;
+  width: 100px;
+  background-image: url(../img/wingedmonster-100x107.png); }

@@ -30,28 +30,38 @@ function initMap() {
     map.setOptions({styles: styles});
     monitorLocation(map);
 
-    var monster2 =  getMonsters();
-
-
     var monsters = [
       ['Alysterius', 51.51964, -0.07535],
-      ['Tim the Terrible', 51.5157, -0.0746]
+      ['Tim the Terrible', 51.5157, -0.0746],
     ];
 
-    var monsterIcon = {
-      url: "/img/wingedmonster.png", // url
-      scaledSize: new google.maps.Size(60, 60), // scaled size
-      origin: new google.maps.Point(0,0), // origin
-      anchor: new google.maps.Point(0, 0)
-    };
+    // var monsterIcon = {
+    //   url: "/img/wingedmonster.png", // url
+    //   scaledSize: new google.maps.Size(60, 60), // scaled size
+    //   origin: new google.maps.Point(0,0), // origin
+    //   anchor: new google.maps.Point(0, 0)
+    // };
 
     for( i = 0; i < monsters.length; i++ ) {
       var pos = new google.maps.LatLng(monsters[i][1], monsters[i][2]);
-      monsters[i] = new google.maps.Marker({
-        position: pos,
-        map: map,
-        icon: monsterIcon
-      });
+      console.log(pos)
+      monsterOverlay = new CustomMonsterMarker(
+        pos,
+        map,
+        {
+          marker_id: i
+        }
+      );
+      console.log(monsterOverlay)
+      // monsters[i] = new google.maps.Marker({
+      //   position: pos,
+      //   map: map,
+      //   icon: monsterIcon
+      // });
+    var monster2 =  getMonsters();
+
+
+
     }
 
     // var charIcon = {
@@ -60,15 +70,13 @@ function initMap() {
     //     origin: new google.maps.Point(0,0), // origin
     //     anchor: new google.maps.Point(0, 0) // anchor
     // };
-
+    //
     // var characterMarker = new google.maps.Marker({
     //  position: map.getCenter(),
     //  icon:  charIcon,
     //  map: map,
     //  optimized: false
     // });
-
-
 
   }
 
@@ -108,7 +116,7 @@ function monitorLocation(map) {
     var newCenter = new google.maps.LatLng(position.coords.latitude,
                                            position.coords.longitude);
     getMonsters();
-    
+
 
     map.panTo(newCenter);
 
