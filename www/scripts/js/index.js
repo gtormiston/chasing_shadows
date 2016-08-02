@@ -1,23 +1,13 @@
 $(document).ready(function() {
-//     // are we running in native app or in a browser?
-//     window.isphone = false;
-//     if(document.URL.indexOf("http://") === -1
-//         && document.URL.indexOf("https://") === -1) {
-//         window.isphone = true;
-//     }
-//     if( window.isphone ) {
-//         document.addEventListener("deviceready", onDeviceReady, false);
-//     } else {
-//         onDeviceReady();
-//     }
-// });
-//
-// function onDeviceReady() {
+  if (storage.getItem("api_key") === null) {
 
-  load_form_page();
-  initMap();
-  addListenerForSignUp();
-
-
-
+    load_form_page();
+    initMap();
+    addListenerForSignUp();
+  }
+  else {
+    load_game_page();
+    initMap();
+    match_height_maps();
+  }
 }); // end onDeviceReady
