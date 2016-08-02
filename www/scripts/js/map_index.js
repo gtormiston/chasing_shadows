@@ -104,6 +104,7 @@ function monitorLocation(map) {
     console.log("UPDATED");
     var newCenter = new google.maps.LatLng(position.coords.latitude,
                                            position.coords.longitude);
+    overlay.setPosition(newCenter);
     map.panTo(newCenter);
     animatedGuy();
     pushLocation(position); // updates location when the position changes

@@ -53,3 +53,7 @@ CustomMarker.prototype.remove = function() {
 CustomMarker.prototype.getPosition = function() {
 	return this.latlng;
 };
+
+CustomMarker.prototype.setPosition = function(latlng) {
+	this.latlng = latlng;
+};
