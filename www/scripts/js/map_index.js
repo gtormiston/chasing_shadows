@@ -44,8 +44,8 @@ function initMap() {
 
     for( i = 0; i < monsters.length; i++ ) {
       var pos = new google.maps.LatLng(monsters[i][1], monsters[i][2]);
-      console.log()
-      monsterOverlay = new CustomMarker(
+      console.log(pos)
+      monsterOverlay = new CustomMonsterMarker(
         pos,
         map,
         {

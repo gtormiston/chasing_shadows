@@ -1,11 +1,11 @@
-function CustomMarker(latlng, map, args) {
+function CustomMonsterMarker(latlng, map, args) {
 	this.latlng = latlng;
 	this.args = args;
 	this.setMap(map);
 }
 
-CustomMarker.prototype = new google.maps.OverlayView();
-CustomMarker.prototype.draw = function() {
+CustomMonsterMarker.prototype = new google.maps.OverlayView();
+CustomMonsterMarker.prototype.draw = function() {
 
 	var self = this;
 	var div = this.div;
@@ -43,13 +43,13 @@ CustomMarker.prototype.draw = function() {
 	}
 };
 
-CustomMarker.prototype.remove = function() {
+CustomMonsterMarker.prototype.remove = function() {
 	if (this.div) {
 		this.div.parentNode.removeChild(this.div);
 		this.div = null;
 	}
 };
 
-CustomMarker.prototype.getPosition = function() {
+CustomMonsterMarker.prototype.getPosition = function() {
 	return this.latlng;
 };
