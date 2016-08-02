@@ -750,6 +750,9 @@ $(document).ready(function() {
               load_game_page();
               initMap();
           });
+       },
+       error: function(data) {
+         console.log(data);
        }
     });
 
