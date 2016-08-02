@@ -17,6 +17,11 @@ $(document).ready(function() {
   load_form_page();
   initMap();
 
+  $("#sign_in_link").on("touchstart click", function(){
+    console.log("sign-in page button clicked");
+    load_sign_in_page();
+  })
+
   $('#sign_up_form').submit(function(event) {
     event.preventDefault();
     var email = $("#email").val().toString();

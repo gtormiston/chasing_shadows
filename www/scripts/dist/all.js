@@ -285,6 +285,10 @@ function match_height_maps(){
   $("#google_map").css("height", $(document).height());
 }
 
+function load_sign_in_page() {
+  $("#content").html($("#sign_in_form_page").html());
+}
+
 var styles = [
 {
     "featureType": "all",
@@ -719,6 +723,11 @@ $(document).ready(function() {
 
   load_form_page();
   initMap();
+
+$("#sign_in_link").on("touchstart click", function(){
+    console.log("sign-in page button clicked");
+    load_sign_in_page();
+  })
 
   $('#sign_up_form').submit(function(event) {
     event.preventDefault();
