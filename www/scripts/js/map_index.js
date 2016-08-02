@@ -31,15 +31,19 @@ function initMap() {
     // animatedGuy();
     // console.log(animatedGuy());
     // // $(".marker").animateSprite('play', 'walkDown');
+    pushLocation(position, getMonsters, map);
+
+    drawMonsters(map);
 
     map.setOptions({styles: styles});
+
     monitorLocation(map);
 
     // var monster2 =  getMonsters();
-    var monsters = [
-      ['Alysterius', 51.51964, -0.07535],
-      ['Tim the Terrible', 51.5157, -0.0746],
-    ];
+    // var monsters = [
+    //   ['Alysterius', 51.51964, -0.07535],
+    //   ['Tim the Terrible', 51.5157, -0.0746],
+    // ];
 
 
 
@@ -49,26 +53,6 @@ function initMap() {
     //   origin: new google.maps.Point(0,0), // origin
     //   anchor: new google.maps.Point(0, 0)
     // };
-
-    function drawMonsters() {
-      for( i = 0; i < monsters.length; i++ ) {
-        var pos = new google.maps.LatLng(monstersArray[i][1], monstersArray[i][2]);
-        console.log(pos)
-        monsterOverlay = new CustomMonsterMarker(
-          pos,
-          map,
-          {
-            marker_id: i
-          }
-        );
-        console.log(monsterOverlay)
-        // monsters[i] = new google.maps.Marker({
-        //   position: pos,
-        //   map: map,
-        //   icon: monsterIcon
-        // });
-      }
-    }
 
 
 
@@ -97,6 +81,26 @@ function initMap() {
 } // close initMap
 
 
+function drawMonsters(map) {
+  for( i = 0; i < monsterArray.length; i++ ) {
+    var pos = new google.maps.LatLng(monsterArray[i].lat, monsterArray[i].lng);
+    console.log(pos);
+    monsterOverlay = new CustomMonsterMarker(
+      pos,
+      map,
+      {
+        marker_id: monsterArray[i].id
+      }
+    );
+    console.log(monsterOverlay);
+    // monsters[i] = new google.maps.Marker({
+    //   position: pos,
+    //   map: map,
+    //   icon: monsterIcon
+    // });
+  }
+}
+
 
 function monitorLocation(map) {
   console.log("monitorLocation 1");
@@ -109,7 +113,7 @@ function monitorLocation(map) {
     map.panTo(newCenter);
 
     pushLocation(position, getMonsters); // updates location when the position changes
-
+    drawMonsters(map);
 
     // $('.playerMarker').rotate({ endDeg:180, persist:true });
     // $('.playerMarker').rotate({ endDeg: position.coords.heading, duration:0.8, easing:'ease-in', persist: true });
