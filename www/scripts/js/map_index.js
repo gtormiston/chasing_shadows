@@ -30,6 +30,9 @@ function initMap() {
     map.setOptions({styles: styles});
     monitorLocation(map);
 
+    var monster2 =  getMonsters();
+
+
     var monsters = [
       ['Alysterius', 51.51964, -0.07535],
       ['Tim the Terrible', 51.5157, -0.0746]
@@ -104,6 +107,8 @@ function monitorLocation(map) {
     console.log("UPDATED");
     var newCenter = new google.maps.LatLng(position.coords.latitude,
                                            position.coords.longitude);
+    getMonsters();
+    
 
     map.panTo(newCenter);
 
