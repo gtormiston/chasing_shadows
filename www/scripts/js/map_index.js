@@ -13,8 +13,8 @@ function initMap() {
                                           },
                                   zoom: 18,
                                 });
-    // var myLatlng = new google.maps.LatLng(position.coords.latitude,
-    //                                        position.coords.longitude);
+    var myLatlng = new google.maps.LatLng(position.coords.latitude,
+                                           position.coords.longitude);
     // playerMarker = new CustomMarker(
     //   myLatlng,
     //   map,
@@ -106,6 +106,9 @@ function monitorLocation(map) {
                                            position.coords.longitude);
 
     map.panTo(newCenter);
+
+      // $('.playerMarker').rotate({ endDeg:180, persist:true });
+      $('.playerMarker').rotate({ endDeg: position.coords.heading, duration:0.8, easing:'ease-in', persist: true });
     // playerMarker.setPosition(newCenter);
     // animatedGuy();
     pushLocation(position); // updates location when the position changes
