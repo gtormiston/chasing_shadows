@@ -18,6 +18,8 @@ $( document ).ready(function() {
         //     console.log("complete");
         // })
 
+
+
         console.log("form loaded");
         $("#content").html($("#form_page").html());
 
@@ -32,7 +34,7 @@ $( document ).ready(function() {
           var email = $("#email").val().toString();
           var username = $("#username").val().toString();
           var password = $("#password").val().toString();
-          var passwordConfirmation = $("#password_confirmation").val().toString();
+          var password_confirmation = $("#password_confirmation").val().toString();
 
           // var data = {user: {email: email,
           //   name: username,
