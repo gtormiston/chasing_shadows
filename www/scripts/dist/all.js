@@ -253,6 +253,61 @@ console.log("hello");
 storage = window.localStorage;
 ajax_users_path = "http://chasingshadowsapi.herokuapp.com/api/v1/users/";
 ajax_enemies_path = "http://chasingshadowsapi.herokuapp.com/api/v1/enemies/";
+ajax_sessions_path = "http://chasingshadowsapi.herokuapp.com/api/v1/sessions/";
+
+
+function sendSignUpRequest(dataText) {
+  $.ajax({
+    url: ajax_users_path,
+    data: dataText,
+    type: "POST",
+    success: function(data) {
+        console.log(data);
+        storage.setItem("userid", data.id);
+        storage.setItem("user_name", data.name);
+        storage.setItem("email", data.email);
+        storage.setItem("api_key", data.api_key);
+
+        load_welcome_page();
+        match_height_maps();
+
+        $("#gameplay_link").on("touchstart click", function(){
+            load_game_page();
+            initMap();
+        });
+     },
+     error: function(data) {
+       console.log(data);
+     }
+  });
+}
+
+
+function sendSignInRequest(dataText) {
+  $.ajax({
+    url: ajax_sessions_path,
+    data: dataText,
+    type: "POST",
+    success: function(data) {
+      console.log(data);
+      storage.setItem("userid", data.id);
+      storage.setItem("user_name", data.name);
+      storage.setItem("email", data.email);
+      storage.setItem("api_key", data.api_key);
+
+      load_welcome_page();
+      match_height_maps();
+
+      $("#gameplay_link").on("touchstart click", function(){
+        load_game_page();
+        initMap();
+      });
+    },
+    error: function(data) {
+      console.log(data);
+    }
+  });
+}
 
 function getGeoLocationPromise() {
   return new Promise(function(fullfill, reject) {
@@ -265,6 +320,45 @@ function getGeoLocationPromise() {
     function failure(){
       reject(new Error("Unable to get position"));
     }
+
+  });
+}
+
+function addListenerForSignUp() {
+  $("#sign_in_link").on("touchstart click", function(){
+    console.log("sign-in page button clicked");
+    load_sign_in_page(addListenerForSignIn);
+  });
+
+  $('#sign_up_form').submit(function(event) {
+    event.preventDefault();
+    var email = $("#email").val().toString();
+    var username = $("#username").val().toString();
+    var password = $("#password").val().toString();
+    var password_confirmation = $("#password_confirmation").val().toString();
+
+    dataText = "user[email]=" + email +
+               "&user[name]=" + username +
+               "&user[password]=" + password +
+               "&user[password_confirmation]=" + password_confirmation;
+
+    sendSignUpRequest(dataText);
+
+  });
+
+}
+
+function addListenerForSignIn() {
+
+  $('#sign_in_form').submit(function(event) {
+    event.preventDefault();
+    var username = $("#username").val().toString();
+    var password = $("#password").val().toString();
+
+    dataText = "user[name]=" + username +
+    "&user[password]=" + password;
+
+    sendSignInRequest(dataText);
 
   });
 }
@@ -285,8 +379,9 @@ function match_height_maps(){
   $("#google_map").css("height", $(document).height());
 }
 
-function load_sign_in_page() {
+function load_sign_in_page(callback) {
   $("#content").html($("#sign_in_form_page").html());
+  callback();
 }
 
 var styles = [
@@ -723,48 +818,8 @@ $(document).ready(function() {
 
   load_form_page();
   initMap();
+  addListenerForSignUp();
 
-$("#sign_in_link").on("touchstart click", function(){
-    console.log("sign-in page button clicked");
-    load_sign_in_page();
-  })
 
-  $('#sign_up_form').submit(function(event) {
-    event.preventDefault();
-    var email = $("#email").val().toString();
-    var username = $("#username").val().toString();
-    var password = $("#password").val().toString();
-    var password_confirmation = $("#password_confirmation").val().toString();
-
-    dataText = "user[email]=" + email +
-               "&user[name]=" + username +
-               "&user[password]=" + password +
-               "&user[password_confirmation]=" + password_confirmation;
-
-    $.ajax({
-      url: ajax_users_path,
-      data: dataText,
-      type: "POST",
-      success: function(data) {
-          console.log(data);
-          storage.setItem("userid", data.id);
-          storage.setItem("user_name", data.name);
-          storage.setItem("email", data.email);
-          storage.setItem("api_key", data.api_key);
-
-          load_welcome_page();
-          match_height_maps();
-
-          $("#gameplay_link").on("touchstart click", function(){
-              load_game_page();
-              initMap();
-          });
-       },
-       error: function(data) {
-         console.log(data);
-       }
-    });
-
-  });
 
 }); // end onDeviceReady

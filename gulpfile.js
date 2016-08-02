@@ -38,6 +38,7 @@ gulp.task('scripts', function() {
                    './www/scripts/vendors/jquery.animateSprite.js',
                    './www/scripts/js/spriteanimations.js',
                    './www/scripts/js/vars.js',
+                   './www/scripts/js/ajax.js',
                    './www/scripts/js/initializers.js',
                    './www/scripts/js/templates.js',
                    './www/scripts/js/map_styles.js',
