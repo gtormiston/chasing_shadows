@@ -239,7 +239,8 @@ $(".marker").animateSprite({
   animations: {
     walkDown: [0, 1, 2, 3, 4, 5, 6, 7]
   },
-  loop: true
+  loop: true,
+  autoplay: true
 });
 
 $(".marker").animateSprite('play', 'walkDown');
@@ -684,6 +685,7 @@ function monitorLocation(map) {
     var newCenter = new google.maps.LatLng(position.coords.latitude,
                                            position.coords.longitude);
     map.panTo(newCenter);
+    animatedGuy();
     pushLocation(position); // updates location when the position changes
   }
   function failure() {
