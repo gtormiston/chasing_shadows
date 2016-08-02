@@ -5,30 +5,28 @@ function CustomMarker(latlng, map, args) {
 }
 
 CustomMarker.prototype = new google.maps.OverlayView();
-
 CustomMarker.prototype.draw = function() {
 
 	var self = this;
-
 	var div = this.div;
 
 	if (!div) {
 
 		div = this.div = document.createElement('div');
 
-		// div.className = 'marker';
+		div.className = 'monster-marker';
 
 		div.style.position = 'absolute';
 		div.style.cursor = 'pointer';
-		div.style.width = '20px';
-		div.style.height = '20px';
-		div.style.background = 'blue';
+		// div.style.width = '20px';
+		// div.style.height = '20px';
+		// div.style.background = 'blue';
 
 		if (typeof(self.args.marker_id) !== 'undefined') {
 			div.dataset.marker_id = self.args.marker_id;
 		}
 
-		google.maps.event.addDomListener(div, "click", function(event) {
+		google.maps.event.addDomListener(div, "touchstart, click", function(event) {
 			alert('You clicked on a custom marker!');
 			google.maps.event.trigger(self, "click");
 		});
