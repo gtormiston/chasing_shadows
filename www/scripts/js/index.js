@@ -22,11 +22,6 @@ $(document).ready(function() {
     load_sign_in_page();
   })
 
-  // $("#monster-marker").on("touchstart click", function(){
-  //   console.log("marker has been clicked")
-  //   load_attack_page();
-  // })
-
   $('#sign_up_form').submit(function(event) {
     event.preventDefault();
     var email = $("#email").val().toString();

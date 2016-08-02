@@ -292,7 +292,6 @@ function load_sign_in_page() {
 function load_attack_page(){
   $("#content").html($("#attack_page").html());
 }
-
 var styles = [
 {
     "featureType": "all",
@@ -803,11 +802,6 @@ $(document).ready(function() {
     console.log("sign-in page button clicked");
     load_sign_in_page();
   })
-
-  // $("#monster-marker").on("touchstart click", function(){
-  //   console.log("marker has been clicked")
-  //   load_attack_page();
-  // })
 
   $('#sign_up_form').submit(function(event) {
     event.preventDefault();

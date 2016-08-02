@@ -5934,6 +5934,10 @@ input:out-of-range {
 .login-btn {
   text-align: right; }
 
+.attack {
+  width: 100%;
+  background-color: yellow; }
+
 .marker {
   height: 300px;
   width: 300px;
