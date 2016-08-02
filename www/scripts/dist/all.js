@@ -815,7 +815,7 @@ function monitorLocation(map) {
     map.panTo(newCenter);
 
       // $('.playerMarker').rotate({ endDeg:180, persist:true });
-      $('.playerMarker').rotate({ endDeg:-270, duration:0.8, persist: true });
+      $('.playerMarker').rotate({ endDeg: position.coords.heading, duration:0.8, easing:'ease-in', persist: true });
     // playerMarker.setPosition(newCenter);
     // animatedGuy();
     pushLocation(position); // updates location when the position changes
