@@ -74,3 +74,23 @@ function getMonsters() {
   });
 
 }
+
+
+function pushLocation(position, callback) {
+  $.ajax({
+    headers: {
+      "Authorization": "Token token=" + storage.getItem("api_key"),
+      "USER_LATITUDE": position.coords.latitude.toString(),
+      "USER_LONGITUDE": position.coords.longitude.toString()
+    },
+    type: 'PUT',
+    url: ajax_users_path + storage.getItem("userid"),
+  }).done(function() {
+      console.log("success - location pushed");
+      callback();
+  }).fail(function() {
+      console.log("fail");
+  }).always(function() {
+      console.log("complete");
+  });
+}

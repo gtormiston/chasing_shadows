@@ -1,9 +1,9 @@
 $(document).ready(function() {
-  if (storage.getItem("api_key") === null) {
+  if (storage.getItem("api_key") == false) {
 
     load_form_page();
-    initMap();
     addListenerForSignUp();
+    initMap();
   }
   else {
     load_game_page();

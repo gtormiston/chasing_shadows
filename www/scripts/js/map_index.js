@@ -12,9 +12,14 @@ function initMap() {
                                            lng: center.longitude
                                           },
                                   zoom: 18,
+                                  minZoom: 13,
+                                  maxZoom: 19,
+                                  draggable: true
+                                  // zoomControl: false
+                                  // panControl: false
                                 });
-    var myLatlng = new google.maps.LatLng(position.coords.latitude,
-                                           position.coords.longitude);
+    // var myLatlng = new google.maps.LatLng(position.coords.latitude,
+                                          //  position.coords.longitude);
     // playerMarker = new CustomMarker(
     //   myLatlng,
     //   map,
@@ -30,10 +35,13 @@ function initMap() {
     map.setOptions({styles: styles});
     monitorLocation(map);
 
+    // var monster2 =  getMonsters();
     var monsters = [
       ['Alysterius', 51.51964, -0.07535],
       ['Tim the Terrible', 51.5157, -0.0746],
     ];
+
+
 
     // var monsterIcon = {
     //   url: "/img/wingedmonster.png", // url
@@ -42,27 +50,28 @@ function initMap() {
     //   anchor: new google.maps.Point(0, 0)
     // };
 
-    for( i = 0; i < monsters.length; i++ ) {
-      var pos = new google.maps.LatLng(monsters[i][1], monsters[i][2]);
-      console.log(pos)
-      monsterOverlay = new CustomMonsterMarker(
-        pos,
-        map,
-        {
-          marker_id: i
-        }
-      );
-      console.log(monsterOverlay)
-      // monsters[i] = new google.maps.Marker({
-      //   position: pos,
-      //   map: map,
-      //   icon: monsterIcon
-      // });
-    var monster2 =  getMonsters();
-
-
-
+    function drawMonsters() {
+      for( i = 0; i < monsters.length; i++ ) {
+        var pos = new google.maps.LatLng(monstersArray[i][1], monstersArray[i][2]);
+        console.log(pos)
+        monsterOverlay = new CustomMonsterMarker(
+          pos,
+          map,
+          {
+            marker_id: i
+          }
+        );
+        console.log(monsterOverlay)
+        // monsters[i] = new google.maps.Marker({
+        //   position: pos,
+        //   map: map,
+        //   icon: monsterIcon
+        // });
+      }
     }
+
+
+
 
     // var charIcon = {
     //     url: "/img/walkingman.gif", // url
@@ -89,42 +98,24 @@ function initMap() {
 
 
 
-function pushLocation(position) {
-  $.ajax({
-    headers: {
-      "Authorization": "Token token=" + storage.getItem("api_key"),
-      "USER_LATITUDE": position.coords.latitude.toString(),
-      "USER_LONGITUDE": position.coords.longitude.toString()
-    },
-    type: 'PUT',
-    url: ajax_users_path + storage.getItem("userid"),
-  }).done(function() {
-      console.log("success");
-  }).fail(function() {
-      console.log("fail");
-  }).always(function() {
-      console.log("complete");
-  });
-}
-
-
 function monitorLocation(map) {
+  console.log("monitorLocation 1");
   navigator.geolocation.watchPosition(updateSuccess, failure, { enableHighAccuracy: true });
 
   function updateSuccess(position) {
     console.log("UPDATED");
     var newCenter = new google.maps.LatLng(position.coords.latitude,
                                            position.coords.longitude);
-    getMonsters();
-
-
     map.panTo(newCenter);
 
-      // $('.playerMarker').rotate({ endDeg:180, persist:true });
-      $('.playerMarker').rotate({ endDeg: position.coords.heading, duration:0.8, easing:'ease-in', persist: true });
+    pushLocation(position, getMonsters); // updates location when the position changes
+
+
+    // $('.playerMarker').rotate({ endDeg:180, persist:true });
+    // $('.playerMarker').rotate({ endDeg: position.coords.heading, duration:0.8, easing:'ease-in', persist: true });
     // playerMarker.setPosition(newCenter);
     // animatedGuy();
-    pushLocation(position); // updates location when the position changes
+
   }
   function failure() {
     console.error("unable to update position");
