@@ -1,6 +1,6 @@
 function animatedGuy() {
 
-$(".marker").animateSprite({
+$(".playerMarker").animateSprite({
   fps: 4,
   animations: {
     walkDown: [0, 1, 2, 3, 4, 5, 6, 7]
@@ -9,7 +9,7 @@ $(".marker").animateSprite({
   autoplay: true
 });
 
-$(".marker").animateSprite('play', 'walkDown');
+$(".playerMarker").animateSprite('play', 'walkDown');
 
 
 console.log("hello");

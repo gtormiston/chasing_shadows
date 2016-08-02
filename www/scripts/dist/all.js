@@ -234,7 +234,7 @@ if(e&&1===a.nodeType)while(c=e[d++])a.removeAttribute(c)}}),hb={set:function(a,b
 
 function animatedGuy() {
 
-$(".marker").animateSprite({
+$(".playerMarker").animateSprite({
   fps: 4,
   animations: {
     walkDown: [0, 1, 2, 3, 4, 5, 6, 7]
@@ -243,7 +243,7 @@ $(".marker").animateSprite({
   autoplay: true
 });
 
-$(".marker").animateSprite('play', 'walkDown');
+$(".playerMarker").animateSprite('play', 'walkDown');
 
 
 console.log("hello");
@@ -253,6 +253,7 @@ console.log("hello");
 storage = window.localStorage;
 ajax_users_path = "http://chasingshadowsapi.herokuapp.com/api/v1/users/";
 ajax_enemies_path = "http://chasingshadowsapi.herokuapp.com/api/v1/enemies/";
+ajax_sessions_path = "http://chasingshadowsapi.herokuapp.com/api/v1/sessions/"; // name + password
 
 function getGeoLocationPromise() {
   return new Promise(function(fullfill, reject) {
@@ -559,6 +560,13 @@ CustomMarker.prototype.draw = function() {
 		panes.overlayImage.appendChild(div);
 	}
 
+  // else {
+  //
+  //   console.log("the div existed!")
+  //
+  // }
+
+
 	var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
 
 	if (point) {
@@ -578,6 +586,10 @@ CustomMarker.prototype.getPosition = function() {
 	return this.latlng;
 };
 
+CustomMarker.prototype.setPosition = function(latlng) {
+	this.latlng = latlng;
+};
+
 var latitude;
 var longitude;
 
@@ -593,15 +605,15 @@ function initMap() {
                                           },
                                   zoom: 18,
                                 });
-    var myLatlng = new google.maps.LatLng(position.coords.latitude,
-                                           position.coords.longitude);
-    overlay = new CustomMarker(
-      myLatlng,
-      map,
-      {
-        marker_id: '123'
-      }
-    );
+    // var myLatlng = new google.maps.LatLng(position.coords.latitude,
+    //                                        position.coords.longitude);
+    // playerMarker = new CustomMarker(
+    //   myLatlng,
+    //   map,
+    //   {
+    //     marker_id: '123'
+    //   }
+    // );
     //
     // animatedGuy();
     // console.log(animatedGuy());
@@ -684,8 +696,10 @@ function monitorLocation(map) {
     console.log("UPDATED");
     var newCenter = new google.maps.LatLng(position.coords.latitude,
                                            position.coords.longitude);
+
     map.panTo(newCenter);
-    animatedGuy();
+    // playerMarker.setPosition(newCenter);
+    // animatedGuy();
     pushLocation(position); // updates location when the position changes
   }
   function failure() {

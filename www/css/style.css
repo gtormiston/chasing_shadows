@@ -5917,7 +5917,9 @@ body {
 .navbar-margin {
   margin: 10px 10px; }
 
-.marker {
+.playerMarker {
+  top: 50%;
+  left: 50%;
   height: 50px;
   width: 50px;
   margin-top: -25px;
