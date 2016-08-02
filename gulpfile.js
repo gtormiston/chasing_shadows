@@ -3,6 +3,9 @@ var gulp = require('gulp');
 var Server = require('karma').Server;
 var sass = require('gulp-sass');
 connect = require('gulp-connect');
+var concat = require('gulp-concat');
+uglify = require('gulp-uglify'),
+
 // var phantom = require('phantomjs-prebuilt');
 
 
@@ -34,6 +37,22 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('./www/css'));
 });
 
-gulp.task('sass:watch', function () {
+
+gulp.task('scripts', function() {
+  return gulp.src(['./www/scripts/vendors/jquery-3.1.0.min.js',
+                   './www/scripts/js/vars.js',
+                   './www/scripts/js/templates.js',
+                   './www/scripts/js/map_styles.js',
+                   './www/scripts/js/map_index.js',
+                   './www/scripts/js/match_height.js',
+                   './www/scripts/js/index.js',
+                  ])
+    .pipe(concat('all.js'))
+    // .pipe(uglify())
+    .pipe(gulp.dest('./www/scripts/dist'));
+});
+
+gulp.task('watch', function () {
   gulp.watch('./www/sass/**/*.scss', ['sass']);
+  gulp.watch('./www/scripts/js/*.js', ['scripts'])
 });
