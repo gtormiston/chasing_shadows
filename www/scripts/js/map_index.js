@@ -2,6 +2,7 @@ var latitude;
 var longitude;
 
 function initMap() {
+
   function drawMap(position){
     var center = position.coords;
     var mapDiv = document.getElementById("google_map");
@@ -12,6 +13,15 @@ function initMap() {
                                           },
                                   zoom: 18,
                                 });
+    var myLatlng = new google.maps.LatLng(center);
+    overlay = new CustomMarker(
+      myLatlng,
+      map,
+      {
+        marker_id: '123'
+      }
+    );
+
     map.setOptions({styles: styles});
     monitorLocation(map);
 
@@ -36,20 +46,22 @@ function initMap() {
       });
     }
 
-    var charIcon = {
-        url: "/img/walkingman.gif", // url
-        scaledSize: new google.maps.Size(50, 50), // scaled size
-        origin: new google.maps.Point(0,0), // origin
-        anchor: new google.maps.Point(0, 0) // anchor
-    };
+    // var charIcon = {
+    //     url: "/img/walkingman.gif", // url
+    //     scaledSize: new google.maps.Size(50, 50), // scaled size
+    //     origin: new google.maps.Point(0,0), // origin
+    //     anchor: new google.maps.Point(0, 0) // anchor
+    // };
+
+    // var characterMarker = new google.maps.Marker({
+    //  position: map.getCenter(),
+    //  icon:  charIcon,
+    //  map: map,
+    //  optimized: false
+    // });
 
 
-    var characterMarker = new google.maps.Marker({
-     position: map.getCenter(),
-     icon:  charIcon,
-     map: map,
-     optimized: false
-    });
+
   }
 
   var locationPromise = getGeoLocationPromise();
@@ -61,7 +73,6 @@ function initMap() {
 
 
 function pushLocation(position) {
-
   $.ajax({
     headers: {
       "Authorization": "Token token=" + storage.getItem("api_key"),
@@ -69,7 +80,7 @@ function pushLocation(position) {
       "USER_LONGITUDE": position.coords.longitude.toString()
     },
     type: 'PUT',
-    url: "//chasingshadowsapi.herokuapp.com/api/v1/users/" + storage.getItem("userid"),
+    url: ajax_users_path + storage.getItem("userid"),
   }).done(function() {
       console.log("success");
   }).fail(function() {
@@ -93,19 +104,4 @@ function monitorLocation(map) {
   function failure() {
     console.error("unable to update position");
   }
-}
-
-function getGeoLocationPromise() {
-  return new Promise(function(fullfill, reject) {
-      // only runs when API available
-      navigator.geolocation.getCurrentPosition(success, failure);
-
-    function success(position) {
-      fullfill(position);
-    }
-    function failure(){
-      reject(new Error("Unable to get position"));
-    }
-
-  });
 }
