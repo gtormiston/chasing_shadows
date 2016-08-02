@@ -18,9 +18,9 @@ CustomMarker.prototype.draw = function() {
 
 		div.style.position = 'absolute';
 		div.style.cursor = 'pointer';
-		div.style.width = '20px';
-		div.style.height = '20px';
-		div.style.background = 'blue';
+		// div.style.width = '20px';
+		// div.style.height = '20px';
+		// div.style.background = 'blue';
 
 		if (typeof(self.args.marker_id) !== 'undefined') {
 			div.dataset.marker_id = self.args.marker_id;

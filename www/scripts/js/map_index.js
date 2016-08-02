@@ -22,6 +22,10 @@ function initMap() {
         marker_id: '123'
       }
     );
+    //
+    // animatedGuy();
+    // console.log(animatedGuy());
+    // // $(".marker").animateSprite('play', 'walkDown');
 
     map.setOptions({styles: styles});
     monitorLocation(map);
@@ -69,6 +73,7 @@ function initMap() {
   locationPromise.then(function(position) {
     drawMap(position);
   });
+  animatedGuy();
 } // close initMap
 
 

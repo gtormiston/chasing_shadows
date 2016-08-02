@@ -232,6 +232,22 @@ if(e&&1===a.nodeType)while(c=e[d++])a.removeAttribute(c)}}),hb={set:function(a,b
 
 })(jQuery, window);
 
+function animatedGuy() {
+
+$(".marker").animateSprite({
+  fps: 10,
+  animations: {
+    walkDown: [0, 1, 2, 3, 4, 5, 6, 7]
+  },
+  loop: true
+});
+
+$(".marker").animateSprite('play', 'walkDown');
+
+
+console.log("hello");
+}
+
 /* Vars */
 storage = window.localStorage;
 ajax_users_path = "http://chasingshadowsapi.herokuapp.com/api/v1/users/";
@@ -525,9 +541,9 @@ CustomMarker.prototype.draw = function() {
 
 		div.style.position = 'absolute';
 		div.style.cursor = 'pointer';
-		div.style.width = '20px';
-		div.style.height = '20px';
-		div.style.background = 'blue';
+		// div.style.width = '20px';
+		// div.style.height = '20px';
+		// div.style.background = 'blue';
 
 		if (typeof(self.args.marker_id) !== 'undefined') {
 			div.dataset.marker_id = self.args.marker_id;
@@ -585,6 +601,10 @@ function initMap() {
         marker_id: '123'
       }
     );
+    //
+    // animatedGuy();
+    // console.log(animatedGuy());
+    // // $(".marker").animateSprite('play', 'walkDown');
 
     map.setOptions({styles: styles});
     monitorLocation(map);
@@ -632,6 +652,7 @@ function initMap() {
   locationPromise.then(function(position) {
     drawMap(position);
   });
+  animatedGuy();
 } // close initMap
 
 
@@ -714,7 +735,7 @@ $(document).ready(function() {
       data: dataText,
       type: "POST",
       success: function(data) {
-          console.log(data)
+          console.log(data);
           storage.setItem("userid", data.id);
           storage.setItem("user_name", data.name);
           storage.setItem("email", data.email);
