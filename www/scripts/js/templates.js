@@ -20,6 +20,7 @@ function load_sign_in_page(callback) {
 }
 
 function load_attack_page(monsterId){
+  
   $("#content").html($("#attack_page").html());
   console.log("MonsterId is: " + monsterId);
   // getMonsterInfo(monsterId); // function doesn't exist yet but needs to

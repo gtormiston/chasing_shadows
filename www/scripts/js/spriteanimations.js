@@ -29,3 +29,18 @@ $(".monster-marker").animateSprite('play', 'monsterMove');
 
 console.log("monster should move");
 }
+
+function monsterFight() {
+$(".monster-fight").animateSprite({
+  fps: 6,
+  animations: {
+    monsterFight: [0, 1, 2]
+  },
+  loop: true,
+  autoplay: true
+});
+
+$(".monster-fight").animateSprite('play', 'monsterFight');
+
+console.log("monster should look around");
+}

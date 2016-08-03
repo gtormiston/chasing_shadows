@@ -5959,3 +5959,8 @@ input:out-of-range {
   height: 100px;
   width: 113.3px;
   background-image: url(../img/s-monster-horizontal-100px.png); }
+
+.monster-fight {
+  height: 300px;
+  width: 340.3px;
+  background-image: url(../img/s-monster-horizontal-300px.png); }

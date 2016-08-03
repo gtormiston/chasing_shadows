@@ -84,6 +84,7 @@ function monitorLocation(map) {
     $.when(getMonsters()).then(function( x ) {
       console.log( "Get Monsters complete v2" );
       drawMonsters(map);
+      animatedMonsters();
     });
 
     $.when(drawMonsters()).then(function( x ) {

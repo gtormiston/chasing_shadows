@@ -379,6 +379,21 @@ $(".monster-marker").animateSprite('play', 'monsterMove');
 console.log("monster should move");
 }
 
+function monsterFight() {
+$(".monster-fight").animateSprite({
+  fps: 6,
+  animations: {
+    monsterFight: [0, 1, 2]
+  },
+  loop: true,
+  autoplay: true
+});
+
+$(".monster-fight").animateSprite('play', 'monsterFight');
+
+console.log("monster should look around");
+}
+
 /* Vars */
 storage = window.localStorage;
 ajax_users_path = "http://chasingshadowsapi.herokuapp.com/api/v1/users/";
@@ -557,6 +572,7 @@ function load_sign_in_page(callback) {
 }
 
 function load_attack_page(monsterId){
+  
   $("#content").html($("#attack_page").html());
   console.log("MonsterId is: " + monsterId);
   // getMonsterInfo(monsterId); // function doesn't exist yet but needs to
@@ -875,7 +891,7 @@ function CustomMonsterMarker(latlng, map, args) {
 CustomMonsterMarker.prototype = new google.maps.OverlayView();
 
 CustomMonsterMarker.prototype.draw = function() {
-  console.log("monster marker prototype draw 1")
+  console.log("monster marker prototype draw 1");
 	var self = this;
 	var div = this.div;
 
@@ -895,13 +911,13 @@ CustomMonsterMarker.prototype.draw = function() {
 		}
 
 		google.maps.event.addDomListener(div, "touchstart", function() {
-			console.log("touched")
+			console.log("touched");
 			load_attack_page(self.args.marker_id);
 			// google.maps.event.trigger(self, "touchstart click");
 		});
 
 		google.maps.event.addDomListener(div, "click", function() {
-			console.log("clicked")
+			console.log("clicked");
 			load_attack_page(self.args.marker_id);
 			// google.maps.event.trigger(self, "touchstart click");
 		});
@@ -1018,6 +1034,7 @@ function monitorLocation(map) {
     $.when(getMonsters()).then(function( x ) {
       console.log( "Get Monsters complete v2" );
       drawMonsters(map);
+      animatedMonsters();
     });
 
     $.when(drawMonsters()).then(function( x ) {
