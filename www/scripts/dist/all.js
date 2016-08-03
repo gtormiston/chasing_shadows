@@ -372,6 +372,30 @@ ajax_sessions_path = "http://chasingshadowsapi.herokuapp.com/api/v1/sessions/";
  // name + password
 monsterArray = [];
 
+//
+//
+// function sendUserAjax (configuration, callback, error) {
+//   $.ajax({
+//     url: configuration.url,
+//     data: configuration.data,
+//     type: configuration.type,
+//     success: function(data) {
+//       callback(data);
+//     },
+//     error: function(data) {
+//       error(data);
+//     }
+//   });
+// }
+//
+// var configuration = {
+//                       url: ajax_users_path,
+//                       type: "POST",
+//                       data:
+// };
+
+
+
 
 
 function sendSignUpRequest(dataText) {
