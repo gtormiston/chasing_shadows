@@ -3,6 +3,7 @@ $(document).ready(function() {
 
     load_form_page();
     addListenerForSignUp();
+    addListenerForLogin();
     // initMap();
   // }
   // else {

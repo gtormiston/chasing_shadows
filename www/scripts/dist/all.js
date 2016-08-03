@@ -528,17 +528,17 @@ function getGeoLocationPromise() {
   });
 }
 
-// function addListenerForLogin() {
-//   $("#sign_in_link").on("touchstart click", function(){
-//     console.log("sign-in page button clicked");
-//     load_sign_in_page(addListenerForLogin);
-//   });
-// }
+function addListenerForLogin() {
+  $("#login_link").on("touchstart click", function(){
+    console.log("navbar login link clicked");
+    load_sign_in_page(addListenerForLogin);
+  });
+}
 
 function addListenerForSignUp() {
-  $("#sign_in_link").on("touchstart click", function(){
-    console.log("sign-in page button clicked");
-    load_sign_in_page(addListenerForSignIn);
+  $("#sign_up_link").on("touchstart click", function(){
+    console.log("navbar sign-up link clicked");
+    load_sign_up_page(addListenerForSignUp);
   });
 
   $('#sign_up_form').submit(function(event) {
@@ -588,9 +588,10 @@ function match_height_maps(){
   $("#google_map").css("height", $(document).height());
 }
 
-// function load_login_page(){
-//   $("#content").html($("#sign_in_form_page").html());
-// }
+function load_sign_up_page(){
+  $("#content").html($("#form_page").html());
+  callback();
+}
 
 function load_sign_in_page(callback) {
   $("#content").html($("#sign_in_form_page").html());
@@ -1153,6 +1154,7 @@ $(document).ready(function() {
 
     load_form_page();
     addListenerForSignUp();
+    addListenerForLogin();
     // initMap();
   // }
   // else {
