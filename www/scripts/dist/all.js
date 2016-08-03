@@ -536,10 +536,10 @@ function addListenerForLogin() {
 }
 
 function addListenerForSignUp() {
-  $("#sign_up_link").on("touchstart click", function(){
-    console.log("navbar sign-up link clicked");
-    load_sign_up_page(addListenerForSignUp);
-  });
+  // $("#sign_up_link").on("touchstart click", function(){
+  //   console.log("navbar sign-up link clicked");
+  //   load_sign_up_page(addListenerForSignUp);
+  // });
 
   $('#sign_up_form').submit(function(event) {
     event.preventDefault();
@@ -1155,6 +1155,8 @@ $(document).ready(function() {
     load_form_page();
     addListenerForSignUp();
     addListenerForLogin();
+    addListenerForSignIn();
+
     // initMap();
   // }
   // else {
