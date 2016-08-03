@@ -1,3 +1,27 @@
+//
+//
+// function sendUserAjax (configuration, callback, error) {
+//   $.ajax({
+//     url: configuration.url,
+//     data: configuration.data,
+//     type: configuration.type,
+//     success: function(data) {
+//       callback(data);
+//     },
+//     error: function(data) {
+//       error(data);
+//     }
+//   });
+// }
+//
+// var configuration = {
+//                       url: ajax_users_path,
+//                       type: "POST",
+//                       data:
+// };
+
+
+
 
 
 function sendSignUpRequest(dataText) {
