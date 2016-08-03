@@ -29,6 +29,12 @@ function initAttackPage(monsterId){
     $.when(attackCurrentMonster(monsterId)).then(function() {
       $.when(getCurrentMonsterInfo(monsterId)).then(function() {
         updateAttackPage();
+        $(".monster-fight").animateSprite('fps', 10);
+        $(".monster-fight").animateSprite('play', 'monsterHurt');
+        setInterval(function(){
+          $(".monster-fight").animateSprite('fps', 3);
+          $(".monster-fight").animateSprite('play', 'monsterFight');
+        },1000);
       });
     });
   });

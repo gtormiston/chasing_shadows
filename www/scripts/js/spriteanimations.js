@@ -32,17 +32,19 @@ console.log("monster should move");
 
 function monsterFight() {
 $(".monster-fight").animateSprite({
-  fps: 1,
+  fps: 3,
   animations: {
     monsterFight: [0, 1, 2, 1],
     monsterHurt: [4, 5, 6, 7, 8],
     monsterDead: [3]
   },
   loop: true,
-  autoplay: true
-});
+  autoplay: true,
+  // complete: function() {
+  //   $(".monster-fight").animateSprite('play', 'monsterFight');
+  //   }
+  });
 }
-
 $(".monster-fight").animateSprite('play', 'monsterFight');
 $(".monster-fight").animateSprite('play', 'monsterDead');
 $(".monster-fight").animateSprite('play', 'monsterHurt');
