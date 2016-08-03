@@ -109,6 +109,7 @@ function attackCurrentMonster(id) {
     success: function(data) {
         attackMessage = data;
         console.log("attack - sucess");
+        console.log(data);
         // console.log(currentMonsterArray);
      },
      error: function(data) {

@@ -524,6 +524,7 @@ function attackCurrentMonster(id) {
     success: function(data) {
         attackMessage = data;
         console.log("attack - sucess");
+        console.log(data);
         // console.log(currentMonsterArray);
      },
      error: function(data) {
@@ -642,12 +643,7 @@ function load_attack_page(monsterId){
 
   $("#content").html($("#attack_page").html());
   attack_page_height();
-  // var id = monsterId;
-  // $("div#monster_id").text(id);
-  // console.log("MonsterId is: " + monsterId);
-
   initAttackPage(monsterId);
-  // updateAttackPage();
 }
 
 var styles = [
@@ -1020,66 +1016,6 @@ CustomMonsterMarker.prototype.getPosition = function() {
 	return this.latlng;
 };
 
-$(document).ready(function(){
-  var hitBtn = $('button.damage'),
-      reset = $('button.reset'),
-      hBar = $('.health-bar'),
-      bar = hBar.find('.bar'),
-      hit = hBar.find('.hit');
-
-  hitBtn.on("click", function(){
-    var total = hBar.data('total'),
-        value = hBar.data('value');
-
-    if (value < 0) {
-			log("You win! Monster is DEAD!");
-      return;
-    }
-    // max damage is essentially quarter of max life
-    var damage = 100;
-    // damage = 100;
-    var newValue = value - damage;
-    // calculate the percentage of the total width
-    var barWidth = (newValue / total) * 100;
-    var hitWidth = (damage / value) * 100 + "%";
-
-    // show hit bar and set the width
-    hit.css('width', hitWidth);
-    hBar.data('value', newValue);
-
-    setTimeout(function(){
-      hit.css({'width': '0'});
-      bar.css('width', barWidth + "%");
-    }, 500);
-    //bar.css('width', total - value);
-
-    log(value, damage, hitWidth);
-
-    if( value < 0){
-      log("DEAD");
-    }
-  });
-
-  reset.on('click', function(e){
-    hBar.data('value', hBar.data('total'));
-
-    hit.css({'width': '0'});
-
-		bar.css('width', '100%');
-		log("resetting health to 1000");
-  });
-});
-
-function log(_total, _damage, _hitWidth){
-  var log = $('.log');
-
-  if(_damage !== undefined && _hitWidth !== undefined) {
-	  log.append("<div>H:"+_total+" D:"+_damage+" W:"+_hitWidth+" = " + (_total - _damage) + "</div>");
-  } else {
-    log.append("<div>"+_total+"</div>");
-  }
-};
-
 var latitude;
 var longitude;
 
@@ -1212,33 +1148,65 @@ $(document).ready(function() {
   // }
 }); // end onDeviceReady
 
-
-
 function initAttackPage(monsterId){
 
-  // getCurrentMonsterInfo(monsterId);
-  // gets current monster details
   monsterFight();
   console.log("starting attack page");
   console.log( monsterFight() );
 
-  function updateAttackPage(){
-    //insert details into page
+  var hitBtn = $('button.damage'),
+      hBar = $('.health-bar'),
+      bar = hBar.find('.bar'),
+      hit = hBar.find('.hit');
 
+  function initData(){
+      $("#monster_name").text(currentMonster.name);
+      $("#monster_size").text(currentMonster.size);
+      $(".health-bar").attr("data-value", currentMonster.size);
+      $(".health-bar").attr("data-total", currentMonster.size);
+  };
+
+  function updateAttackPage(){
     monsterFight();
-    console.log("updating attack page");
-    $("div#monster_id").append(currentMonster.id);
-    $("div#monster_id").append(currentMonster.name);
-    $("div#monster_id").append(currentMonster.active);
-    $("div#monster_id").append(currentMonster.size);
+    //insert details into page
+    // $("div#monster_id").append(currentMonster.id);
+    $("#monster_name").text(currentMonster.name);
+    // $("div#monster_id").append(currentMonster.active);
+    $("#monster_size").text(currentMonster.size);
+    $(".health-bar").attr("data-value", currentMonster.size);
+    var total = hBar.data('total'),
+        value = currentMonster.size;
+
+    console.log( "currentMonster.size: " + currentMonster.size);
+    console.log("total: " + total);
+    console.log("value: " + value);
+
+    var damage = 1;
+    // damage = 1;
+    var newValue = currentMonster.size;
+    // hBar.attr('data-value', newValue);
+    // calculate the percentage of the total width
+    var barWidth = (newValue / total) * 100;
+    var hitWidth = (damage / value) * 100 + "%";
+    hit.css('width', hitWidth);
+    // bar.css('width', total - value);
+    hBar.data('value', newValue);
+
+    setTimeout(function(){
+      hit.css({'width': '0'});
+      bar.css('width', barWidth + "%");
+    }, 500);
+    console.log(value, damage, hitWidth);
 
   }
 
   $.when(getCurrentMonsterInfo(monsterId)).then(function() {
-    updateAttackPage();
+    initData();
+    // $(".health-bar").attr("data-value", currentMonster.size)
   });
 
-  $("#attack" ).on( "click", function() {
+  // attack button event listener
+  $("#attack").on("click", function() {
     console.log("button clicked");
     $.when(attackCurrentMonster(monsterId)).then(function() {
       $.when(getCurrentMonsterInfo(monsterId)).then(function() {
