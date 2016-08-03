@@ -589,12 +589,7 @@ function load_sign_in_page(callback) {
 function load_attack_page(monsterId){
   $("#content").html($("#attack_page").html());
   attack_page_height();
-  // var id = monsterId;
-  // $("div#monster_id").text(id);
-  // console.log("MonsterId is: " + monsterId);
-
   initAttackPage(monsterId);
-  // updateAttackPage();
 }
 
 var styles = [
@@ -1151,12 +1146,7 @@ $(document).ready(function() {
   // }
 }); // end onDeviceReady
 
-
-
 function initAttackPage(monsterId){
-
-  // getCurrentMonsterInfo(monsterId);
-  // gets current monster details
 
   function updateAttackPage(){
     //insert details into page
@@ -1164,13 +1154,13 @@ function initAttackPage(monsterId){
     $("div#monster_id").append(currentMonster.name);
     $("div#monster_id").append(currentMonster.active);
     $("div#monster_id").append(currentMonster.size);
-
   }
 
   $.when(getCurrentMonsterInfo(monsterId)).then(function() {
     updateAttackPage();
   });
 
+  // attack button event listener
   $("#attack" ).on( "click", function() {
     console.log("button clicked");
     $.when(attackCurrentMonster(monsterId)).then(function() {
