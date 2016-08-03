@@ -381,17 +381,19 @@ console.log("monster should move");
 
 function monsterFight() {
 $(".monster-fight").animateSprite({
-  fps: 1,
+  fps: 3,
   animations: {
     monsterFight: [0, 1, 2, 1],
     monsterHurt: [4, 5, 6, 7, 8],
     monsterDead: [3]
   },
   loop: true,
-  autoplay: true
-});
+  autoplay: true,
+  // complete: function() {
+  //   $(".monster-fight").animateSprite('play', 'monsterFight');
+  //   }
+  });
 }
-
 $(".monster-fight").animateSprite('play', 'monsterFight');
 $(".monster-fight").animateSprite('play', 'monsterDead');
 $(".monster-fight").animateSprite('play', 'monsterHurt');
@@ -1144,11 +1146,12 @@ function monitorLocation(map) {
     $.when(getMonsters()).then(function( x ) {
       console.log( "Get Monsters complete v2" );
       drawMonsters(map);
+      
     });
 
     $.when(drawMonsters()).then(function( x ) {
       console.log( "Monsters drawn v2" );
-      animatedMonsters();
+
     });
     // $('.playerMarker').rotate({ endDeg:180, persist:true });
     // $('.playerMarker').rotate({ endDeg: position.coords.heading, duration:0.8, easing:'ease-in', persist: true });
@@ -1217,6 +1220,12 @@ function initAttackPage(monsterId){
     $.when(attackCurrentMonster(monsterId)).then(function() {
       $.when(getCurrentMonsterInfo(monsterId)).then(function() {
         updateAttackPage();
+        $(".monster-fight").animateSprite('fps', 10);
+        $(".monster-fight").animateSprite('play', 'monsterHurt');
+        setInterval(function(){
+          $(".monster-fight").animateSprite('fps', 3);
+          $(".monster-fight").animateSprite('play', 'monsterFight');
+        },1000);
       });
     });
   });
