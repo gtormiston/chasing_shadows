@@ -2,7 +2,6 @@ var latitude;
 var longitude;
 
 function initMap() {
-
   function drawMap(position){
     var center = position.coords;
     var mapDiv = document.getElementById("google_map");
@@ -18,84 +17,52 @@ function initMap() {
                                   // zoomControl: false
                                   // panControl: false
                                 });
-    // var myLatlng = new google.maps.LatLng(position.coords.latitude,
-                                          //  position.coords.longitude);
-    // playerMarker = new CustomMarker(
-    //   myLatlng,
-    //   map,
-    //   {
-    //     marker_id: '123'
-    //   }
-    // );
-    //
-    // animatedGuy();
-    // console.log(animatedGuy());
-    // // $(".marker").animateSprite('play', 'walkDown');
 
     map.setOptions({styles: styles});
+
+    // pushLocation(position);
+
+    $.when(pushLocation(position)).then(function(data, textStatus, jqXHR) {
+      getMonsters();
+    });
+
+    $.when(getMonsters()).then(function() {
+      setInterval(function() {
+        drawMonsters(map);
+      }, 2000);
+    });
+
     monitorLocation(map);
-
-    // var monster2 =  getMonsters();
-    var monsters = [
-      ['Alysterius', 51.51964, -0.07535],
-      ['Tim the Terrible', 51.5157, -0.0746],
-    ];
-
-
-
-    // var monsterIcon = {
-    //   url: "/img/wingedmonster.png", // url
-    //   scaledSize: new google.maps.Size(60, 60), // scaled size
-    //   origin: new google.maps.Point(0,0), // origin
-    //   anchor: new google.maps.Point(0, 0)
-    // };
-
-    function drawMonsters() {
-      for( i = 0; i < monsters.length; i++ ) {
-        var pos = new google.maps.LatLng(monstersArray[i][1], monstersArray[i][2]);
-        console.log(pos)
-        monsterOverlay = new CustomMonsterMarker(
-          pos,
-          map,
-          {
-            marker_id: i
-          }
-        );
-        console.log(monsterOverlay)
-        // monsters[i] = new google.maps.Marker({
-        //   position: pos,
-        //   map: map,
-        //   icon: monsterIcon
-        // });
-      }
-    }
-
-
-
-
-    // var charIcon = {
-    //     url: "/img/walkingman.gif", // url
-    //     scaledSize: new google.maps.Size(50, 50), // scaled size
-    //     origin: new google.maps.Point(0,0), // origin
-    //     anchor: new google.maps.Point(0, 0) // anchor
-    // };
-    //
-    // var characterMarker = new google.maps.Marker({
-    //  position: map.getCenter(),
-    //  icon:  charIcon,
-    //  map: map,
-    //  optimized: false
-    // });
-
   }
 
   var locationPromise = getGeoLocationPromise();
   locationPromise.then(function(position) {
+    // pushLocation(position);
     drawMap(position);
+
   });
   animatedGuy();
-} // close initMap
+} ///////////// close initMap
 
+
+  // method to be executed;
+  function drawMonsters(map) {
+    // console.log("monsterArray length:")
+    // console.log(monsterArray.length);
+    for( i = 0; i < monsterArray.length; i++ ) {
+      // console.log(monsterArray[i].lat);
+      // console.log(monsterArray[i].lng);
+      var latlng = new google.maps.LatLng(monsterArray[i].lat, monsterArray[i].lng);
+      // console.log(latlng);
+      overlay = new CustomMonsterMarker(
+        latlng,
+        map,
+        {
+          marker_id: 1
+        }
+      )
+    }
+  }
 
 
 function monitorLocation(map) {
@@ -108,14 +75,23 @@ function monitorLocation(map) {
                                            position.coords.longitude);
     map.panTo(newCenter);
 
-    pushLocation(position, getMonsters); // updates location when the position changes
+    $.when(pushLocation(position)).then(function( x ) {
+      console.log( "Location Pushed and Promised v2" );
+      getMonsters();
+    });
 
+    $.when(getMonsters()).then(function( x ) {
+      console.log( "Get Monsters complete v2" );
+      drawMonsters(map);
+    });
 
+    $.when(drawMonsters()).then(function( x ) {
+      console.log( "Monsters drawn v2" );
+    });
     // $('.playerMarker').rotate({ endDeg:180, persist:true });
     // $('.playerMarker').rotate({ endDeg: position.coords.heading, duration:0.8, easing:'ease-in', persist: true });
     // playerMarker.setPosition(newCenter);
     // animatedGuy();
-
   }
   function failure() {
     console.error("unable to update position");

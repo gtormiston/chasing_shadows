@@ -1,7 +1,7 @@
 function getGeoLocationPromise() {
   return new Promise(function(fullfill, reject) {
 
-      navigator.geolocation.getCurrentPosition(success, failure);
+    navigator.geolocation.getCurrentPosition(success, failure);
 
     function success(position) {
       fullfill(position);
@@ -34,7 +34,6 @@ function addListenerForSignUp() {
     sendSignUpRequest(dataText);
 
   });
-
 }
 
 function addListenerForSignIn() {
@@ -45,9 +44,8 @@ function addListenerForSignIn() {
     var password = $("#password").val().toString();
 
     dataText = "user[name]=" + username +
-    "&user[password]=" + password;
+               "&user[password]=" + password;
 
     sendSignInRequest(dataText);
-
   });
 }
