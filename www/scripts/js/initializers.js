@@ -13,6 +13,18 @@ function getGeoLocationPromise() {
   });
 }
 
+function setStorage(data) {
+  storage.setItem("userid", data.id);
+  storage.setItem("user_name", data.name);
+  storage.setItem("email", data.email);
+  storage.setItem("api_key", data.api_key);
+}
+
+function ajaxCallback(data) {
+  setStorage(data);
+  load_welcome_page();
+}
+
 function addListenerForSignUp() {
   $("#sign_in_link").on("touchstart click", function(){
     console.log("sign-in page button clicked");
@@ -31,7 +43,12 @@ function addListenerForSignUp() {
                "&user[password]=" + password +
                "&user[password_confirmation]=" + password_confirmation;
 
-    sendSignUpRequest(dataText);
+    var configuration = {data: dataText,
+                         url: ajax_sessions_path,
+                         type: "POST"};
+
+
+    sendUserAjax(configuration, callback);
 
   });
 }
@@ -46,6 +63,13 @@ function addListenerForSignIn() {
     dataText = "user[name]=" + username +
                "&user[password]=" + password;
 
-    sendSignInRequest(dataText);
+    var configuration = {data: dataText,
+                         url: ajax_sessions_path,
+                         type: "POST"};
+
+
+
+    sendUserAjax(configuration, ajaxCallback);
+
   });
 }

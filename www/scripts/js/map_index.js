@@ -2,6 +2,7 @@ var latitude;
 var longitude;
 
 function initMap() {
+
   function drawMap(position){
     var center = position.coords;
     var mapDiv = document.getElementById("google_map");
@@ -13,12 +14,13 @@ function initMap() {
                                   zoom: 18,
                                   minZoom: 13,
                                   maxZoom: 19,
-                                  draggable: true
+                                  draggable: true,
+                                  styles: styles
                                   // zoomControl: false
                                   // panControl: false
                                 });
 
-    map.setOptions({styles: styles});
+    // map.setOptions({styles: styles});
 
     // pushLocation(position);
 

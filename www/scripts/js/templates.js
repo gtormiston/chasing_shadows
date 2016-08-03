@@ -4,10 +4,16 @@ function load_form_page(){
 
 function load_welcome_page(){
   $("#content").html($("#welcome_page").html());
+  $("#gameplay_link").on("touchstart click", function(){
+    match_height_maps();
+    load_game_page();
+  });
 }
 
 function load_game_page(){
   $("#content").html($("#gameplay_page").html());
+  initMap();
+  
 }
 
 function match_height_maps(){

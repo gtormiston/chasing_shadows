@@ -372,84 +372,22 @@ ajax_sessions_path = "http://chasingshadowsapi.herokuapp.com/api/v1/sessions/";
  // name + password
 monsterArray = [];
 
-//
-//
-// function sendUserAjax (configuration, callback, error) {
-//   $.ajax({
-//     url: configuration.url,
-//     data: configuration.data,
-//     type: configuration.type,
-//     success: function(data) {
-//       callback(data);
-//     },
-//     error: function(data) {
-//       error(data);
-//     }
-//   });
-// }
-//
-// var configuration = {
-//                       url: ajax_users_path,
-//                       type: "POST",
-//                       data:
-// };
 
 
-
-
-
-function sendSignUpRequest(dataText) {
+function sendUserAjax (configuration, callback) {
   $.ajax({
-    url: ajax_users_path,
-    data: dataText,
-    type: "POST",
+    url: configuration.url,
+    data: configuration.data,
+    type: configuration.type,
     success: function(data) {
-        console.log(data);
-        storage.setItem("userid", data.id);
-        storage.setItem("user_name", data.name);
-        storage.setItem("email", data.email);
-        storage.setItem("api_key", data.api_key);
-
-        load_welcome_page();
-        match_height_maps();
-
-        $("#gameplay_link").on("touchstart click", function(){
-            load_game_page();
-            initMap();
-        });
-     },
-     error: function(data) {
-       console.log(data);
-     }
-  });
-}
-
-
-function sendSignInRequest(dataText) {
-  $.ajax({
-    url: ajax_sessions_path,
-    data: dataText,
-    type: "POST",
-    success: function(data) {
-      console.log(data);
-      storage.setItem("userid", data.id);
-      storage.setItem("user_name", data.name);
-      storage.setItem("email", data.email);
-      storage.setItem("api_key", data.api_key);
-
-      load_welcome_page();
-      match_height_maps();
-
-      $("#gameplay_link").on("touchstart click", function(){
-        load_game_page();
-        initMap();
-      });
+      callback(data);
     },
     error: function(data) {
       console.log(data);
     }
   });
 }
+
 
 function getMonsters() {
 
@@ -552,6 +490,18 @@ function getGeoLocationPromise() {
   });
 }
 
+function setStorage(data) {
+  storage.setItem("userid", data.id);
+  storage.setItem("user_name", data.name);
+  storage.setItem("email", data.email);
+  storage.setItem("api_key", data.api_key);
+}
+
+function ajaxCallback(data) {
+  setStorage(data);
+  load_welcome_page();
+}
+
 function addListenerForSignUp() {
   $("#sign_in_link").on("touchstart click", function(){
     console.log("sign-in page button clicked");
@@ -570,7 +520,12 @@ function addListenerForSignUp() {
                "&user[password]=" + password +
                "&user[password_confirmation]=" + password_confirmation;
 
-    sendSignUpRequest(dataText);
+    var configuration = {data: dataText,
+                         url: ajax_sessions_path,
+                         type: "POST"};
+
+
+    sendUserAjax(configuration, callback);
 
   });
 }
@@ -585,7 +540,14 @@ function addListenerForSignIn() {
     dataText = "user[name]=" + username +
                "&user[password]=" + password;
 
-    sendSignInRequest(dataText);
+    var configuration = {data: dataText,
+                         url: ajax_sessions_path,
+                         type: "POST"};
+
+
+
+    sendUserAjax(configuration, ajaxCallback);
+
   });
 }
 
@@ -595,10 +557,16 @@ function load_form_page(){
 
 function load_welcome_page(){
   $("#content").html($("#welcome_page").html());
+  $("#gameplay_link").on("touchstart click", function(){
+    match_height_maps();
+    load_game_page();
+  });
 }
 
 function load_game_page(){
   $("#content").html($("#gameplay_page").html());
+  initMap();
+  
 }
 
 function match_height_maps(){
@@ -1055,6 +1023,7 @@ var latitude;
 var longitude;
 
 function initMap() {
+
   function drawMap(position){
     var center = position.coords;
     var mapDiv = document.getElementById("google_map");
@@ -1066,12 +1035,13 @@ function initMap() {
                                   zoom: 18,
                                   minZoom: 13,
                                   maxZoom: 19,
-                                  draggable: true
+                                  draggable: true,
+                                  styles: styles
                                   // zoomControl: false
                                   // panControl: false
                                 });
 
-    map.setOptions({styles: styles});
+    // map.setOptions({styles: styles});
 
     // pushLocation(position);
 
