@@ -5941,7 +5941,8 @@ input:out-of-range {
   .attack .monsterSprite {
     width: 100%; }
   .attack .monsterPoints {
-    width: 100%; }
+    width: 100%;
+    bottom: 100px; }
   .attack .monsterAttack {
     width: 100%;
     bottom: 50px; }
@@ -5963,7 +5964,8 @@ input:out-of-range {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 15px;
-  position: relative; }
+  position: relative;
+  margin: 0 auto; }
 
 /* This is the health bar */
 .bar {

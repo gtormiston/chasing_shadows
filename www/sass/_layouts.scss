@@ -103,7 +103,8 @@ input:out-of-range {
   }
 
   .monsterPoints {
-    width:100%;
+    width: 100%;
+    bottom: 100px;
   }
 
   .monsterAttack {
@@ -131,6 +132,7 @@ input:out-of-range {
   -moz-border-radius: 5px;
   border-radius: 15px;
   position: relative;
+  margin: 0 auto;
 }
 
 /* This is the health bar */

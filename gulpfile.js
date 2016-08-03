@@ -45,7 +45,6 @@ gulp.task('scripts', function() {
                    './www/scripts/js/map_styles.js',
                    './www/scripts/js/map_markers.js',
                    './www/scripts/js/monster_markers.js',
-                   './www/scripts/js/healthbar.js',
                    './www/scripts/js/map_index.js',
                    './www/scripts/js/match_height.js',
                    './www/scripts/js/index.js',
