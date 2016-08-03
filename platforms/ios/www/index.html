@@ -23,11 +23,27 @@
         </div>
       </div>
       <!-- Hitpoints bar -->
-      <div class="container-fluid monsterPoints">
+      <div class="container-fluid monsterPoints absolute">
         <div class="row">
           <div class="col-xs-12">
               <!-- monster points remaining here / convert to status bar -->
-              MONSTER POINTS
+              <div class="health-bar" data-total="1000" data-value="1000">
+                <div class="bar">
+                	  <div class="hit"></div>
+                </div>
+              </div>
+
+              <br />
+
+              <button class="damage">ATTACK!</button>
+              <button class="reset">reset [for testing purposes only]</button>
+
+              <div class="log">
+                <div>
+                  <p>Test Data</p>
+                  <p>------------</p>
+                </div>
+              </div>
           </div>
         </div>
       </div>
