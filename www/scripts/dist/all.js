@@ -364,6 +364,21 @@ $(".playerMarker").animateSprite('play', 'walkDown');
 console.log("hello");
 }
 
+function animatedMonsters() {
+$(".monster-marker").animateSprite({
+  fps: 6,
+  animations: {
+    monsterMove: [0, 1, 2]
+  },
+  loop: true,
+  autoplay: true
+});
+
+$(".monster-marker").animateSprite('play', 'monsterMove');
+
+console.log("monster should move");
+}
+
 /* Vars */
 storage = window.localStorage;
 ajax_users_path = "http://chasingshadowsapi.herokuapp.com/api/v1/users/";
@@ -779,7 +794,7 @@ var styles = [
         }
     ]
 }
-]
+];
 
 function CustomMarker(latlng, map, args) {
 	this.latlng = latlng;
@@ -959,6 +974,7 @@ function initMap() {
 
   });
   animatedGuy();
+
 } ///////////// close initMap
 
 
@@ -1004,6 +1020,7 @@ function monitorLocation(map) {
 
     $.when(drawMonsters()).then(function( x ) {
       console.log( "Monsters drawn v2" );
+
     });
     // $('.playerMarker').rotate({ endDeg:180, persist:true });
     // $('.playerMarker').rotate({ endDeg: position.coords.heading, duration:0.8, easing:'ease-in', persist: true });

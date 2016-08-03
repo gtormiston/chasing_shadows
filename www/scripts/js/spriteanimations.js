@@ -14,3 +14,18 @@ $(".playerMarker").animateSprite('play', 'walkDown');
 
 console.log("hello");
 }
+
+function animatedMonsters() {
+$(".monster-marker").animateSprite({
+  fps: 6,
+  animations: {
+    monsterMove: [0, 1, 2]
+  },
+  loop: true,
+  autoplay: true
+});
+
+$(".monster-marker").animateSprite('play', 'monsterMove');
+
+console.log("monster should move");
+}
