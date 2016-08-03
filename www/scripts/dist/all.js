@@ -471,7 +471,7 @@ function pushLocation(position) {
 function getGeoLocationPromise() {
   return new Promise(function(fullfill, reject) {
 
-      navigator.geolocation.getCurrentPosition(success, failure);
+    navigator.geolocation.getCurrentPosition(success, failure);
 
     function success(position) {
       fullfill(position);
@@ -504,7 +504,6 @@ function addListenerForSignUp() {
     sendSignUpRequest(dataText);
 
   });
-
 }
 
 function addListenerForSignIn() {
@@ -515,10 +514,9 @@ function addListenerForSignIn() {
     var password = $("#password").val().toString();
 
     dataText = "user[name]=" + username +
-    "&user[password]=" + password;
+               "&user[password]=" + password;
 
     sendSignInRequest(dataText);
-
   });
 }
 
@@ -857,15 +855,15 @@ function CustomMonsterMarker(latlng, map, args) {
 }
 
 CustomMonsterMarker.prototype = new google.maps.OverlayView();
-CustomMonsterMarker.prototype.draw = function() {
 
+CustomMonsterMarker.prototype.draw = function() {
+  console.log("monster marker prototype draw 1")
 	var self = this;
 	var div = this.div;
 
 	if (!div) {
 
 		div = this.div = document.createElement('div');
-
 		div.className = 'monster-marker';
 
 		div.style.position = 'absolute';
@@ -893,10 +891,13 @@ CustomMonsterMarker.prototype.draw = function() {
 
 		var panes = this.getPanes();
 		panes.overlayImage.appendChild(div);
+    console.log(div);
 	}
 
 	var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
 
+  console.log(point);
+  
 	if (point) {
 		div.style.left = (point.x - 10) + 'px';
 		div.style.top = (point.y - 20) + 'px';
@@ -918,7 +919,6 @@ var latitude;
 var longitude;
 
 function initMap() {
-
   function drawMap(position){
     var center = position.coords;
     var mapDiv = document.getElementById("google_map");
@@ -937,56 +937,49 @@ function initMap() {
 
     map.setOptions({styles: styles});
 
+    // pushLocation(position);
 
-    $.when(pushLocation(position)).then(function( x ) {
-      console.log( "Location Pushed and Promised" );
+    $.when(pushLocation(position)).then(function(data, textStatus, jqXHR) {
       getMonsters();
     });
 
-    $.when(getMonsters()).then(function( x ) {
-      console.log( "Get Monsters complete" );
-      drawMonsters(map);
+    $.when(getMonsters()).then(function() {
+      setInterval(function() {
+        drawMonsters(map);
+      }, 2000);
     });
-
-    $.when(drawMonsters()).then(function( x ) {
-      console.log( "Monsters drawn in theory" );
-    });
-
 
     monitorLocation(map);
-
   }
 
   var locationPromise = getGeoLocationPromise();
   locationPromise.then(function(position) {
+    // pushLocation(position);
     drawMap(position);
+
   });
   animatedGuy();
-} // close initMap
+} ///////////// close initMap
 
 
-function drawMonsters(map) {
-  console.log("monsterArray length:")
-  console.log(monsterArray.length);
-  for( i = 0; i < monsterArray.length; i++ ) {
-    var pos = new google.maps.LatLng(monsterArray[i].lat, monsterArray[i].lng);
-    console.log(pos);
-    monsterOverlay = new CustomMonsterMarker(
-      pos,
-      map
-      // {
-      //   marker_id: monsterArray[i].id
-      // }
-    );
-    console.log(monsterOverlay);
-    console.log("heeeeelp");
-    // monsters[i] = new google.maps.Marker({
-    //   position: pos,
-    //   map: map,
-    //   icon: monsterIcon
-    // });
+  // method to be executed;
+  function drawMonsters(map) {
+    // console.log("monsterArray length:")
+    // console.log(monsterArray.length);
+    for( i = 0; i < monsterArray.length; i++ ) {
+      // console.log(monsterArray[i].lat);
+      // console.log(monsterArray[i].lng);
+      var latlng = new google.maps.LatLng(monsterArray[i].lat, monsterArray[i].lng);
+      // console.log(latlng);
+      overlay = new CustomMonsterMarker(
+        latlng,
+        map,
+        {
+          marker_id: 1
+        }
+      )
+    }
   }
-}
 
 
 function monitorLocation(map) {
@@ -1012,12 +1005,10 @@ function monitorLocation(map) {
     $.when(drawMonsters()).then(function( x ) {
       console.log( "Monsters drawn v2" );
     });
-
     // $('.playerMarker').rotate({ endDeg:180, persist:true });
     // $('.playerMarker').rotate({ endDeg: position.coords.heading, duration:0.8, easing:'ease-in', persist: true });
     // playerMarker.setPosition(newCenter);
     // animatedGuy();
-
   }
   function failure() {
     console.error("unable to update position");
@@ -1033,15 +1024,15 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-  if (storage.getItem("api_key") == false) {
+  // if (storage.getItem("api_key") === null) {
 
     load_form_page();
     addListenerForSignUp();
-    initMap();
-  }
-  else {
-    load_game_page();
-    initMap();
-    match_height_maps();
-  }
+    // initMap();
+  // }
+  // else {
+  //   load_game_page();
+  //   initMap();
+  //   match_height_maps();
+  // }
 }); // end onDeviceReady

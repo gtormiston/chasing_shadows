@@ -2,7 +2,6 @@ var latitude;
 var longitude;
 
 function initMap() {
-
   function drawMap(position){
     var center = position.coords;
     var mapDiv = document.getElementById("google_map");
@@ -21,56 +20,49 @@ function initMap() {
 
     map.setOptions({styles: styles});
 
+    // pushLocation(position);
 
-    $.when(pushLocation(position)).then(function( x ) {
-      console.log( "Location Pushed and Promised" );
+    $.when(pushLocation(position)).then(function(data, textStatus, jqXHR) {
       getMonsters();
     });
 
-    $.when(getMonsters()).then(function( x ) {
-      console.log( "Get Monsters complete" );
-      drawMonsters(map);
+    $.when(getMonsters()).then(function() {
+      setInterval(function() {
+        drawMonsters(map);
+      }, 2000);
     });
-
-    $.when(drawMonsters()).then(function( x ) {
-      console.log( "Monsters drawn in theory" );
-    });
-
 
     monitorLocation(map);
-
   }
 
   var locationPromise = getGeoLocationPromise();
   locationPromise.then(function(position) {
+    // pushLocation(position);
     drawMap(position);
+
   });
   animatedGuy();
-} // close initMap
+} ///////////// close initMap
 
 
-function drawMonsters(map) {
-  console.log("monsterArray length:")
-  console.log(monsterArray.length);
-  for( i = 0; i < monsterArray.length; i++ ) {
-    var pos = new google.maps.LatLng(monsterArray[i].lat, monsterArray[i].lng);
-    console.log(pos);
-    monsterOverlay = new CustomMonsterMarker(
-      pos,
-      map
-      // {
-      //   marker_id: monsterArray[i].id
-      // }
-    );
-    console.log(monsterOverlay);
-    console.log("heeeeelp");
-    // monsters[i] = new google.maps.Marker({
-    //   position: pos,
-    //   map: map,
-    //   icon: monsterIcon
-    // });
+  // method to be executed;
+  function drawMonsters(map) {
+    // console.log("monsterArray length:")
+    // console.log(monsterArray.length);
+    for( i = 0; i < monsterArray.length; i++ ) {
+      // console.log(monsterArray[i].lat);
+      // console.log(monsterArray[i].lng);
+      var latlng = new google.maps.LatLng(monsterArray[i].lat, monsterArray[i].lng);
+      // console.log(latlng);
+      overlay = new CustomMonsterMarker(
+        latlng,
+        map,
+        {
+          marker_id: 1
+        }
+      )
+    }
   }
-}
 
 
 function monitorLocation(map) {
@@ -96,12 +88,10 @@ function monitorLocation(map) {
     $.when(drawMonsters()).then(function( x ) {
       console.log( "Monsters drawn v2" );
     });
-
     // $('.playerMarker').rotate({ endDeg:180, persist:true });
     // $('.playerMarker').rotate({ endDeg: position.coords.heading, duration:0.8, easing:'ease-in', persist: true });
     // playerMarker.setPosition(newCenter);
     // animatedGuy();
-
   }
   function failure() {
     console.error("unable to update position");

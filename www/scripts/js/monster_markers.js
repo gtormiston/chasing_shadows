@@ -5,15 +5,15 @@ function CustomMonsterMarker(latlng, map, args) {
 }
 
 CustomMonsterMarker.prototype = new google.maps.OverlayView();
-CustomMonsterMarker.prototype.draw = function() {
 
+CustomMonsterMarker.prototype.draw = function() {
+  console.log("monster marker prototype draw 1")
 	var self = this;
 	var div = this.div;
 
 	if (!div) {
 
 		div = this.div = document.createElement('div');
-
 		div.className = 'monster-marker';
 
 		div.style.position = 'absolute';
@@ -41,10 +41,13 @@ CustomMonsterMarker.prototype.draw = function() {
 
 		var panes = this.getPanes();
 		panes.overlayImage.appendChild(div);
+    console.log(div);
 	}
 
 	var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
 
+  console.log(point);
+  
 	if (point) {
 		div.style.left = (point.x - 10) + 'px';
 		div.style.top = (point.y - 20) + 'px';
