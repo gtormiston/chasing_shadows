@@ -27,9 +27,7 @@ function initMap() {
     });
 
     $.when(getMonsters()).then(function() {
-      setInterval(function() {
         drawMonsters(map);
-      }, 2000);
     });
 
     monitorLocation(map);
