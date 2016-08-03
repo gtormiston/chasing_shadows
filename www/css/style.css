@@ -5937,7 +5937,7 @@ input:out-of-range {
 .attack {
   width: 100%;
   text-align: center;
-  background-color: yellow; }
+  background-image: url(../img/brick-wallpaper.jpg); }
   .attack .monsterSprite {
     width: 100%; }
   .attack .monsterPoints {
@@ -5994,6 +5994,11 @@ input:out-of-range {
   background-image: url(../img/gifman-50px.png); }
 
 .monster-marker {
-  height: 107px;
-  width: 100px;
-  background-image: url(../img/wingedmonster-100x107.png); }
+  height: 100px;
+  width: 113.3px;
+  background-image: url(../img/s-monster-horizontal-100px.png); }
+
+.monster-fight {
+  height: 300px;
+  width: 348.3px;
+  background-image: url(../img/s-monster-all-graphics.png); }

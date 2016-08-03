@@ -21,6 +21,7 @@ function load_sign_in_page(callback) {
 }
 
 function load_attack_page(monsterId){
+
   $("#content").html($("#attack_page").html());
   attack_page_height();
   // var id = monsterId;
