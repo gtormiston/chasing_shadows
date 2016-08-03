@@ -541,9 +541,12 @@ function load_sign_in_page(callback) {
   callback();
 }
 
-function load_attack_page(){
+function load_attack_page(monsterId){
   $("#content").html($("#attack_page").html());
+  console.log("MonsterId is: " + monsterId);
+  // getMonsterInfo(monsterId); // function doesn't exist yet but needs to
 }
+
 var styles = [
 {
     "featureType": "all",
@@ -878,14 +881,13 @@ CustomMonsterMarker.prototype.draw = function() {
 
 		google.maps.event.addDomListener(div, "touchstart", function() {
 			console.log("touched")
-			load_attack_page();
+			load_attack_page(self.args.marker_id);
 			// google.maps.event.trigger(self, "touchstart click");
 		});
 
 		google.maps.event.addDomListener(div, "click", function() {
 			console.log("clicked")
-			load_attack_page();
-
+			load_attack_page(self.args.marker_id);
 			// google.maps.event.trigger(self, "touchstart click");
 		});
 
@@ -897,7 +899,7 @@ CustomMonsterMarker.prototype.draw = function() {
 	var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
 
   console.log(point);
-  
+
 	if (point) {
 		div.style.left = (point.x - 10) + 'px';
 		div.style.top = (point.y - 20) + 'px';
@@ -975,7 +977,7 @@ function initMap() {
         latlng,
         map,
         {
-          marker_id: 1
+          marker_id: monsterArray[i].id
         }
       )
     }

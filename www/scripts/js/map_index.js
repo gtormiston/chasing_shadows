@@ -58,7 +58,7 @@ function initMap() {
         latlng,
         map,
         {
-          marker_id: 1
+          marker_id: monsterArray[i].id
         }
       )
     }
