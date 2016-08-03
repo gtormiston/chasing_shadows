@@ -82,12 +82,11 @@ function monitorLocation(map) {
     $.when(getMonsters()).then(function( x ) {
       console.log( "Get Monsters complete v2" );
       drawMonsters(map);
-      animatedMonsters();
     });
 
     $.when(drawMonsters()).then(function( x ) {
       console.log( "Monsters drawn v2" );
-
+      animatedMonsters();
     });
     // $('.playerMarker').rotate({ endDeg:180, persist:true });
     // $('.playerMarker').rotate({ endDeg: position.coords.heading, duration:0.8, easing:'ease-in', persist: true });

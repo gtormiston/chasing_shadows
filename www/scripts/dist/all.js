@@ -366,9 +366,9 @@ console.log("hello");
 
 function animatedMonsters() {
 $(".monster-marker").animateSprite({
-  fps: 6,
+  fps: 1,
   animations: {
-    monsterMove: [0, 1, 2]
+    monsterMove: [0, 1, 2, 1]
   },
   loop: true,
   autoplay: true
@@ -381,18 +381,20 @@ console.log("monster should move");
 
 function monsterFight() {
 $(".monster-fight").animateSprite({
-  fps: 6,
+  fps: 1,
   animations: {
-    monsterFight: [0, 1, 2]
+    monsterFight: [0, 1, 2, 1],
+    monsterHurt: [4, 5, 6, 7, 8],
+    monsterDead: [3]
   },
   loop: true,
   autoplay: true
 });
+}
 
 $(".monster-fight").animateSprite('play', 'monsterFight');
-
-console.log("monster should look around");
-}
+$(".monster-fight").animateSprite('play', 'monsterDead');
+$(".monster-fight").animateSprite('play', 'monsterHurt');
 
 /* Vars */
 storage = window.localStorage;
@@ -595,7 +597,7 @@ function load_sign_in_page(callback) {
 }
 
 function load_attack_page(monsterId){
-  
+
   $("#content").html($("#attack_page").html());
   attack_page_height();
   // var id = monsterId;
@@ -1060,12 +1062,11 @@ function monitorLocation(map) {
     $.when(getMonsters()).then(function( x ) {
       console.log( "Get Monsters complete v2" );
       drawMonsters(map);
-      animatedMonsters();
     });
 
     $.when(drawMonsters()).then(function( x ) {
       console.log( "Monsters drawn v2" );
-
+      animatedMonsters();
     });
     // $('.playerMarker').rotate({ endDeg:180, persist:true });
     // $('.playerMarker').rotate({ endDeg: position.coords.heading, duration:0.8, easing:'ease-in', persist: true });
@@ -1109,12 +1110,18 @@ function initAttackPage(monsterId){
 
   // getCurrentMonsterInfo(monsterId);
   // gets current monster details
+  monsterFight();
+  console.log("starting attack page");
+  console.log( monsterFight()
+);
 
   function updateAttackPage(){
     //insert details into page
     $("div#monster_id").append(currentMonsterArray.id);
     $("div#monster_id").append(currentMonsterArray.name);
     $("div#monster_id").append(currentMonsterArray.active);
+    monsterFight();
+    console.log("updating attack page");
   }
 
   $.when(getCurrentMonsterInfo(monsterId)).then(function() {
