@@ -75,7 +75,6 @@ function getMonsters() {
 
 }
 
-
 function pushLocation(position, callback) {
   $.ajax({
     headers: {

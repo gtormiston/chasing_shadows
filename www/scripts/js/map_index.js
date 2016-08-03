@@ -78,6 +78,7 @@ function initMap() {
     drawMap(position);
   });
   animatedGuy();
+
 } // close initMap
 
 
@@ -93,6 +94,7 @@ function drawMonsters(map) {
       }
     );
     console.log(monsterOverlay);
+
     // monsters[i] = new google.maps.Marker({
     //   position: pos,
     //   map: map,
@@ -113,7 +115,7 @@ function monitorLocation(map) {
     map.panTo(newCenter);
 
     pushLocation(position, getMonsters); // updates location when the position changes
-    drawMonsters(map);
+    drawMonsters(map, callback);
 
     // $('.playerMarker').rotate({ endDeg:180, persist:true });
     // $('.playerMarker').rotate({ endDeg: position.coords.heading, duration:0.8, easing:'ease-in', persist: true });

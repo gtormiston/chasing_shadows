@@ -27,13 +27,13 @@ CustomMonsterMarker.prototype.draw = function() {
 		}
 
 		google.maps.event.addDomListener(div, "touchstart", function() {
-			console.log("touched")
+			console.log("touched");
 			load_attack_page();
 			// google.maps.event.trigger(self, "touchstart click");
 		});
 
 		google.maps.event.addDomListener(div, "click", function() {
-			console.log("clicked")
+			console.log("clicked");
 			load_attack_page();
 
 			// google.maps.event.trigger(self, "touchstart click");

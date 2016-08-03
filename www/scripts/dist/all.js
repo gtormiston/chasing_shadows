@@ -364,6 +364,21 @@ $(".playerMarker").animateSprite('play', 'walkDown');
 console.log("hello");
 }
 
+function animatedMonster() {
+$(".monster-marker").animateSprite({
+  fps: 6,
+  animations: {
+    walkDown: [0, 1, 2]
+  },
+  loop: true,
+  autoplay: true
+});
+
+$(".monster-marker").animateSprite('play', 'monsterMove');
+
+console.log("hello");
+}
+
 /* Vars */
 storage = window.localStorage;
 ajax_users_path = "http://chasingshadowsapi.herokuapp.com/api/v1/users/";
@@ -447,7 +462,6 @@ function getMonsters() {
   });
 
 }
-
 
 function pushLocation(position, callback) {
   $.ajax({
@@ -879,13 +893,13 @@ CustomMonsterMarker.prototype.draw = function() {
 		}
 
 		google.maps.event.addDomListener(div, "touchstart", function() {
-			console.log("touched")
+			console.log("touched");
 			load_attack_page();
 			// google.maps.event.trigger(self, "touchstart click");
 		});
 
 		google.maps.event.addDomListener(div, "click", function() {
-			console.log("clicked")
+			console.log("clicked");
 			load_attack_page();
 
 			// google.maps.event.trigger(self, "touchstart click");
@@ -947,15 +961,11 @@ function initMap() {
     // animatedGuy();
     // console.log(animatedGuy());
     // // $(".marker").animateSprite('play', 'walkDown');
-    pushLocation(position, getMonsters)
-      .then(drawMonsters(map))
-      .catch(console.log.bind(console));
+    pushLocation(position, getMonsters, map);
 
+    drawMonsters(map);
 
     map.setOptions({styles: styles});
-
-
-
 
     monitorLocation(map);
 
@@ -998,6 +1008,7 @@ function initMap() {
     drawMap(position);
   });
   animatedGuy();
+
 } // close initMap
 
 
@@ -1013,6 +1024,7 @@ function drawMonsters(map) {
       }
     );
     console.log(monsterOverlay);
+
     // monsters[i] = new google.maps.Marker({
     //   position: pos,
     //   map: map,
@@ -1034,7 +1046,8 @@ function monitorLocation(map) {
 
     pushLocation(position, getMonsters); // updates location when the position changes
     drawMonsters(map);
-
+    animatedMonster();
+    console.log(animatedMonster());
     // $('.playerMarker').rotate({ endDeg:180, persist:true });
     // $('.playerMarker').rotate({ endDeg: position.coords.heading, duration:0.8, easing:'ease-in', persist: true });
     // playerMarker.setPosition(newCenter);
