@@ -35,6 +35,7 @@ gulp.task('sass', function () {
 
 gulp.task('scripts', function() {
   return gulp.src(['./www/scripts/vendors/jquery-3.1.0.min.js',
+                   './www/scripts/vendors/bootstrap.min.js',
                    './www/scripts/vendors/jquery.animateSprite.js',
                    './www/scripts/vendors/jquery.rotate.js',
                    './www/scripts/js/spriteanimations.js',
@@ -48,8 +49,7 @@ gulp.task('scripts', function() {
                    './www/scripts/js/map_index.js',
                    './www/scripts/js/match_height.js',
                    './www/scripts/js/index.js',
-                   './www/scripts/js/attack_page.js'
-
+                   './www/scripts/js/attack_page.js',
                   ])
     .pipe(concat('all.js'))
     // .pipe(uglify())

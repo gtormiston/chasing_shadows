@@ -1,8 +1,13 @@
 $(document).ready(function() {
   // if (storage.getItem("api_key") === null) {
 
-    load_form_page();
-    addListenerForSignUp();
+    load_sign_up_page(addListenerForSignUp);
+    // addListenerForSignUp();
+    addListenerForLoginLink();
+    addListenerForSignUpLink();
+
+
+
     // initMap();
   // }
   // else {
