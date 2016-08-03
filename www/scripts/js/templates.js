@@ -1,5 +1,6 @@
-function load_form_page(){
+function load_sign_up_page(callback){
   $("#content").html($("#form_page").html());
+  callback();
 }
 
 function load_welcome_page(){
@@ -12,11 +13,6 @@ function load_game_page(){
 
 function match_height_maps(){
   $("#google_map").css("height", $(document).height());
-}
-
-function load_sign_up_page(){
-  $("#content").html($("#form_page").html());
-  callback();
 }
 
 function load_sign_in_page(callback) {
