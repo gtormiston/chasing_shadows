@@ -155,3 +155,23 @@ input:out-of-range {
   width: 0px;
   transition: width .5s linear;
 }
+
+.slides {
+  width: 100%;
+}
+
+// .carousel-inner{
+//   width: auto;
+//   height: auto;
+//   max-height: 225px;
+// }
+
+.carousel {
+  max-height: 700px;
+  overflow: hidden;
+
+  .item img {
+    width: 100%;
+    height: auto;
+  }
+}

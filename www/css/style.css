@@ -5986,6 +5986,16 @@ input:out-of-range {
   width: 0px;
   transition: width .5s linear; }
 
+.slides {
+  width: 100%; }
+
+.carousel {
+  max-height: 700px;
+  overflow: hidden; }
+  .carousel .item img {
+    width: 100%;
+    height: auto; }
+
 .playerMarker {
   top: 50%;
   left: 50%;
