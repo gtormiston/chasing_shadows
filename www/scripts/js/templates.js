@@ -1,5 +1,6 @@
-function load_form_page(){
+function load_sign_up_page(callback){
   $("#content").html($("#form_page").html());
+  callback();
 }
 
 function load_welcome_page(){
