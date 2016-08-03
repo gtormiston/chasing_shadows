@@ -26,11 +26,8 @@ function getMonsters() {
     type: "GET",
     success: function(data) {
         monsterArray = data;
-        console.log("this is the monster request - sucess");
-        console.log(data);
      },
      error: function(data) {
-       console.log("this is the monster request - failure");
        console.log(data);
      }
   });
@@ -82,6 +79,7 @@ function attackCurrentMonster(id) {
 }
 
 
+
 function pushLocation(position) {
   return $.ajax({
     headers: {
@@ -91,12 +89,8 @@ function pushLocation(position) {
     },
     type: 'PUT',
     url: ajax_users_path + storage.getItem("userid"),
-  }).done(function() {
-      console.log("success - location pushed");
-      // callback();
-  }).fail(function() {
-      console.log("fail");
-  }).always(function() {
-      console.log("complete");
+    success: function() {
+      console.log("success");
+    }
   });
 }

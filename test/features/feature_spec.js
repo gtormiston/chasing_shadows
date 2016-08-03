@@ -2,18 +2,21 @@
 //define ip and port to web service
 
 
-casper.test.begin("index page", 2, function suite(test) {
+casper.test.begin("index page", 4, function suite(test) {
 
-  casper.start("http://localhost:8000/ios/www/index.html", function() {
+  casper.start("http://localhost:8000/", function() {
 
     test.assertHttpStatus(200);
-    casper.then(function() {
-        this.echo('First page:' + this.getTitle());
-    });
-
-    test.assertEvalEquals(function() {
-        return __utils__.findOne('h1').textContent;
-      }, 'Chasing Shadows');
+    test.assertExists('#content', "Main content div");
+    test.assertExists('form.sign_up_form', "Sign up form");
+    test.assertExists('button.sign_in_link', "Sign in button");
+    // casper.then(function() {
+    //     this.echo('First page:' + this.getTitle());
+    // });
+    //
+    // test.assertEvalEquals(function() {
+    //     return __utils__.findOne('h1').textContent;
+    //   }, 'Chasing Shadows');
 
   });
 
