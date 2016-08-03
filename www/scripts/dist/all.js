@@ -368,7 +368,8 @@ console.log("hello");
 storage = window.localStorage;
 ajax_users_path = "http://chasingshadowsapi.herokuapp.com/api/v1/users/";
 ajax_enemies_path = "http://chasingshadowsapi.herokuapp.com/api/v1/enemies/";
-ajax_sessions_path = "http://chasingshadowsapi.herokuapp.com/api/v1/sessions/"; // name + password
+ajax_sessions_path = "http://chasingshadowsapi.herokuapp.com/api/v1/sessions/";
+ // name + password
 monsterArray = [];
 
 
@@ -428,7 +429,7 @@ function sendSignInRequest(dataText) {
 
 function getMonsters() {
 
-  $.ajax({
+  return $.ajax({
     headers: {
       "Authorization": "Token token=" + storage.getItem("api_key")
     },
@@ -448,9 +449,31 @@ function getMonsters() {
 
 }
 
+function getCurrentMonsterInfo(id) {
+
+  return $.ajax({
+    headers: {
+      "Authorization": "Token token=" + storage.getItem("api_key")
+    },
+    url: ajax_enemies_path + id,
+    // data: dataText,
+    type: "GET",
+    success: function(data) {
+        currentMonsterArray = data;
+        console.log("current monster request - sucess");
+        // console.log(currentMonsterArray);
+     },
+     error: function(data) {
+       console.log("current monster request - failure");
+       console.log(data);
+     }
+  });
+
+}
+
 
 function pushLocation(position) {
-  $.ajax({
+  return $.ajax({
     headers: {
       "Authorization": "Token token=" + storage.getItem("api_key"),
       "USER_LATITUDE": position.coords.latitude.toString(),
@@ -541,9 +564,17 @@ function load_sign_in_page(callback) {
   callback();
 }
 
-function load_attack_page(){
+function load_attack_page(monsterId){
   $("#content").html($("#attack_page").html());
+  attack_page_height();
+  // var id = monsterId;
+  // $("div#monster_id").text(id);
+  // console.log("MonsterId is: " + monsterId);
+
+  initAttackPage(monsterId);
+  // updateAttackPage();
 }
+
 var styles = [
 {
     "featureType": "all",
@@ -878,14 +909,13 @@ CustomMonsterMarker.prototype.draw = function() {
 
 		google.maps.event.addDomListener(div, "touchstart", function() {
 			console.log("touched")
-			load_attack_page();
+			load_attack_page(self.args.marker_id);
 			// google.maps.event.trigger(self, "touchstart click");
 		});
 
 		google.maps.event.addDomListener(div, "click", function() {
 			console.log("clicked")
-			load_attack_page();
-
+			load_attack_page(self.args.marker_id);
 			// google.maps.event.trigger(self, "touchstart click");
 		});
 
@@ -897,7 +927,7 @@ CustomMonsterMarker.prototype.draw = function() {
 	var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
 
   console.log(point);
-  
+
 	if (point) {
 		div.style.left = (point.x - 10) + 'px';
 		div.style.top = (point.y - 20) + 'px';
@@ -944,9 +974,7 @@ function initMap() {
     });
 
     $.when(getMonsters()).then(function() {
-      setInterval(function() {
         drawMonsters(map);
-      }, 2000);
     });
 
     monitorLocation(map);
@@ -975,7 +1003,7 @@ function initMap() {
         latlng,
         map,
         {
-          marker_id: 1
+          marker_id: monsterArray[i].id
         }
       )
     }
@@ -1020,8 +1048,12 @@ $(document).ready(function() {
   $("#google_map").css("height", $(document).height());
   $("#form").css("height", $(document).height());
   $("#welcome_page").css("height", $(document).height());
-
+  attack_page_height();
 });
+
+function attack_page_height() {
+  $(".attack").css("height", $(document).height());
+};
 
 $(document).ready(function() {
   // if (storage.getItem("api_key") === null) {
@@ -1036,3 +1068,24 @@ $(document).ready(function() {
   //   match_height_maps();
   // }
 }); // end onDeviceReady
+
+
+
+function initAttackPage(monsterId){
+
+  // getCurrentMonsterInfo(monsterId);
+  // gets current monster details
+
+  function updateAttackPage(){
+    //insert details into page
+    $("div#monster_id").append(currentMonsterArray.id);
+    $("div#monster_id").append(currentMonsterArray.name);
+    $("div#monster_id").append(currentMonsterArray.active);
+  }
+
+  $.when(getCurrentMonsterInfo(monsterId)).then(function() {
+      // setInterval(function() {
+    updateAttackPage();
+      // }, 2000);
+    });
+}

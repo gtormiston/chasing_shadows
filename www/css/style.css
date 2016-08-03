@@ -5936,7 +5936,15 @@ input:out-of-range {
 
 .attack {
   width: 100%;
+  text-align: center;
   background-color: yellow; }
+  .attack .monsterSprite {
+    width: 100%; }
+  .attack .monsterPoints {
+    width: 100%; }
+  .attack .monsterAttack {
+    width: 100%;
+    bottom: 50px; }
 
 .playerMarker {
   top: 50%;

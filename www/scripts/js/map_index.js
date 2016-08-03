@@ -27,9 +27,7 @@ function initMap() {
     });
 
     $.when(getMonsters()).then(function() {
-      setInterval(function() {
         drawMonsters(map);
-      }, 2000);
     });
 
     monitorLocation(map);
@@ -58,7 +56,7 @@ function initMap() {
         latlng,
         map,
         {
-          marker_id: 1
+          marker_id: monsterArray[i].id
         }
       )
     }

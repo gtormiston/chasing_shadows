@@ -28,14 +28,13 @@ CustomMonsterMarker.prototype.draw = function() {
 
 		google.maps.event.addDomListener(div, "touchstart", function() {
 			console.log("touched")
-			load_attack_page();
+			load_attack_page(self.args.marker_id);
 			// google.maps.event.trigger(self, "touchstart click");
 		});
 
 		google.maps.event.addDomListener(div, "click", function() {
 			console.log("clicked")
-			load_attack_page();
-
+			load_attack_page(self.args.marker_id);
 			// google.maps.event.trigger(self, "touchstart click");
 		});
 
@@ -47,7 +46,7 @@ CustomMonsterMarker.prototype.draw = function() {
 	var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
 
   console.log(point);
-  
+
 	if (point) {
 		div.style.left = (point.x - 10) + 'px';
 		div.style.top = (point.y - 20) + 'px';
