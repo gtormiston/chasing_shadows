@@ -13,6 +13,13 @@ function getGeoLocationPromise() {
   });
 }
 
+// function addListenerForLogin() {
+//   $("#sign_in_link").on("touchstart click", function(){
+//     console.log("sign-in page button clicked");
+//     load_sign_in_page(addListenerForLogin);
+//   });
+// }
+
 function addListenerForSignUp() {
   $("#sign_in_link").on("touchstart click", function(){
     console.log("sign-in page button clicked");

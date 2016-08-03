@@ -14,6 +14,10 @@ function match_height_maps(){
   $("#google_map").css("height", $(document).height());
 }
 
+// function load_login_page(){
+//   $("#content").html($("#sign_in_form_page").html());
+// }
+
 function load_sign_in_page(callback) {
   $("#content").html($("#sign_in_form_page").html());
   callback();
