@@ -364,6 +364,38 @@ $(".playerMarker").animateSprite('play', 'walkDown');
 console.log("hello");
 }
 
+function animatedMonsters() {
+$(".monster-marker").animateSprite({
+  fps: 1,
+  animations: {
+    monsterMove: [0, 1, 2, 1]
+  },
+  loop: true,
+  autoplay: true
+});
+
+$(".monster-marker").animateSprite('play', 'monsterMove');
+
+console.log("monster should move");
+}
+
+function monsterFight() {
+$(".monster-fight").animateSprite({
+  fps: 1,
+  animations: {
+    monsterFight: [0, 1, 2, 1],
+    monsterHurt: [4, 5, 6, 7, 8],
+    monsterDead: [3]
+  },
+  loop: true,
+  autoplay: true
+});
+}
+
+$(".monster-fight").animateSprite('play', 'monsterFight');
+$(".monster-fight").animateSprite('play', 'monsterDead');
+$(".monster-fight").animateSprite('play', 'monsterHurt');
+
 /* Vars */
 storage = window.localStorage;
 ajax_users_path = "http://chasingshadowsapi.herokuapp.com/api/v1/users/";
@@ -587,6 +619,7 @@ function load_sign_in_page(callback) {
 }
 
 function load_attack_page(monsterId){
+
   $("#content").html($("#attack_page").html());
   attack_page_height();
   // var id = monsterId;
@@ -832,7 +865,7 @@ var styles = [
         }
     ]
 }
-]
+];
 
 function CustomMarker(latlng, map, args) {
 	this.latlng = latlng;
@@ -910,7 +943,7 @@ function CustomMonsterMarker(latlng, map, args) {
 CustomMonsterMarker.prototype = new google.maps.OverlayView();
 
 CustomMonsterMarker.prototype.draw = function() {
-  console.log("monster marker prototype draw 1")
+  console.log("monster marker prototype draw 1");
 	var self = this;
 	var div = this.div;
 
@@ -930,13 +963,13 @@ CustomMonsterMarker.prototype.draw = function() {
 		}
 
 		google.maps.event.addDomListener(div, "touchstart", function() {
-			console.log("touched")
+			console.log("touched");
 			load_attack_page(self.args.marker_id);
 			// google.maps.event.trigger(self, "touchstart click");
 		});
 
 		google.maps.event.addDomListener(div, "click", function() {
-			console.log("clicked")
+			console.log("clicked");
 			load_attack_page(self.args.marker_id);
 			// google.maps.event.trigger(self, "touchstart click");
 		});
@@ -1069,6 +1102,7 @@ function initMap() {
 
   });
   animatedGuy();
+
 } ///////////// close initMap
 
 
@@ -1114,6 +1148,7 @@ function monitorLocation(map) {
 
     $.when(drawMonsters()).then(function( x ) {
       console.log( "Monsters drawn v2" );
+      animatedMonsters();
     });
     // $('.playerMarker').rotate({ endDeg:180, persist:true });
     // $('.playerMarker').rotate({ endDeg: position.coords.heading, duration:0.8, easing:'ease-in', persist: true });
@@ -1157,9 +1192,15 @@ function initAttackPage(monsterId){
 
   // getCurrentMonsterInfo(monsterId);
   // gets current monster details
+  monsterFight();
+  console.log("starting attack page");
+  console.log( monsterFight() );
 
   function updateAttackPage(){
     //insert details into page
+
+    monsterFight();
+    console.log("updating attack page");
     $("div#monster_id").append(currentMonster.id);
     $("div#monster_id").append(currentMonster.name);
     $("div#monster_id").append(currentMonster.active);
@@ -1179,5 +1220,4 @@ function initAttackPage(monsterId){
       });
     });
   });
-
 }

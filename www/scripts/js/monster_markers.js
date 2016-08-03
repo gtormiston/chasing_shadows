@@ -7,7 +7,7 @@ function CustomMonsterMarker(latlng, map, args) {
 CustomMonsterMarker.prototype = new google.maps.OverlayView();
 
 CustomMonsterMarker.prototype.draw = function() {
-  console.log("monster marker prototype draw 1")
+  console.log("monster marker prototype draw 1");
 	var self = this;
 	var div = this.div;
 
@@ -27,13 +27,13 @@ CustomMonsterMarker.prototype.draw = function() {
 		}
 
 		google.maps.event.addDomListener(div, "touchstart", function() {
-			console.log("touched")
+			console.log("touched");
 			load_attack_page(self.args.marker_id);
 			// google.maps.event.trigger(self, "touchstart click");
 		});
 
 		google.maps.event.addDomListener(div, "click", function() {
-			console.log("clicked")
+			console.log("clicked");
 			load_attack_page(self.args.marker_id);
 			// google.maps.event.trigger(self, "touchstart click");
 		});

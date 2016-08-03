@@ -4,9 +4,15 @@ function initAttackPage(monsterId){
 
   // getCurrentMonsterInfo(monsterId);
   // gets current monster details
+  monsterFight();
+  console.log("starting attack page");
+  console.log( monsterFight() );
 
   function updateAttackPage(){
     //insert details into page
+
+    monsterFight();
+    console.log("updating attack page");
     $("div#monster_id").append(currentMonster.id);
     $("div#monster_id").append(currentMonster.name);
     $("div#monster_id").append(currentMonster.active);
@@ -26,5 +32,4 @@ function initAttackPage(monsterId){
       });
     });
   });
-
 }
