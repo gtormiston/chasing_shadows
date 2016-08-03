@@ -10,56 +10,6 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJxrqPCVCSREKVBPN2XVHXC1hxYZArH78"></script>
   </head>
   <body>
-
-    <!-- temporary attack layout to go into scripts below -->
-    <div class="attack z10 absolute">
-      <!-- Monster Sprite -->
-      <div class="container-fluid monsterSprite">
-        <div class="row">
-          <div class="col-xs-12">
-              <!-- monster sprite goes here -->
-              MONSTER SPRITE
-          </div>
-        </div>
-      </div>
-      <!-- Hitpoints bar -->
-      <div class="container-fluid monsterPoints">
-        <div class="row">
-          <div class="col-xs-12">
-              <!-- monster points remaining here / convert to status bar -->
-              <div class="health-bar" data-total="1000" data-value="1000">
-                <div class="bar">
-                	  <div class="hit"></div>
-                </div>
-              </div>
-
-              <br />
-
-              <button class="damage">ATTACK!</button>
-              <button class="reset">reset [for testing purposes only]</button>
-
-              <div class="log">
-                <div>
-                  <p>Test Data</p>
-                  <p>------------</p>
-                </div>
-              </div>
-          </div>
-        </div>
-      </div>
-      <!-- Attack button -->
-      <div class="container-fluid monsterAttack absolute">
-        <div class="row">
-          <div class="col-xs-12">
-            <button type="button" name="button">ATTTAAAAAAAAACKKKK</button>
-          </div>
-        </div>
-      </div>
-
-
-    </div>
-
-
     <div id="content">
 
     </div>
@@ -171,9 +121,51 @@
 
     <script type="text/templates" id="attack_page" class="attack">
       <div class="attack z10 absolute">
-        <p>Poo Bum</p>
-
+      <!-- Monster Sprite -->
+      <div class="container-fluid monsterSprite">
+        <div class="row">
+          <div class="col-xs-12">
+              <!-- monster sprite goes here -->
+              MONSTER SPRITE
+          </div>
+        </div>
       </div>
+      <!-- Hitpoints bar -->
+      <div class="container-fluid monsterPoints">
+        <div class="row">
+          <div class="col-xs-12">
+              <!-- monster points remaining here / convert to status bar -->
+              MONSTER POINTS
+              <div id="monster_id"></div>
+              <div class="health-bar" data-total="1000" data-value="1000">
+                <div class="bar">
+                    <div class="hit"></div>
+                </div>
+              </div>
+
+              <br />
+
+              <button class="damage">ATTACK!</button>
+              <button class="reset">reset [for testing purposes only]</button>
+
+              <div class="log">
+                <div>
+                  <p>Test Data</p>
+                  <p>------------</p>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <!-- Attack button -->
+      <div class="container-fluid monsterAttack absolute">
+        <div class="row">
+          <div class="col-xs-12">
+            <button type="button" name="button" id="attack">ATTTAAAAAAAAACKKKK</button>
+          </div>
+        </div>
+      </div>
+     </div>
     </script>
 
     <script src="scripts/dist/all.js"></script>

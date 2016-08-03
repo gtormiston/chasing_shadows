@@ -368,7 +368,8 @@ console.log("hello");
 storage = window.localStorage;
 ajax_users_path = "http://chasingshadowsapi.herokuapp.com/api/v1/users/";
 ajax_enemies_path = "http://chasingshadowsapi.herokuapp.com/api/v1/enemies/";
-ajax_sessions_path = "http://chasingshadowsapi.herokuapp.com/api/v1/sessions/"; // name + password
+ajax_sessions_path = "http://chasingshadowsapi.herokuapp.com/api/v1/sessions/";
+ // name + password
 monsterArray = [];
 
 
@@ -428,7 +429,7 @@ function sendSignInRequest(dataText) {
 
 function getMonsters() {
 
-  $.ajax({
+  return $.ajax({
     headers: {
       "Authorization": "Token token=" + storage.getItem("api_key")
     },
@@ -448,9 +449,53 @@ function getMonsters() {
 
 }
 
+function getCurrentMonsterInfo(id) {
+
+  return $.ajax({
+    headers: {
+      "Authorization": "Token token=" + storage.getItem("api_key")
+    },
+    url: ajax_enemies_path + id,
+    // data: dataText,
+    type: "GET",
+    success: function(data) {
+        currentMonster = data;
+        console.log("current monster request - sucess");
+        // console.log(currentMonsterArray);
+     },
+     error: function(data) {
+       console.log("current monster request - failure");
+       console.log(data);
+     }
+  });
+
+}
+
+function attackCurrentMonster(id) {
+
+  return $.ajax({
+    headers: {
+      "Authorization": "Token token=" + storage.getItem("api_key")
+    },
+    url: ajax_enemies_path + id,
+    // data: dataText,
+    type: "PATCH",
+    success: function(data) {
+        attackMessage = data;
+        console.log("attack - sucess");
+        // console.log(currentMonsterArray);
+     },
+     error: function(data) {
+       console.log("attack - failure");
+       console.log(data);
+     }
+  });
+
+}
+
 
 function pushLocation(position) {
-  $.ajax({
+  return $.ajax({
     headers: {
       "Authorization": "Token token=" + storage.getItem("api_key"),
       "USER_LATITUDE": position.coords.latitude.toString(),
@@ -543,8 +588,13 @@ function load_sign_in_page(callback) {
 
 function load_attack_page(monsterId){
   $("#content").html($("#attack_page").html());
-  console.log("MonsterId is: " + monsterId);
-  // getMonsterInfo(monsterId); // function doesn't exist yet but needs to
+  attack_page_height();
+  // var id = monsterId;
+  // $("div#monster_id").text(id);
+  // console.log("MonsterId is: " + monsterId);
+
+  initAttackPage(monsterId);
+  // updateAttackPage();
 }
 
 var styles = [
@@ -1006,9 +1056,7 @@ function initMap() {
     });
 
     $.when(getMonsters()).then(function() {
-      setInterval(function() {
         drawMonsters(map);
-      }, 2000);
     });
 
     monitorLocation(map);
@@ -1082,9 +1130,12 @@ $(document).ready(function() {
   $("#google_map").css("height", $(document).height());
   $("#form").css("height", $(document).height());
   $("#welcome_page").css("height", $(document).height());
-  $(".attack").css("height", $(document).height());
-
+  attack_page_height();
 });
+
+function attack_page_height() {
+  $(".attack").css("height", $(document).height());
+};
 
 $(document).ready(function() {
   // if (storage.getItem("api_key") === null) {
@@ -1099,3 +1150,34 @@ $(document).ready(function() {
   //   match_height_maps();
   // }
 }); // end onDeviceReady
+
+
+
+function initAttackPage(monsterId){
+
+  // getCurrentMonsterInfo(monsterId);
+  // gets current monster details
+
+  function updateAttackPage(){
+    //insert details into page
+    $("div#monster_id").append(currentMonster.id);
+    $("div#monster_id").append(currentMonster.name);
+    $("div#monster_id").append(currentMonster.active);
+    $("div#monster_id").append(currentMonster.size);
+
+  }
+
+  $.when(getCurrentMonsterInfo(monsterId)).then(function() {
+    updateAttackPage();
+  });
+
+  $("#attack" ).on( "click", function() {
+    console.log("button clicked");
+    $.when(attackCurrentMonster(monsterId)).then(function() {
+      $.when(getCurrentMonsterInfo(monsterId)).then(function() {
+        updateAttackPage();
+      });
+    });
+  });
+
+}

@@ -55,7 +55,7 @@ function sendSignInRequest(dataText) {
 
 function getMonsters() {
 
-  $.ajax({
+  return $.ajax({
     headers: {
       "Authorization": "Token token=" + storage.getItem("api_key")
     },
@@ -75,9 +75,53 @@ function getMonsters() {
 
 }
 
+function getCurrentMonsterInfo(id) {
+
+  return $.ajax({
+    headers: {
+      "Authorization": "Token token=" + storage.getItem("api_key")
+    },
+    url: ajax_enemies_path + id,
+    // data: dataText,
+    type: "GET",
+    success: function(data) {
+        currentMonster = data;
+        console.log("current monster request - sucess");
+        // console.log(currentMonsterArray);
+     },
+     error: function(data) {
+       console.log("current monster request - failure");
+       console.log(data);
+     }
+  });
+
+}
+
+function attackCurrentMonster(id) {
+
+  return $.ajax({
+    headers: {
+      "Authorization": "Token token=" + storage.getItem("api_key")
+    },
+    url: ajax_enemies_path + id,
+    // data: dataText,
+    type: "PATCH",
+    success: function(data) {
+        attackMessage = data;
+        console.log("attack - sucess");
+        // console.log(currentMonsterArray);
+     },
+     error: function(data) {
+       console.log("attack - failure");
+       console.log(data);
+     }
+  });
+
+}
+
 
 function pushLocation(position) {
-  $.ajax({
+  return $.ajax({
     headers: {
       "Authorization": "Token token=" + storage.getItem("api_key"),
       "USER_LATITUDE": position.coords.latitude.toString(),
