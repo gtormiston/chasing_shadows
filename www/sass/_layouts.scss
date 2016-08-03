@@ -96,7 +96,8 @@ input:out-of-range {
 .attack {
   width: 100%;
   text-align: center;
-  background-color: yellow;
+  // background-color: yellow;
+  background-image: url(../img/brick-wallpaper.jpg);
 
   .monsterSprite {
     width:100%;

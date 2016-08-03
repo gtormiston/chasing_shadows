@@ -40,6 +40,7 @@ function initMap() {
 
   });
   animatedGuy();
+
 } ///////////// close initMap
 
 
@@ -81,10 +82,12 @@ function monitorLocation(map) {
     $.when(getMonsters()).then(function( x ) {
       console.log( "Get Monsters complete v2" );
       drawMonsters(map);
+      
     });
 
     $.when(drawMonsters()).then(function( x ) {
       console.log( "Monsters drawn v2" );
+
     });
     // $('.playerMarker').rotate({ endDeg:180, persist:true });
     // $('.playerMarker').rotate({ endDeg: position.coords.heading, duration:0.8, easing:'ease-in', persist: true });

@@ -1,5 +1,9 @@
 function initAttackPage(monsterId){
 
+  monsterFight();
+  console.log("starting attack page");
+  console.log( monsterFight() );
+
   var hitBtn = $('button.damage'),
       hBar = $('.health-bar'),
       bar = hBar.find('.bar'),
@@ -13,6 +17,7 @@ function initAttackPage(monsterId){
   };
 
   function updateAttackPage(){
+    monsterFight();
     //insert details into page
     // $("div#monster_id").append(currentMonster.id);
     $("#monster_name").text(currentMonster.name);
@@ -42,6 +47,7 @@ function initAttackPage(monsterId){
       bar.css('width', barWidth + "%");
     }, 500);
     console.log(value, damage, hitWidth);
+
   }
 
   $.when(getCurrentMonsterInfo(monsterId)).then(function() {
@@ -55,8 +61,13 @@ function initAttackPage(monsterId){
     $.when(attackCurrentMonster(monsterId)).then(function() {
       $.when(getCurrentMonsterInfo(monsterId)).then(function() {
         updateAttackPage();
+        $(".monster-fight").animateSprite('fps', 10);
+        $(".monster-fight").animateSprite('play', 'monsterHurt');
+        setInterval(function(){
+          $(".monster-fight").animateSprite('fps', 3);
+          $(".monster-fight").animateSprite('play', 'monsterFight');
+        },1000);
       });
     });
   });
-
 }
