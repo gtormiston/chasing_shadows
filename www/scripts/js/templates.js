@@ -5,6 +5,17 @@ function load_sign_up_page(callback){
 
 function load_welcome_page(){
   $("#content").html($("#welcome_page").html());
+
+  $(".slick-carousel").slick({
+    dots: true,
+    autoplay: true,
+    mobileFirst: true,
+    swipe: true,
+    touchMove: true,
+    arrows: false,
+    appendDots: $('.dots')
+  });
+
 }
 
 function load_game_page(){

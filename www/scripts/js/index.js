@@ -1,12 +1,14 @@
 $(document).ready(function() {
   // if (storage.getItem("api_key") === null) {
 
+
+    // TEMPORARILY DISABLED FOR FRONTEND TESTING::
     load_sign_up_page(addListenerForSignUp);
+
+    // TEMPORARILY ADDED FOR FRONTEND TESTING::
+    // load_welcome_page();
+
     // addListenerForSignUp();
-    // addListenerForLoginLink();
-    // addListenerForSignUpLink();
-
-
 
     // initMap();
   // }

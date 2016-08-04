@@ -2,6 +2,8 @@ body {
   position: relative;
   height: 100%;
   font-family: "LatoWeb";
+    background: url('../img/backgrounds/home-bg.png') center top;
+    background-size: cover;
 }
 
 .mt-10 {
@@ -16,8 +18,8 @@ body {
 }
 
 .form {
-  background: url('../img/backgrounds/home-bg.png') center top;
-  background-size: cover;
+
+
   // background-color: rgba(99,29,29,0.95);
   width: 100%;
   height: 100%;
@@ -25,7 +27,7 @@ body {
 }
 
 .welcome {
-  background-color: blue;
+  // background-color: blue;
   width: 100%;
   height: 100%;
   align-items: center;
