@@ -6,8 +6,6 @@ $(document).ready(function() {
     // TEMPORARILY DISABLED FOR FRONTEND TESTING::
     load_sign_up_page(addListenerForSignUp);
 
-
-
     // TEMPORARILY ADDED FOR FRONTEND TESTING::
     // load_welcome_page();
     // load_attack_page(1);

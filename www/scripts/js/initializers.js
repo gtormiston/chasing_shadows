@@ -81,3 +81,8 @@ function addListenerForNav() {
    });
   });
 }
+
+function monsterIsOutOfRange(){
+  clearContentPage();
+  alert("You're out of range, get a bit closer!");
+}

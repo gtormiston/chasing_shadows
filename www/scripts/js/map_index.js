@@ -13,8 +13,8 @@ function initMap() {
                                   zoom: 18,
                                   minZoom: 13,
                                   maxZoom: 19,
-                                  draggable: true
-                                  // disableDefaultUI: true
+                                  draggable: true,
+                                  disableDefaultUI: true
                                 });
     map.setOptions({styles: styles});
 
