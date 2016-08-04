@@ -6,6 +6,7 @@ function getGeoLocationPromise() {
     navigator.geolocation.getCurrentPosition(success, failure);
 
     function success(position) {
+      console.log(position);
       fullfill(position);
     }
     function failure(){

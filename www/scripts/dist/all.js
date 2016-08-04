@@ -437,6 +437,7 @@ function sendSignUpRequest(dataText) {
     data: dataText,
     type: "POST",
     success: function(data) {
+        if (data.error === undefined) {
         console.log(data);
         storage.setItem("userid", data.id);
         storage.setItem("user_name", data.name);
@@ -450,6 +451,9 @@ function sendSignUpRequest(dataText) {
             load_game_page();
             initMap();
         });
+      } else {
+        alert(data.error);
+      }
      },
      error: function(data) {
        console.log(data);
@@ -464,6 +468,7 @@ function sendSignInRequest(dataText) {
     data: dataText,
     type: "POST",
     success: function(data) {
+    if (data.error === undefined) {
       console.log(data);
       storage.setItem("userid", data.id);
       storage.setItem("user_name", data.name);
@@ -477,6 +482,9 @@ function sendSignInRequest(dataText) {
         load_game_page();
         initMap();
       });
+    } else {
+      alert(data.error);
+    }
     },
     error: function(data) {
       console.log(data);
@@ -579,6 +587,7 @@ function getGeoLocationPromise() {
     navigator.geolocation.getCurrentPosition(success, failure);
 
     function success(position) {
+      console.log(position);
       fullfill(position);
     }
     function failure(){
