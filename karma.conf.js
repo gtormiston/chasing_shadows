@@ -1,10 +1,12 @@
 module.exports = function(config) {
   config.set({
     basePath: '',
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine-jquery','jasmine'],
     files: [
-      'test/units/*spec.js',
-      'www/scripts/js/**/*.js'
+      './node_modules/es6-promise/dist/es6-promise.js',
+      'http://maps.googleapis.com/maps/api/js?sensor=false&language=en',
+      'www/scripts/dist/all.js',
+      'test/units/*spec.js'
     ],
     reporters: ['spec'],
     port: 9876,
@@ -18,7 +20,7 @@ module.exports = function(config) {
         'org.apache.cordova.console'
       ]
     },
-    browsers: ['PhantomJS', 'Chrome'],
+    browsers: ['PhantomJS'],
     singleRun: false,
     concurrency: Infinity
   });

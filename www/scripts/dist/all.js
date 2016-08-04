@@ -355,51 +355,45 @@ $.fn.rotate=function(options) {
 };
 
 function animatedGuy() {
+  $(".playerMarker").animateSprite({
+    fps: 4,
+    animations: {
+      walkDown: [0, 1, 2, 3, 4, 5, 6, 7]
+    },
+    loop: true,
+    autoplay: true
+  });
 
-$(".playerMarker").animateSprite({
-  fps: 4,
-  animations: {
-    walkDown: [0, 1, 2, 3, 4, 5, 6, 7]
-  },
-  loop: true,
-  autoplay: true
-});
-
-$(".playerMarker").animateSprite('play', 'walkDown');
-
-
-console.log("hello");
+  $(".playerMarker").animateSprite('play', 'walkDown');
 }
 
 function animatedMonsters() {
-$(".monster-marker").animateSprite({
-  fps: 1,
-  animations: {
-    monsterMove: [0, 1, 2, 1]
-  },
-  loop: true,
-  autoplay: true
-});
+  $(".monster-marker").animateSprite({
+    fps: 1,
+    animations: {
+      monsterMove: [0, 1, 2, 1]
+    },
+    loop: true,
+    autoplay: true
+  });
 
-$(".monster-marker").animateSprite('play', 'monsterMove');
-
-console.log("monster should move");
+  $(".monster-marker").animateSprite('play', 'monsterMove');
 }
 
 function monsterFight() {
-$(".monster-fight").animateSprite({
-  fps: 3,
-  animations: {
-    monsterFight: [0, 1, 2, 1],
-    monsterHurt: [4, 5, 6, 7, 8],
-    monsterDead: [3]
-  },
-  loop: true,
-  autoplay: true,
-  // complete: function() {
-  //   $(".monster-fight").animateSprite('play', 'monsterFight');
-  //   }
-  });
+  $(".monster-fight").animateSprite({
+    fps: 3,
+    animations: {
+      monsterFight: [0, 1, 2, 1],
+      monsterHurt: [4, 5, 6, 7, 8],
+      monsterDead: [3]
+    },
+    loop: true,
+    autoplay: true,
+    // complete: function() {
+    //   $(".monster-fight").animateSprite('play', 'monsterFight');
+    //   }
+    });
 }
 $(".monster-fight").animateSprite('play', 'monsterFight');
 $(".monster-fight").animateSprite('play', 'monsterDead');
@@ -1031,46 +1025,32 @@ function initMap() {
                                   zoom: 18,
                                   minZoom: 13,
                                   maxZoom: 19,
-                                  draggable: true
-                                  // zoomControl: false
-                                  // panControl: false
+                                  draggable: true,
+                                  zoomControl: false,
+                                  panControl: false
                                 });
-
     map.setOptions({styles: styles});
 
-    // pushLocation(position);
-
-    $.when(pushLocation(position)).then(function(data, textStatus, jqXHR) {
-      getMonsters();
+    $.when(pushLocation(position)).then(function() {
+      $.when(getMonsters()).then(function() {
+          drawMonsters(map);
+          monitorLocation(map);
+      });
     });
-
-    $.when(getMonsters()).then(function() {
-        drawMonsters(map);
-    });
-
-    monitorLocation(map);
   }
 
   var locationPromise = getGeoLocationPromise();
   locationPromise.then(function(position) {
-    // pushLocation(position);
     drawMap(position);
-
   });
   animatedGuy();
-
 } ///////////// close initMap
 
 
   // method to be executed;
   function drawMonsters(map) {
-    // console.log("monsterArray length:")
-    // console.log(monsterArray.length);
     for( i = 0; i < monsterArray.length; i++ ) {
-      // console.log(monsterArray[i].lat);
-      // console.log(monsterArray[i].lng);
       var latlng = new google.maps.LatLng(monsterArray[i].lat, monsterArray[i].lng);
-      // console.log(latlng);
       overlay = new CustomMonsterMarker(
         latlng,
         map,
@@ -1092,24 +1072,15 @@ function monitorLocation(map) {
                                            position.coords.longitude);
     map.panTo(newCenter);
 
-    $.when(pushLocation(position)).then(function( x ) {
-      console.log( "Location Pushed and Promised v2" );
-      getMonsters();
+    $.when(pushLocation(position)).then(function() {
+      $.when(getMonsters()).then(function() {
+          drawMonsters(map);
+          // playerMarker.setPosition(newCenter);
+      });
     });
 
-    $.when(getMonsters()).then(function( x ) {
-      console.log( "Get Monsters complete v2" );
-      drawMonsters(map);
-      
-    });
-
-    $.when(drawMonsters()).then(function( x ) {
-      console.log( "Monsters drawn v2" );
-
-    });
     // $('.playerMarker').rotate({ endDeg:180, persist:true });
     // $('.playerMarker').rotate({ endDeg: position.coords.heading, duration:0.8, easing:'ease-in', persist: true });
-    // playerMarker.setPosition(newCenter);
     // animatedGuy();
   }
   function failure() {
