@@ -4,9 +4,9 @@ module.exports = function(config) {
     frameworks: ['jasmine-jquery','jasmine'],
     files: [
       './node_modules/es6-promise/dist/es6-promise.js',
-      'test/units/*spec.js',
       'http://maps.googleapis.com/maps/api/js?sensor=false&language=en',
-      'www/scripts/dist/all.js'
+      'www/scripts/dist/all.js',
+      'test/units/*spec.js'
     ],
     reporters: ['spec'],
     port: 9876,
