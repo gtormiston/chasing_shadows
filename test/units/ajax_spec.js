@@ -13,7 +13,7 @@ describe("sendUserAjax", function() {
 });
 
 describe("receive and store user Ajax", function() {
-  xit("should store the user API, name and email in the local storage", function() {
+  it("should store the user API, name and email in the local storage", function() {
     // Need a line to send the ajax JSON back to the method here
     expect(storage.getItem("api_key")).toEqual(XXX)
     expect(storage.getItem("username")).toEqual(XXX)
