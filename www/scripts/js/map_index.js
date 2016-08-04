@@ -13,19 +13,19 @@ function initMap() {
                                   zoom: 18,
                                   minZoom: 13,
                                   maxZoom: 19,
-                                  draggable: true,
-                                  zoomControl: false,
-                                  panControl: false
+                                  draggable: true
+                                  // disableDefaultUI: true
                                 });
     map.setOptions({styles: styles});
 
     $.when(pushLocation(position)).then(function() {
       $.when(getMonsters()).then(function() {
           drawMonsters(map);
-          monitorLocation(map);
       });
     });
+    monitorLocation(map);
   }
+
 
   var locationPromise = getGeoLocationPromise();
   locationPromise.then(function(position) {
@@ -37,6 +37,7 @@ function initMap() {
 
   // method to be executed;
   function drawMonsters(map) {
+    // clearMarkers(); // remove markers and repopulate when moving?
     for( i = 0; i < monsterArray.length; i++ ) {
       var latlng = new google.maps.LatLng(monsterArray[i].lat, monsterArray[i].lng);
       overlay = new CustomMonsterMarker(

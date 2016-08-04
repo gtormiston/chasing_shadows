@@ -59,10 +59,18 @@ body {
 .z2 {
   z-index: 2;
 }
+.z9 {
+  z-index: 9;
+}
 
 .z10 {
   z-index: 10;
 }
+
+.z11 {
+  z-index: 11;
+}
+
 
 .notification {
   width: 100%;
@@ -72,7 +80,6 @@ body {
 }
 
 .attack-container {
-  background-color: gray;
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -84,9 +91,67 @@ body {
   margin: 0 auto;
 }
 
+#nav-bg {
+  opacity: 0;
+  display:none;
+  background:rgba(0,0,0,0.8);
+  position: absolute;
+  width: 100%;
+  height:100%;
+  top: 0;
+  left:0;
+
+  &.visible {
+    display:block;
+    opacity: 1;
+    transition: opacity .5s ease-in-out;
+    -moz-transition: opacity .5s ease-in-out;
+    -webkit-transition: opacity .5s ease-in-out;
+  }
+
+  &.hidden {
+    display:none;
+    opacity: 0;
+    transition: opacity .5s ease-in-out;
+    -moz-transition: opacity .5s ease-in-out;
+    -webkit-transition: opacity .5s ease-in-out;
+  }
+}
+
+
+
+
+
 .navbar-margin {
   margin: 10px 10px;
 }
+
+  .navbar-inverse {
+    background-color:transparent;
+    border-color:transparent;
+
+  }
+
+  .navbar-inverse .navbar-nav > li > a {
+    color: #f2f2f2;
+    text-align: center;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    font-size:22px;
+  }
+
+  .navbar-collapse {
+    box-shadow: none;
+  }
+
+  .navbar-nav > li > a {
+    // padding-top: 25px;
+    // padding-bottom: 25px;
+  }
+
+  .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+    border-color: transparent;
+  }
 
 .login-btn {
  text-align: right;
@@ -95,16 +160,55 @@ body {
 .attack {
   width: 100%;
   text-align: center;
+  background: url('../img/backgrounds/attack-bg.png') center top;
+  background-size: cover;
   // background-color: yellow;
-  background-image: url(../img/brick-wallpaper.jpg);
+  // background-image: url(../img/brick-wallpaper.jpg);
 
   .monsterSprite {
     width:100%;
+
+
   }
+
+  #monster_name {
+    margin-top:15px;
+    font-size:30px;
+    color:#fff;
+    font-family: 'LatoWebBlack';
+    text-transform: uppercase;
+  }
+
+  span.monsterDivider {
+    font-size:20px;
+    color:#e8e8e8;
+  }
+
+  #monster_size {
+    margin-top:15px;
+    font-size:30px;
+    color:#fff;
+    font-family: 'LatoWebBold'
+  }
+
+
+  button#attack {
+      background: url('../img/attack-button.png');
+      background-position:0px 0px;
+      width: 174px;
+      height:174px;
+      border:none;
+
+      &:focus {
+        background-position: 174px 0px;
+      }
+
+  }
+
 
   .monsterPoints {
     width: 100%;
-    bottom: 100px;
+    bottom: 250px;
   }
 
   .monsterAttack {
@@ -127,7 +231,7 @@ body {
   width: 300px;
   height: 20px;
   padding: 5px;
-  background: #ddd;
+  background: rgba(42,31,35,0.8);
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 15px;

@@ -4089,6 +4089,18 @@ function addListenerForLogin() {
   });
 }
 
+function addListenerForNav() {
+  $('button[data-target="#myNavbar"]').on("click", function(event) {
+    $( "div#nav-bg" ).toggleClass(function() {
+      if ( $( this ).is( "visible" ) ) {
+       return "hidden";
+     } else {
+       return "visible";
+     }
+   });
+  });
+}
+
 function load_sign_up_page(callback){
   $("#content").html($("#form_page").html());
   callback();
@@ -4106,7 +4118,6 @@ function load_welcome_page(){
     arrows: false,
     appendDots: $('.dots')
   });
-
 }
 
 function load_game_page(){
@@ -4125,7 +4136,9 @@ function load_sign_in_page(callback) {
 function load_attack_page(monsterId){
 
   $("#content").html($("#attack_page").html());
+  $("#navigation").html($("#nav_page").html());
   attack_page_height();
+  addListenerForNav();
   initAttackPage(monsterId);
 }
 
@@ -4450,6 +4463,7 @@ CustomMonsterMarker.prototype.draw = function() {
 
 		div = this.div = document.createElement('div');
 		div.className = 'monster-marker';
+  // div.id = 'monster_' + self.args.marker_id;
 
 		div.style.position = 'absolute';
 		div.style.cursor = 'pointer';
@@ -4514,19 +4528,19 @@ function initMap() {
                                   zoom: 18,
                                   minZoom: 13,
                                   maxZoom: 19,
-                                  draggable: true,
-                                  zoomControl: false,
-                                  panControl: false
+                                  draggable: true
+                                  // disableDefaultUI: true
                                 });
     map.setOptions({styles: styles});
 
     $.when(pushLocation(position)).then(function() {
       $.when(getMonsters()).then(function() {
           drawMonsters(map);
-          monitorLocation(map);
       });
     });
+    monitorLocation(map);
   }
+
 
   var locationPromise = getGeoLocationPromise();
   locationPromise.then(function(position) {
@@ -4538,6 +4552,7 @@ function initMap() {
 
   // method to be executed;
   function drawMonsters(map) {
+    // clearMarkers(); // remove markers and repopulate when moving?
     for( i = 0; i < monsterArray.length; i++ ) {
       var latlng = new google.maps.LatLng(monsterArray[i].lat, monsterArray[i].lng);
       overlay = new CustomMonsterMarker(
@@ -4594,16 +4609,19 @@ function attack_page_height() {
   $(".attack").css("height", $(document).height());
 };
 
+// $(document).ready(function() {
 $(document).ready(function() {
+    // document.addEventListener("deviceready", onDeviceReady, false);
   // if (storage.getItem("api_key") === null) {
-
 
     // TEMPORARILY DISABLED FOR FRONTEND TESTING::
     load_sign_up_page(addListenerForSignUp);
 
+
+
     // TEMPORARILY ADDED FOR FRONTEND TESTING::
     // load_welcome_page();
-
+    // load_attack_page(1);
     // addListenerForSignUp();
 
     // initMap();
@@ -4613,7 +4631,8 @@ $(document).ready(function() {
   //   initMap();
   //   match_height_maps();
   // }
-}); // end onDeviceReady
+});
+ // end onDeviceReady
 
 function initAttackPage(monsterId){
 

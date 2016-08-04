@@ -66,3 +66,15 @@ function addListenerForLogin() {
     sendSignInRequest(dataText);
   });
 }
+
+function addListenerForNav() {
+  $('button[data-target="#myNavbar"]').on("click", function(event) {
+    $( "div#nav-bg" ).toggleClass(function() {
+      if ( $( this ).is( "visible" ) ) {
+       return "hidden";
+     } else {
+       return "visible";
+     }
+   });
+  });
+}

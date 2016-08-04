@@ -10,32 +10,12 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJxrqPCVCSREKVBPN2XVHXC1hxYZArH78"></script>
   </head>
   <body>
-<!--
-    <div id="navigation-bar z1 absolute">
-      <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Chasing Shadows</a>
-          </div>
-          <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="#sign_up_link" id="sign_up_link"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-              <li><a href="#login_link" id="login_link"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav> -->
 
-      <!-- <div class="login-btn col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3">
-        Already a user? <button type="button" class="btn btn-default" name="button" id="sign_in_link">Sign-in</button>
-      </div> -->
+    <div id="navigation">
+    </div>
 
-    <!-- </div> -->
+    <div id="nav-bg" class="z11">
+    </div>
 
     <div id="content">
 
@@ -190,11 +170,11 @@
       <div class="container-fluid monsterSprite">
         <div class="row">
           <div class="col-xs-12">
-              <!-- monster sprite goes here -->
-              MONSTER SPRITE
               <div class="monster-fight"></div>
-                <h1 id="monster_name"></h1>
-                <h2 id="monster_size"></h2>
+                <span id="monster_name"></span>
+                &nbsp;&nbsp;
+                <span id="monster_size"></span>
+                <span class="monsterDivider">pts</span>
           </div>
         </div>
       </div>
@@ -214,12 +194,42 @@
       <div class="container-fluid monsterAttack absolute">
         <div class="row">
           <div class="col-xs-12">
-            <button type="button" name="button" id="attack" class="damage">ATTTAAAAAAAAACKKKK</button>
+            <button type="button" name="button" id="attack" class="damage"></button>
           </div>
         </div>
       </div>
      </div>
     </script>
+
+
+<script type="text/templates" id="nav_page">
+      <div id="navigation-bar z1 absolute">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <!-- <a class="navbar-brand" href="#">Chasing Shadows</a> -->
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" id="gameplay_link">Back to the map</a></li>
+                <li><a href="#" id="instructions_link">Instructions</a></li>
+                <li><a href="#" id="sign_out_link">Surrender (Sign Out)</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <!-- <div class="login-btn col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3">
+          Already a user? <button type="button" class="btn btn-default" name="button" id="sign_in_link">Sign-in</button>
+        </div> -->
+      <!-- </div> -->
+</script>
+
 
     <script src="scripts/dist/all.js"></script>
 
