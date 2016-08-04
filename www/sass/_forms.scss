@@ -1,0 +1,54 @@
+#sign_up_form, #sign_in_form {
+  position: absolute;
+  bottom: 50px;
+  width: 100%;
+  left: 0;
+  font-family: 'LatoWebBlack'
+}
+
+input.form-control {
+    // text-transform: uppercase;
+    padding: 18px;
+    background:#fff;
+    color:#620d41;
+}
+
+input#submit_button {
+    padding: 12px;
+}
+
+input:required {
+  // background:#fff;
+  // color:#620d41;
+  border: 1px solid #999;
+}
+
+input:valid,
+input:in-range {
+    background:hsl(120, 50%, 90%);
+    background:#fff;
+    color:#620d41;
+}
+
+input:invalid,
+input:out-of-range {
+    border-color:hsl(0, 50%, 50%);
+    background:#fff;
+    color:#777;
+}
+
+input#submit_button {
+  width: 100%;
+}
+
+input#submit_button:valid, input:in-range {
+  background: #620d41;
+  color: #fff;
+  border-color: transparent;
+}
+
+input#submit_button:invalid, input:in-range {
+  background: #333;
+  color: #777;
+  border-color: transparent;
+}

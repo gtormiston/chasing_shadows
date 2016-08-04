@@ -5,6 +5,16 @@ function load_sign_up_page(callback){
 
 function load_welcome_page(){
   $("#content").html($("#welcome_page").html());
+
+  $(".slick-carousel").slick({
+    dots: true,
+    autoplay: true,
+    mobileFirst: true,
+    swipe: true,
+    touchMove: true,
+    arrows: false,
+    appendDots: $('.dots')
+  });
 }
 
 function load_game_page(){
@@ -23,6 +33,8 @@ function load_sign_in_page(callback) {
 function load_attack_page(monsterId){
 
   $("#content").html($("#attack_page").html());
+  $("#navigation").html($("#nav_page").html());
   attack_page_height();
+  addListenerForNav();
   initAttackPage(monsterId);
 }

@@ -15,7 +15,7 @@ function sendSignUpRequest(dataText) {
         load_welcome_page();
         match_height_maps();
 
-        $("#gameplay_link").on("touchstart click", function(){
+        $(".playBtn").on("touchstart click", function(){
             load_game_page();
             initMap();
         });
@@ -42,7 +42,7 @@ function sendSignInRequest(dataText) {
       load_welcome_page();
       match_height_maps();
 
-      $("#gameplay_link").on("touchstart click", function(){
+      $(".playBtn").on("touchstart click", function(){
         load_game_page();
         initMap();
       });
