@@ -1,7 +1,8 @@
 describe('User sign up', function(){
 
-  xit('validates email', function(){
-
+  it('should return true for valid email', function(){
+    var result = isEmailValid("test@test.co.uk")
+    expect(result).toBe(true);
   })
   xit('validates password', function(){
 
