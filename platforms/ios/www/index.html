@@ -10,7 +10,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJxrqPCVCSREKVBPN2XVHXC1hxYZArH78"></script>
   </head>
   <body>
-
+<!--
     <div id="navigation-bar z1 absolute">
       <nav class="navbar navbar-inverse">
         <div class="container-fluid">
@@ -23,32 +23,19 @@
             <a class="navbar-brand" href="#">Chasing Shadows</a>
           </div>
           <div class="collapse navbar-collapse" id="myNavbar">
-            <!-- <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Page 1-1</a></li>
-                  <li><a href="#">Page 1-2</a></li>
-                  <li><a href="#">Page 1-3</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Page 2</a></li>
-              <li><a href="#">Page 3</a></li>
-            </ul> -->
             <ul class="nav navbar-nav navbar-right">
               <li><a href="#sign_up_link" id="sign_up_link"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
               <li><a href="#login_link" id="login_link"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             </ul>
           </div>
         </div>
-      </nav>
+      </nav> -->
 
       <!-- <div class="login-btn col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3">
         Already a user? <button type="button" class="btn btn-default" name="button" id="sign_in_link">Sign-in</button>
       </div> -->
 
-    </div>
+    <!-- </div> -->
 
     <div id="content">
 
@@ -67,33 +54,40 @@
             Already a user? <button type="button" class="btn btn-default" name="button" id="sign_in_link">Sign-in</button>
           </div>
         </div> -->
-        <div class="row">
-        <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3">
-            <h1>Sign-up</h1>
+        <div class="row bodyHeight">
+        <div class="col-xs-8 col-xs-offset-2 bodyHeight">
             <form id="sign_up_form" method="post">
 
               <div class="form-group">
-                <label for="email">Email Address</label>
-                <input id="email" class="form-control" type="email" name="email" placeholder="email" required="true">
+                <!-- <label for="email">Email Address</label> -->
+                <input id="email" class="form-control text-center" type="email" name="email" placeholder="Your email" required="true">
               </div>
 
               <div class='form-group'>
-                <label for="username">Username</label>
-                <input id="username" class="form-control" type="text" name="username" placeholder="username" pattern="[a-zA-Z0-9]{5,10}" title="username must be between 5 to 10 alphanumeric characters" required>
+                <!-- <label for="username">Username</label> -->
+                <input id="username" class="form-control text-center" type="text" name="username" placeholder="Choose a username" pattern="[a-zA-Z0-9]{5,10}" title="username must be between 5 to 10 alphanumeric characters" required>
               </div>
 
               <div class="form-group">
-                <label for="password">Password</label>
-                <input id="password" class="form-control" type="password" name="password" placeholder="password" required="true">
+                <!-- <label for="password">Password</label> -->
+                <input id="password" class="form-control text-center" type="password" name="password" placeholder="choose a password" required="true">
               </div>
 
               <div class="form-group">
-                <label for="password_confirmation">Password Confirmation</label>
-                <input id="password_confirmation" class="form-control" type="password" name="password_confirmation" placeholder="password_confirmation" required="true">
+                <!-- <label for="password_confirmation">Password Confirmation</label> -->
+                <input id="password_confirmation" class="form-control text-center" type="password" name="password_confirmation" placeholder="Confirm your password" required="true">
               </div>
 
-              <input id="submit_button" class="btn btn-default" type="submit" value="Submit">
+              <div class="form-group">
+                <input id="submit_button" class="btn btn-default" type="submit" value="SIGN UP">
+              </div>
+
+              <div class="form-group text-center">
+                <span>Already signed up?</span> <button type="button" class="btn btn-default" name="button" id="sign_in_link">Login!</button>
+              </div>
+
             </form>
+
 
           </div>
         </div>
@@ -102,23 +96,31 @@
 
     <script type="text/templates" id="sign_in_form_page">
      <div class="form z1 absolute">
-       <div class="row">
-       <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3">
-           <h1>Login</h1>
+       <div class="row bodyHeight">
+       <div class="col-xs-8 col-xs-offset-2 bodyHeight">
+           <!-- <h1>Login</h1> -->
            <form id="sign_in_form" method="post">
 
              <div class='form-group'>
-               <label for="username">Username</label>
-               <input id="username" class="form-control" type="text" name="username" placeholder="username" required="true">
+               <!-- <label for="username">Username</label> -->
+               <input id="username" class="form-control text-center" type="text" name="username" placeholder="username" required="true">
              </div>
 
              <div class="form-group">
-               <label for="password">Password</label>
-               <input id="password" class="form-control" type="password" name="password" placeholder="password" required="true">
+               <!-- <label for="password">Password</label> -->
+               <input id="password" class="form-control text-center" type="password" name="password" placeholder="password" required="true">
              </div>
 
-             <input id="submit_button" class="btn btn-default" type="submit" value="Submit">
+             <div class="form-group">
+               <input id="submit_button" class="btn btn-default" type="submit" value="LOGIN">
+             </div>
+
+
+             <div class="form-group text-center">
+               <span>Not signed in?</span> <button type="button" class="btn btn-default" name="button" id="sign_up_link">Sign up!</button>
+             </div>
            </form>
+
          </div>
        </div>
      </div>

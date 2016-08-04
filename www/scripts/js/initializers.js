@@ -12,22 +12,27 @@ function getGeoLocationPromise() {
 
   });
 }
-
-function addListenerForLoginLink() {
-  $("#login_link").on("touchstart click", function(){
-    console.log("navbar login link clicked");
-    load_sign_in_page(addListenerForLogin);
-  });
-}
-
-function addListenerForSignUpLink() {
-  $("#sign_up_link").on("touchstart click", function(){
-    console.log("navbar sign-up link clicked");
-    load_sign_up_page(addListenerForSignUp);
-  });
-}
+//
+// function addListenerForLoginLink() {
+//   $("#login_link").on("touchstart click", function(){
+//     console.log("navbar login link clicked");
+//     load_sign_in_page(addListenerForLogin);
+//   });
+// }
+//
+// function addListenerForSignUpLink() {
+//   $("#sign_up_link").on("touchstart click", function(){
+//     console.log("navbar sign-up link clicked");
+//     load_sign_up_page(addListenerForSignUp);
+//   });
+// }
 
 function addListenerForSignUp() {
+
+  $("#sign_in_link").on("click", function(){
+    console.log("login link clicked");
+    load_sign_in_page(addListenerForLogin);
+  });
 
   $('#sign_up_form').submit(function(event) {
     event.preventDefault();
@@ -47,6 +52,11 @@ function addListenerForSignUp() {
 }
 
 function addListenerForLogin() {
+
+  $("#sign_up_link").on("click", function(){
+    console.log("navbar sign-up link clicked");
+    load_sign_up_page(addListenerForSignUp);
+  });
 
   $('#sign_in_form').submit(function(event) {
     event.preventDefault();

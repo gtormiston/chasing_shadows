@@ -3,8 +3,8 @@ $(document).ready(function() {
 
     load_sign_up_page(addListenerForSignUp);
     // addListenerForSignUp();
-    addListenerForLoginLink();
-    addListenerForSignUpLink();
+    // addListenerForLoginLink();
+    // addListenerForSignUpLink();
 
 
 
