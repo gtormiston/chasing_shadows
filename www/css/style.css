@@ -3828,7 +3828,8 @@ tbody.collapse.in {
   border-radius: 4px; }
   .navbar-toggle:focus {
     outline: 0; }
-  .navbar-toggle .icon-bar {
+  .navbar-toggle .
+  -bar {
     display: block;
     width: 22px;
     height: 2px;
