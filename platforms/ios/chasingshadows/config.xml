@@ -65,4 +65,5 @@
     <preference name="PaginationMode" value="unpaginated" />
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="StatusBarStyle" value="lightcontent" />
+    <preference name="FadeSplashScreenDuration" value="750" />
 </widget>
