@@ -37,7 +37,11 @@ function initMap() {
 
   // method to be executed;
   function drawMonsters(map) {
-    // clearMarkers(); // remove markers and repopulate when moving?
+    for( i = 0; i < markerArray.length; i++ ) {
+      markerArray[i].setMap(null);
+    }
+
+    console.log("monsters cleared"); // remove markers and repopulate when moving?
     for( i = 0; i < monsterArray.length; i++ ) {
       var latlng = new google.maps.LatLng(monsterArray[i].lat, monsterArray[i].lng);
       overlay = new CustomMonsterMarker(
@@ -46,7 +50,8 @@ function initMap() {
         {
           marker_id: monsterArray[i].id
         }
-      )
+      );
+      markerArray.push(overlay);
     }
   }
 

@@ -3893,6 +3893,7 @@ ajax_sessions_path = "http://chasingshadowsapi.herokuapp.com/api/v1/sessions/";
 }
  // name + password
 monsterArray = [];
+markerArray = [];
 
 
 
@@ -4490,7 +4491,7 @@ CustomMonsterMarker.prototype.draw = function() {
 
 		div = this.div = document.createElement('div');
 		div.className = 'monster-marker';
-  // div.id = 'monster_' + self.args.marker_id;
+    div.id = 'monster_' + self.args.marker_id;
 
 		div.style.position = 'absolute';
 		div.style.cursor = 'pointer';
@@ -4579,7 +4580,11 @@ function initMap() {
 
   // method to be executed;
   function drawMonsters(map) {
-    // clearMarkers(); // remove markers and repopulate when moving?
+    for( i = 0; i < markerArray.length; i++ ) {
+      markerArray[i].setMap(null);
+    }
+
+    console.log("monsters cleared"); // remove markers and repopulate when moving?
     for( i = 0; i < monsterArray.length; i++ ) {
       var latlng = new google.maps.LatLng(monsterArray[i].lat, monsterArray[i].lng);
       overlay = new CustomMonsterMarker(
@@ -4588,7 +4593,8 @@ function initMap() {
         {
           marker_id: monsterArray[i].id
         }
-      )
+      );
+      markerArray.push(overlay);
     }
   }
 

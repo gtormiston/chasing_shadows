@@ -21,3 +21,4 @@ ajax_sessions_path = "http://chasingshadowsapi.herokuapp.com/api/v1/sessions/";
 }
  // name + password
 monsterArray = [];
+markerArray = [];
