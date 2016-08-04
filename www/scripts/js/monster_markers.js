@@ -15,7 +15,7 @@ CustomMonsterMarker.prototype.draw = function() {
 
 		div = this.div = document.createElement('div');
 		div.className = 'monster-marker';
-  // div.id = 'monster_' + self.args.marker_id;
+    div.id = 'monster_' + self.args.marker_id;
 
 		div.style.position = 'absolute';
 		div.style.cursor = 'pointer';
