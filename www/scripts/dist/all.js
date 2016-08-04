@@ -3871,10 +3871,26 @@ $(".monster-fight").animateSprite('play', 'monsterDead');
 $(".monster-fight").animateSprite('play', 'monsterHurt');
 
 /* Vars */
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+var enviroment = getParameterByName('env');
 storage = window.localStorage;
+if(enviroment === 'dev') {
+  ajax_users_path = "http://localhost:3000/api/v1/users/";
+  ajax_enemies_path = "http://localhost:3000/api/v1/enemies/";
+  ajax_sessions_path = "http://localhost:3000/api/v1/sessions/";
+} else {
 ajax_users_path = "http://chasingshadowsapi.herokuapp.com/api/v1/users/";
 ajax_enemies_path = "http://chasingshadowsapi.herokuapp.com/api/v1/enemies/";
 ajax_sessions_path = "http://chasingshadowsapi.herokuapp.com/api/v1/sessions/";
+}
  // name + password
 monsterArray = [];
 
@@ -3886,6 +3902,7 @@ function sendSignUpRequest(dataText) {
     data: dataText,
     type: "POST",
     success: function(data) {
+        if (data.error === undefined) {
         console.log(data);
         storage.setItem("userid", data.id);
         storage.setItem("user_name", data.name);
@@ -3899,6 +3916,9 @@ function sendSignUpRequest(dataText) {
             load_game_page();
             initMap();
         });
+      } else {
+        alert(data.error);
+      }
      },
      error: function(data) {
        console.log(data);
@@ -3913,6 +3933,7 @@ function sendSignInRequest(dataText) {
     data: dataText,
     type: "POST",
     success: function(data) {
+    if (data.error === undefined) {
       console.log(data);
       storage.setItem("userid", data.id);
       storage.setItem("user_name", data.name);
@@ -3926,6 +3947,9 @@ function sendSignInRequest(dataText) {
         load_game_page();
         initMap();
       });
+    } else {
+      alert(data.error);
+    }
     },
     error: function(data) {
       console.log(data);
@@ -4020,10 +4044,13 @@ function pushLocation(position) {
   });
 }
 
+
+
 function getGeoLocationPromise() {
   return new Promise(function(fullfill, reject) {
     navigator.geolocation.getCurrentPosition(success, failure);
     function success(position) {
+      console.log(position);
       fullfill(position);
     }
     function failure(){
