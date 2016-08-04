@@ -6477,7 +6477,6 @@ body {
   font-family: 'LatoWebBlack'; }
 
 input.form-control {
-  text-transform: uppercase;
   padding: 18px;
   background: #fff;
   color: #620d41; }
