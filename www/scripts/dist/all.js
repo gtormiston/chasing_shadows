@@ -4011,9 +4011,14 @@ function attackCurrentMonster(id) {
     // data: dataText,
     type: "PATCH",
     success: function(data) {
-        attackMessage = data;
-        console.log("attack - sucess");
-        console.log(data);
+        if (data.error === undefined) {
+          attackMessage = data;
+          console.log("attack - sucess");
+          console.log(data);
+        } else {
+          monsterIsOutOfRange();
+          console.log("monster is out of range");
+      }
         // console.log(currentMonsterArray);
      },
      error: function(data) {
@@ -4128,6 +4133,11 @@ function addListenerForNav() {
   });
 }
 
+function monsterIsOutOfRange(){
+  clearContentPage();
+  alert("You're out of range, get a bit closer!");
+}
+
 function load_sign_up_page(callback){
   $("#content").html($("#form_page").html());
   callback();
@@ -4148,7 +4158,10 @@ function load_welcome_page(){
 }
 
 function load_game_page(){
-  $("#content").html($("#gameplay_page").html());
+  clearContentPage();
+  $("#character").html($("#gameplay_page").html());
+  $("#navigation").html($("#nav_page").html());
+  addListenerForNav();
 }
 
 function match_height_maps(){
@@ -4167,6 +4180,10 @@ function load_attack_page(monsterId){
   attack_page_height();
   addListenerForNav();
   initAttackPage(monsterId);
+}
+
+function clearContentPage(){
+  $("#content").empty();
 }
 
 var styles = [
@@ -4555,8 +4572,8 @@ function initMap() {
                                   zoom: 18,
                                   minZoom: 13,
                                   maxZoom: 19,
-                                  draggable: true
-                                  // disableDefaultUI: true
+                                  draggable: true,
+                                  disableDefaultUI: true
                                 });
     map.setOptions({styles: styles});
 
@@ -4644,8 +4661,6 @@ $(document).ready(function() {
     // TEMPORARILY DISABLED FOR FRONTEND TESTING::
     load_sign_up_page(addListenerForSignUp);
 
-
-
     // TEMPORARILY ADDED FOR FRONTEND TESTING::
     // load_welcome_page();
     // load_attack_page(1);
@@ -4673,50 +4688,78 @@ function initAttackPage(monsterId){
       hit = hBar.find('.hit');
 
   function initData(){
+    if(currentMonster.size === 0){
+      monsterIsDeadOnEntry();
+    } else {
       $("#monster_name").text(currentMonster.name);
       $("#monster_size").text(currentMonster.size);
       $(".health-bar").attr("data-value", currentMonster.size);
       $(".health-bar").attr("data-total", currentMonster.size);
+    }
   };
 
   function updateAttackPage(){
-    monsterFight();
-    //insert details into page
-    // $("div#monster_id").append(currentMonster.id);
-    $("#monster_name").text(currentMonster.name);
-    // $("div#monster_id").append(currentMonster.active);
-    $("#monster_size").text(currentMonster.size);
-    $(".health-bar").attr("data-value", currentMonster.size);
-    var total = hBar.data('total'),
-        value = currentMonster.size;
 
-    console.log( "currentMonster.size: " + currentMonster.size);
-    console.log("total: " + total);
-    console.log("value: " + value);
+        monsterFight();
+        //insert details into page
+        // $("div#monster_id").append(currentMonster.id);
+        $("#monster_name").text(currentMonster.name);
+        // $("div#monster_id").append(currentMonster.active);
+        $("#monster_size").text(currentMonster.size);
+        $(".health-bar").attr("data-value", currentMonster.size);
+        var total = hBar.data('total'),
+            value = currentMonster.size;
 
-    var damage = 1;
-    // damage = 1;
-    var newValue = currentMonster.size;
-    // hBar.attr('data-value', newValue);
-    // calculate the percentage of the total width
-    var barWidth = (newValue / total) * 100;
-    var hitWidth = (damage / value) * 100 + "%";
-    hit.css('width', hitWidth);
-    // bar.css('width', total - value);
-    hBar.data('value', newValue);
+        console.log( "currentMonster.size: " + currentMonster.size);
+        console.log("total: " + total);
+        console.log("value: " + value);
 
-    setTimeout(function(){
-      hit.css({'width': '0'});
-      bar.css('width', barWidth + "%");
-    }, 500);
-    console.log(value, damage, hitWidth);
+        var damage = 1;
+        // damage = 1;
+        var newValue = currentMonster.size;
+        // hBar.attr('data-value', newValue);
+        // calculate the percentage of the total width
+        var barWidth = (newValue / total) * 100;
+        var hitWidth = (damage / value) * 100 + "%";
+        hit.css('width', hitWidth);
+        // bar.css('width', total - value);
+        hBar.data('value', newValue);
 
-  }
+        setTimeout(function(){
+          hit.css({'width': '0'});
+          bar.css('width', barWidth + "%");
+        }, 500);
+        console.log(value, damage, hitWidth);
 
-  $.when(getCurrentMonsterInfo(monsterId)).then(function() {
-    initData();
-    // $(".health-bar").attr("data-value", currentMonster.size)
+
+
+      if(currentMonster.size === 0){
+          monsterIsDead();
+      }
+    }
+
+    $.when(getCurrentMonsterInfo(monsterId)).then(function() {
+      initData();
+      // $(".health-bar").attr("data-value", currentMonster.size)
   });
+
+    function monsterIsDeadOnEntry(){
+      $(".monster-fight").animateSprite('play', 'monsterDead');
+      alert("This monster is dead!");
+      setTimeout(function(){
+        clearContentPage();
+      }, 1000);
+    }
+
+    function monsterIsDead(){
+      alert("You killed the monster!");
+      $(".monster-fight").animateSprite('play', 'monsterDead');
+      setTimeout(function(){
+        clearContentPage();
+      }, 1000);
+    }
+
+    
 
   // attack button event listener
   $("#attack").on("click", function() {

@@ -18,7 +18,10 @@ function load_welcome_page(){
 }
 
 function load_game_page(){
-  $("#content").html($("#gameplay_page").html());
+  clearContentPage();
+  $("#character").html($("#gameplay_page").html());
+  $("#navigation").html($("#nav_page").html());
+  addListenerForNav();
 }
 
 function match_height_maps(){
@@ -37,4 +40,8 @@ function load_attack_page(monsterId){
   attack_page_height();
   addListenerForNav();
   initAttackPage(monsterId);
+}
+
+function clearContentPage(){
+  $("#content").empty();
 }

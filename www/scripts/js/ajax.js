@@ -115,9 +115,14 @@ function attackCurrentMonster(id) {
     // data: dataText,
     type: "PATCH",
     success: function(data) {
-        attackMessage = data;
-        console.log("attack - sucess");
-        console.log(data);
+        if (data.error === undefined) {
+          attackMessage = data;
+          console.log("attack - sucess");
+          console.log(data);
+        } else {
+          monsterIsOutOfRange();
+          console.log("monster is out of range");
+      }
         // console.log(currentMonsterArray);
      },
      error: function(data) {
