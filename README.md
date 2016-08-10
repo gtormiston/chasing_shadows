@@ -6,19 +6,19 @@ Chasing Shadows is a hybrid iOS game inspired by Pokemon GO, where players can v
 The mobile app uses the native hardware geolocation that iOS provides, a custom built remote [API server built in Rails](https://github.com/gtormiston/chasing_shadows_api_server/) to login, display monsters based on location and to provide the game logic, and the Google Maps API to display the maps and markers.
 
 ### Screenshots
-![Welcome screen](/screenshots/screen-1.png)
+![Welcome screen](/screenshots/screen-1.jpg)
 _Welcome screen_
 
-![User login](/screenshots/screen-2.png)
+![User login](/screenshots/screen-2.jpg)
 _User login_
 
-![Game instructions](/screenshots/screen-3.png)
+![Game instructions](/screenshots/screen-3.jpg)
 _Game instructions_
 
-![Gameplay page showing the map](/screenshots/screen-2.png)
+![Gameplay page showing the map](/screenshots/screen-4.jpg)
 _Gameplay page showing the map_
 
-![Attack page](/screenshots/screen-2.png)
+![Attack page](/screenshots/screen-5.jpg)
 _Attack page_
 
 ### Presentation Video
